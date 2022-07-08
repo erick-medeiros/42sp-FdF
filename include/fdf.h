@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 16:55:08 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/08 22:48:48 by eandre-f         ###   ########.fr       */
+/*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
+/*   Updated: 2022/07/08 22:46:15 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <fdf.h>
+#ifndef FDF_H
+# define FDF_H
 
-int	main(void)
-{
-	void	*mlx;
-	void	*mlx_win;
-	int		fd;
-	char	*string;
+# include <fcntl.h>
+# include <libft.h>
 
-	fd = open("./Makefile", O_RDWR);
-	string = get_next_line(fd);
-	write(1, string, ft_strlen(string));
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-	mlx_loop(mlx);
-}
+# define WINDOW_NAME	 	"fdf"
+# define WINDOW_WIDTH		1120
+# define WINDOW_HEIGHT		630
+
+#endif
