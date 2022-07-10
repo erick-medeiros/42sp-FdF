@@ -1,43 +1,61 @@
 NAME				= fdf
 
-SRC_PATH		= ./src/
-OBJ_PATH		= ./obj/
-INC_PATH		= ./include/
-LIBMLX_PATH	= ./libmlx_linux/
-LIBFT_PATH	= ./libft/
+SRC_PATH		= src/
+OBJ_PATH		= obj/
+INC_PATH		= include/
+OBJ_DIRS		= obj/
+LIBMLX_PATH	= libmlx_linux/
+LIBFT_PATH	= libft/
 LIBFT_INC		= $(LIBFT_PATH)include/
 
 LIBMLX			= $(LIBMLX_PATH)libmlx_Linux.a
 LIBFT 			= $(LIBFT_PATH)libft.a
 
-CFLAGS			= -I $(INC_PATH) -I $(LIBFT_INC)#-Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			+= -I $(INC_PATH) -I $(LIBFT_INC) -g
 CC					= cc
 RM					= rm -fr
 LIB_FLAGS		= -lft -lmlx -lm -lbsd -lXext -lX11
 
 FILES				= main.c
+FILES				+= init.c
+FILES				+= exit.c
+FILES				+= handle_events.c
+FILES				+= render.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))
 
+C_W					= \e[00m
+C_G					= \e[32m
+C_R					= \e[91m
+
 all: $(NAME)
 
+$(OBJ_DIRS):
+	@printf "$(C_G)Create dir$(C_W) $@\n"
+	mkdir -p $@
+
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@printf "$(C_G)obj: $(C_W)"
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ_DIRS) $(OBJ) $(LIBFT)
+	@printf "$(C_G)compile $(NAME) $(C_W)\n"
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(LIBFT_PATH) -L $(LIBMLX_PATH) $(LIB_FLAGS)
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 clean:
+	@printf "$(C_R)remove all objects$(C_W)\n"
 	$(RM) $(OBJ)
 
 fclean: clean
+	@printf "$(C_R)remove $(NAME)$(C_W)\n"
 	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
 norm:
 	@norminette $(INC_PATH) $(SRC_PATH) | grep Error || true
