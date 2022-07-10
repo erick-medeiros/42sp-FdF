@@ -6,13 +6,13 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 17:34:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/10 18:44:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/10 23:07:23 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-int	fdf_exit(t_fdf *fdf, int exit_status)
+void	fdf_exit(t_fdf *fdf, int exit_status)
 {
 	if (fdf->img.img_ptr != NULL)
 		mlx_destroy_image(fdf->mlx_ptr, fdf->img.img_ptr);
@@ -24,5 +24,4 @@ int	fdf_exit(t_fdf *fdf, int exit_status)
 		free(fdf->mlx_ptr);
 	}
 	exit(exit_status);
-	return (exit_status);
 }

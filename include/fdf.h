@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/10 22:46:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/10 23:13:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_fdf {
 }	t_fdf;
 
 int			render(t_fdf *fdf);
-int			fdf_exit(t_fdf *fdf, int exit_status);
+void		fdf_exit(t_fdf *fdf, int exit_status);
 int			handle_keypress(int keycode, t_fdf *fdf);
 int			handle_expose(t_fdf *fdf);
 void		init_fdf(t_fdf *fdf);
