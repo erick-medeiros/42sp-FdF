@@ -22,6 +22,7 @@ FILES				+= init.c
 FILES				+= exit.c
 FILES				+= handle_events.c
 FILES				+= render.c
+FILES				+= read.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))
@@ -60,4 +61,8 @@ re: fclean all
 norm:
 	@norminette $(INC_PATH) $(SRC_PATH) | grep Error || true
 
-.PHONY: clean fclean re norm
+valg:
+	clear
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fdf
+
+.PHONY: clean fclean re norm valg

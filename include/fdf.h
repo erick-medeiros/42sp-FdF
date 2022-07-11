@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/10 23:13:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/11 21:56:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@
 # define WINDOW_WIDTH		1120
 # define WINDOW_HEIGHT		630
 
+typedef struct s_fdf_point {
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}	t_fdf_point;
+
+typedef struct s_fdf_map {
+	t_fdf_point	**coordinates;
+	int			max_x;
+	int			max_y;
+	int			max_z;
+	int			min_z;
+}	t_fdf_map;
+
 typedef struct s_fdf_img {
 	void	*img_ptr;
 	char	*data;
@@ -42,12 +57,17 @@ typedef struct s_fdf {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_fdf_img	img;
+	t_fdf_map	map;
 }	t_fdf;
 
-int			render(t_fdf *fdf);
 void		fdf_exit(t_fdf *fdf, int exit_status);
+void		fdf_exit_error(t_fdf *fdf, int error_status);
+void		free_filedata(char ***filedata);
+void		*free_coordinates(t_fdf_map	*map);
+void		init_fdf(t_fdf *fdf);
+void		read_map(t_fdf *fdf, char *pathname);
+int			render(t_fdf *fdf);
 int			handle_keypress(int keycode, t_fdf *fdf);
 int			handle_expose(t_fdf *fdf);
-void		init_fdf(t_fdf *fdf);
 
 #endif
