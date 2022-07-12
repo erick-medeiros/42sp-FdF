@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/11 22:43:35 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/12 03:02:04 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	read_map(t_fdf *fdf, char *pathname)
 
 	filedata = read_file(pathname, NULL, 0, 0);
 	if (filedata == NULL)
-		fdf_exit_error(fdf, 3);
+		free_error_exit(fdf, 2);
 	get_max_values(fdf, filedata);
 	init_coordinates(&fdf->map, filedata, 0, 0);
 	free_filedata(filedata);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/10 18:54:18 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/12 03:06:43 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 	{
-		ft_printf("Pressed esc\n");
-		fdf_exit(fdf, EXIT_SUCCESS);
+		free_all(fdf);
+		success_exit(1);
 	}
 	return (0);
 }

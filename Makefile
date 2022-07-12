@@ -18,8 +18,9 @@ RM					= rm -fr
 LIB_FLAGS		= -lft -lmlx -lm -lbsd -lXext -lX11
 
 FILES				= main.c
-FILES				+= init.c
+FILES				+= free.c
 FILES				+= exit.c
+FILES				+= init.c
 FILES				+= handle_events.c
 FILES				+= render.c
 FILES				+= read.c

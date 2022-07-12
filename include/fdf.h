@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/11 21:56:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/12 03:04:18 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
-
-# ifndef EXIT_SUCCESS
-#  define EXIT_SUCCESS 0
-# endif
-# ifndef EXIT_FAILURE
-#  define EXIT_FAILURE 1
-# endif
 
 # define WINDOW_NAME	 	"fdf"
 # define WINDOW_WIDTH		1120
@@ -60,14 +53,22 @@ typedef struct s_fdf {
 	t_fdf_map	map;
 }	t_fdf;
 
-void		fdf_exit(t_fdf *fdf, int exit_status);
-void		fdf_exit_error(t_fdf *fdf, int error_status);
+// free {
 void		free_filedata(char ***filedata);
-void		*free_coordinates(t_fdf_map	*map);
+void		free_coordinates(t_fdf_map	*map);
+void		free_all(t_fdf *fdf);
+// } free
+// exit {
+void		free_error_exit(t_fdf *fdf, int error_status);
+void		error_exit(int error_status);
+void		success_exit(int success_status);
+// } exit
+// handle_events {
+int			handle_keypress(int keycode, t_fdf *fdf);
+int			handle_expose(t_fdf *fdf);
+// } handle_events
 void		init_fdf(t_fdf *fdf);
 void		read_map(t_fdf *fdf, char *pathname);
 int			render(t_fdf *fdf);
-int			handle_keypress(int keycode, t_fdf *fdf);
-int			handle_expose(t_fdf *fdf);
 
 #endif
