@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 15:13:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:49:49 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 #define HEX_L_BASE	"0123456789abcdef"
 
-static char	***read_file(char *pathname, char *line, int row, int fd)
+static char	***read_file(char *filepath, char *line, int row, int fd)
 {
 	char	***filedata;
 
-	fd = open(pathname, O_RDONLY);
+	fd = open(filepath, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
 	row = 0;
@@ -26,7 +26,7 @@ static char	***read_file(char *pathname, char *line, int row, int fd)
 	while (line != NULL && ++row)
 		ft_strupd(&line, get_next_line(fd));
 	close(fd);
-	fd = open(pathname, O_RDONLY);
+	fd = open(filepath, O_RDONLY);
 	filedata = malloc((row + 1) * sizeof(char **));
 	if (fd < 0 || filedata == NULL)
 		return (NULL);
@@ -105,11 +105,11 @@ static void	get_max_values(t_fdf *fdf, char ***filedata)
 	fdf->map.max_y = y;
 }
 
-void	read_map(t_fdf *fdf, char *pathname)
+void	read_map(t_fdf *fdf, char *filepath)
 {
 	char		***filedata;
 
-	filedata = read_file(pathname, NULL, 0, 0);
+	filedata = read_file(filepath, NULL, 0, 0);
 	if (filedata == NULL)
 		free_error_exit(fdf, 2);
 	get_max_values(fdf, filedata);

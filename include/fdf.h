@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 15:45:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:54:47 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			handle_expose(t_fdf *fdf);
 // } handle_events
 
 // read {
-void		read_map(t_fdf *fdf, char *pathname);
+void		read_map(t_fdf *fdf, char *filepath);
 // } read
 
 // render {
