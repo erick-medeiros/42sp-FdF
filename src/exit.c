@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 17:34:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/12 03:05:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:55:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	free_error_exit(t_fdf *fdf, int error_status)
 void	error_exit(int error_status)
 {
 	if (error_status == 1)
-		perror("Incorrect use");
+		ft_printf("Incorrect use");
 	if (error_status == 2)
-		perror("Cannot read file");
+		ft_printf("Cannot read file");
 	if (error_status == 3)
-		perror("Cannot open display");
+		ft_printf("Cannot open display");
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/11 16:02:41 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:10:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 #define WHITE_PIXEL 0xFFFFFF
 
-void	update_image_pixel(t_fdf_img *img, int x, int y, int color)
+void	update_image_pixel(t_fdf_img *img, int pixel_x, int pixel_y, int color)
 {
 	char	*pixel;
 	int		shift_bits;
 
-	pixel = img->data + (y * img->size_line + x * (img->bpp / 8));
+	pixel = img->data + (pixel_y * img->size_line + pixel_x * (img->bpp / 8));
 	shift_bits = img->bpp - 8;
 	while (shift_bits >= 0)
 	{
@@ -33,19 +33,19 @@ void	update_image_pixel(t_fdf_img *img, int x, int y, int color)
 
 void	render_background(t_fdf_img *img, int color)
 {
-	int	i;
-	int	j;
+	int	pixel_x;
+	int	pixel_y;
 
-	i = 0;
-	while (i < WINDOW_HEIGHT)
+	pixel_y = 0;
+	while (pixel_y < WINDOW_HEIGHT)
 	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
+		pixel_x = 0;
+		while (pixel_x < WINDOW_WIDTH)
 		{
-			update_image_pixel(img, j, i, color);
-			j++;
+			update_image_pixel(img, pixel_x, pixel_y, color);
+			pixel_x++;
 		}
-		i++;
+		pixel_y++;
 	}
 }
 

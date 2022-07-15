@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:17:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/12 02:53:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:02:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	free_filedata(char ***filedata)
 
 void	free_coordinates(t_fdf_map	*map)
 {
-	int	x;
+	int	map_x;
 
 	if (!map->coordinates)
 		return ;
-	x = 0;
-	while (x < map->max_x)
+	map_x = 0;
+	while (map_x < map->max_x)
 	{
-		if (map->coordinates[x] != NULL)
-			free(map->coordinates[x]);
-		x++;
+		if (map->coordinates[map_x] != NULL)
+			free(map->coordinates[map_x]);
+		map_x++;
 	}
 	if (map->coordinates != NULL)
 		free(map->coordinates);

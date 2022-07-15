@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/12 03:02:04 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:13:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	***read_file(char *pathname, char *line, int row, int fd)
 	return (filedata);
 }
 
-static int	get_color(char *color)
+static int	get_color_file(char *color)
 {
 	color = ft_strchr(color, ',');
 	ft_tolower_str(&color);
@@ -53,7 +53,7 @@ static int	get_color(char *color)
 		return (-1);
 }
 
-void	*init_coordinates(t_fdf_map *map, char ***s, int x, int y)
+static void	*set_coordinates(t_fdf_map *map, char ***s, int x, int y)
 {
 	map->coordinates = malloc(map->max_x * sizeof(t_fdf_point *));
 	if (!map->coordinates)
@@ -70,7 +70,7 @@ void	*init_coordinates(t_fdf_map *map, char ***s, int x, int y)
 			map->coordinates[x][y].x = x;
 			map->coordinates[x][y].y = y;
 			map->coordinates[x][y].z = ft_atoi(s[y][x]);
-			map->coordinates[x][y].color = get_color(s[y][x]);
+			map->coordinates[x][y].color = get_color_file(s[y][x]);
 			y++;
 		}
 		x++;
@@ -113,6 +113,6 @@ void	read_map(t_fdf *fdf, char *pathname)
 	if (filedata == NULL)
 		free_error_exit(fdf, 2);
 	get_max_values(fdf, filedata);
-	init_coordinates(&fdf->map, filedata, 0, 0);
+	set_coordinates(&fdf->map, filedata, 0, 0);
 	free_filedata(filedata);
 }
