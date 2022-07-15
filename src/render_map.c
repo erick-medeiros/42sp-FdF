@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 17:05:01 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/16 01:38:31 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,47 +24,18 @@ int	calculate_scale_factor(t_fdf_map *map)
 	return (scale_factor);
 }
 
-void	render_to_scale(t_fdf *fdf, int map_x, int map_y, int scale_factor)
+void	render_line(t_fdf *fdf, t_fdf_point *start, t_fdf_point *end, int scale_factor)
 {
-	int	init_x;
-	int	init_y;
 	int	pixel_x;
 	int	pixel_y;
 
-	init_x = map_x * scale_factor;
-	init_y = map_y * scale_factor;
-	pixel_y = init_y;
-	while (pixel_y <= WINDOW_HEIGHT && pixel_y <= init_y + scale_factor)
+	pixel_y = start->y * scale_factor;
+	while (pixel_y <= end->y * scale_factor)
 	{
-		pixel_x = init_x;
-		while (pixel_x <= WINDOW_WIDTH && pixel_x <= init_x + scale_factor)
+		pixel_x = start->x * scale_factor;
+		while (pixel_x <= end->x * scale_factor)
 		{
 			update_image_pixel(&fdf->img, pixel_x, pixel_y, WHITE_PIXEL);
-			pixel_x++;
-		}
-		pixel_y++;
-	}
-}
-
-void	render_borders(t_fdf *fdf, int map_x, int map_y, int scale_factor)
-{
-	int	init_x;
-	int	init_y;
-	int	pixel_x;
-	int	pixel_y;
-
-	init_x = map_x * scale_factor;
-	init_y = map_y * scale_factor;
-	pixel_y = init_y;
-	while (pixel_y <= WINDOW_HEIGHT && pixel_y <= init_y + scale_factor)
-	{
-		pixel_x = init_x;
-		while (pixel_x <= WINDOW_WIDTH && pixel_x <= init_x + scale_factor)
-		{
-			if (pixel_y == init_y || pixel_y == init_y + scale_factor)
-				update_image_pixel(&fdf->img, pixel_x, pixel_y, WHITE_PIXEL);
-			if (pixel_x == init_x || pixel_x == init_x + scale_factor)
-				update_image_pixel(&fdf->img, pixel_x, pixel_y, WHITE_PIXEL);
 			pixel_x++;
 		}
 		pixel_y++;
@@ -84,9 +55,12 @@ void	render_map(t_fdf *fdf)
 		map_x = 0;
 		while (map_x < fdf->map.max_x)
 		{
-			render_borders(fdf, map_x, map_y, scale_factor);
-			if (fdf->map.coordinates[map_x][map_y].z > 0)
-				render_to_scale(fdf, map_x, map_y, scale_factor);
+			if (map_x < fdf->map.max_x - 1)
+				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
+					&fdf->map.coordinates[map_x + 1][map_y], scale_factor);
+			if (map_y < fdf->map.max_y - 1)
+				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
+					&fdf->map.coordinates[map_x][map_y + 1], scale_factor);
 			map_x++;
 		}
 		map_y++;
