@@ -6,13 +6,11 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 15:21:15 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:04:33 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
-
-#define WHITE_PIXEL 0xFFFFFF
 
 void	update_image_pixel(t_fdf_img *img, int pixel_x, int pixel_y, int color)
 {
@@ -53,7 +51,7 @@ int	render(t_fdf *fdf)
 {
 	if (fdf->win_ptr == NULL || fdf->img.img_ptr == NULL)
 		return (1);
-	render_background(&fdf->img, WHITE_PIXEL);
+	render_background(&fdf->img, BLACK_PIXEL);
 	render_map(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img.img_ptr, 0, 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 16:54:47 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:04:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define WINDOW_NAME	 	"fdf"
 # define WINDOW_WIDTH		1120
 # define WINDOW_HEIGHT		630
+# define WHITE_PIXEL 0xFFFFFF
+# define BLACK_PIXEL 0x000000
 
 typedef struct s_fdf_point {
 	int	x;
