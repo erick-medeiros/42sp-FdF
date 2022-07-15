@@ -20,10 +20,11 @@ LIB_FLAGS		= -lft -lmlx -lm -lbsd -lXext -lX11
 FILES				= main.c
 FILES				+= free.c
 FILES				+= exit.c
-FILES				+= init.c
 FILES				+= handle_events.c
-FILES				+= render.c
 FILES				+= read.c
+FILES				+= render.c
+FILES				+= render_map.c
+FILES				+= init.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))

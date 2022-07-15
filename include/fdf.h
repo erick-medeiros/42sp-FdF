@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/12 03:04:18 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:45:33 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,29 @@ void		free_filedata(char ***filedata);
 void		free_coordinates(t_fdf_map	*map);
 void		free_all(t_fdf *fdf);
 // } free
+
 // exit {
 void		free_error_exit(t_fdf *fdf, int error_status);
 void		error_exit(int error_status);
 void		success_exit(int success_status);
 // } exit
+
 // handle_events {
 int			handle_keypress(int keycode, t_fdf *fdf);
 int			handle_expose(t_fdf *fdf);
 // } handle_events
-void		init_fdf(t_fdf *fdf);
+
+// read {
 void		read_map(t_fdf *fdf, char *pathname);
+// } read
+
+// render {
+void		update_image_pixel(t_fdf_img *img,
+				int pixel_x, int pixel_y, int color);
+void		render_map(t_fdf *fdf);
 int			render(t_fdf *fdf);
+// } render
+
+void		init_fdf(t_fdf *fdf);
 
 #endif
