@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:17:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/15 15:02:56 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/16 03:18:42 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_filedata(char ***filedata)
 	free(filedata);
 }
 
-void	free_coordinates(t_fdf_map	*map)
+void	free_coordinates(t_map	*map)
 {
 	int	map_x;
 
