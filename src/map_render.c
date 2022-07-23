@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_map.c                                       :+:      :+:    :+:   */
+/*   map_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/16 01:38:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:30:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-int	calculate_scale_factor(t_fdf_map *map)
+int	calculate_scale_factor(t_map *map)
 {
 	int	scale_x;
 	int	scale_y;
@@ -24,31 +24,27 @@ int	calculate_scale_factor(t_fdf_map *map)
 	return (scale_factor);
 }
 
-void	render_line(t_fdf *fdf, t_fdf_point *start, t_fdf_point *end, int scale_factor)
+void	render_line(t_fdf *fdf, t_point *start, t_point *end)
 {
-	int	pixel_x;
-	int	pixel_y;
+	t_vector	vector;
 
-	pixel_y = start->y * scale_factor;
-	while (pixel_y <= end->y * scale_factor)
-	{
-		pixel_x = start->x * scale_factor;
-		while (pixel_x <= end->x * scale_factor)
-		{
-			update_image_pixel(&fdf->img, pixel_x, pixel_y, WHITE_PIXEL);
-			pixel_x++;
-		}
-		pixel_y++;
-	}
+	vector.x1 = start->x * fdf->view.scale_factor;
+	vector.y1 = start->y * fdf->view.scale_factor;
+	vector.z1 = start->z;
+	vector.color1 = start->color;
+	vector.x2 = end->x * fdf->view.scale_factor;
+	vector.y2 = end->y * fdf->view.scale_factor;
+	vector.z2 = end->z;
+	vector.color2 = end->color;
+	bresenham(fdf, &vector);
 }
 
 void	render_map(t_fdf *fdf)
 {
 	int	map_x;
 	int	map_y;
-	int	scale_factor;
 
-	scale_factor = calculate_scale_factor(&fdf->map);
+	fdf->view.scale_factor = calculate_scale_factor(&fdf->map);
 	map_y = 0;
 	while (map_y < fdf->map.max_y)
 	{
@@ -57,10 +53,10 @@ void	render_map(t_fdf *fdf)
 		{
 			if (map_x < fdf->map.max_x - 1)
 				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
-					&fdf->map.coordinates[map_x + 1][map_y], scale_factor);
+					&fdf->map.coordinates[map_x + 1][map_y]);
 			if (map_y < fdf->map.max_y - 1)
 				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
-					&fdf->map.coordinates[map_x][map_y + 1], scale_factor);
+					&fdf->map.coordinates[map_x][map_y + 1]);
 			map_x++;
 		}
 		map_y++;

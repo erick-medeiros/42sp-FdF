@@ -21,10 +21,12 @@ FILES				= main.c
 FILES				+= free.c
 FILES				+= exit.c
 FILES				+= handle_events.c
+FILES				+= init.c
 FILES				+= read.c
 FILES				+= render.c
-FILES				+= render_map.c
-FILES				+= init.c
+FILES				+= map_render.c
+FILES				+= bresenham.c
+FILES				+= bresenham_octantes.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))
@@ -61,10 +63,11 @@ fclean: clean
 re: fclean all
 
 norm:
+	@clear
 	@norminette $(INC_PATH) $(SRC_PATH) | grep Error || true
 
 valg:
-	clear
+	@clear
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fdf
 
 .PHONY: clean fclean re norm valg
