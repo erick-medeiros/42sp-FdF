@@ -24,7 +24,7 @@ FILES				+= handle_events.c
 FILES				+= init.c
 FILES				+= read.c
 FILES				+= render.c
-FILES				+= map_render.c
+FILES				+= render_map.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c
 

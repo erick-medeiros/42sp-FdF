@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:16:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:53:11 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ void	render_background(t_img *img, int color)
 		}
 		pixel_y++;
 	}
+}
+
+void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
+{
+	t_vector	vector;
+
+	vector.x1 = point1->x * fdf->view.scale_factor;
+	vector.y1 = point1->y * fdf->view.scale_factor;
+	vector.z1 = point1->z;
+	vector.color1 = point1->color;
+	vector.x2 = point2->x * fdf->view.scale_factor;
+	vector.y2 = point2->y * fdf->view.scale_factor;
+	vector.z2 = point2->z;
+	vector.color2 = point2->color;
+	bresenham(fdf, &vector);
 }
 
 void	draw_triangle(t_fdf *fdf)

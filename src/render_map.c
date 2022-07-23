@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_render.c                                       :+:      :+:    :+:   */
+/*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:30:46 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:42:06 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,6 @@ int	calculate_scale_factor(t_map *map)
 	scale_y = WINDOW_HEIGHT / map->max_y;
 	scale_factor = fmin(scale_x, scale_y);
 	return (scale_factor);
-}
-
-void	render_line(t_fdf *fdf, t_point *start, t_point *end)
-{
-	t_vector	vector;
-
-	vector.x1 = start->x * fdf->view.scale_factor;
-	vector.y1 = start->y * fdf->view.scale_factor;
-	vector.z1 = start->z;
-	vector.color1 = start->color;
-	vector.x2 = end->x * fdf->view.scale_factor;
-	vector.y2 = end->y * fdf->view.scale_factor;
-	vector.z2 = end->z;
-	vector.color2 = end->color;
-	bresenham(fdf, &vector);
 }
 
 void	render_map(t_fdf *fdf)
