@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:55:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/24 02:05:31 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define WINDOW_WIDTH		1120
 # define WINDOW_HEIGHT		630
 # define HEXADECIMAL_BASE	"0123456789abcdef"
+# define KEY_ESC	65307
 # define C_WHITE		0xFFFFFF
 # define C_BLACK		0x000000
 # define C_RED			0xFF0000
@@ -114,6 +115,7 @@ void	success_exit(int success_status);
 
 // handle_events {
 int		handle_keypress(int keycode, t_fdf *fdf);
+int		handle_x11_destroy_notify(t_fdf *fdf);
 int		handle_expose(t_fdf *fdf);
 // } handle_events
 
