@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 16:36:04 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/24 02:03:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	init_fdf(t_fdf *fdf)
 {
 	fdf->view.scale_factor = 0;
-	fdf->view.alpha = 20;
-	fdf->view.beta = 20;
+	fdf->view.alpha = 0;
+	fdf->view.beta = 0;
 	fdf->view.gamma = 0;
 	fdf->map.coordinates = NULL;
 	fdf->win_ptr = NULL;

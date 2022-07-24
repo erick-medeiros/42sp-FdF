@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:31:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:55:31 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	read_map(t_fdf *fdf, char *filepath);
 
 // render {
 void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
+void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
 // } render
@@ -140,5 +141,7 @@ void	bresenham_octante_8_4(t_bresenham *b);
 void	bresenham_octante_2_6(t_bresenham *b);
 void	bresenham_octante_7_3(t_bresenham *b);
 // } bresenham_line_algorithm
+
+void	rotate(t_view *view, t_vector *vector);
 
 #endif

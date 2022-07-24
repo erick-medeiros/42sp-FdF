@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:53:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/23 22:55:57 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	vector.y2 = point2->y * fdf->view.scale_factor;
 	vector.z2 = point2->z;
 	vector.color2 = point2->color;
+	rotate(&fdf->view, &vector);
 	bresenham(fdf, &vector);
 }
 

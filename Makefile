@@ -27,6 +27,7 @@ FILES				+= render.c
 FILES				+= render_map.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c
+FILES				+= rotate.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))
