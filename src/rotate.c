@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/24 01:55:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/24 02:08:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	rotate_x(t_vector *vector, double angle)
 {
-	int y;
-	int z;
+	int	y;
+	int	z;
 
 	y = vector->y1 * cos(angle) - vector->z1 * sin(angle);
 	z = vector->y1 * sin(angle) + vector->z1 * cos(angle);
@@ -29,8 +29,8 @@ void	rotate_x(t_vector *vector, double angle)
 
 void	rotate_y(t_vector *vector, double angle)
 {
-	int x;
-	int z;
+	int	x;
+	int	z;
 
 	x = vector->x1 * cos(angle) + vector->z1 * sin(angle);
 	z = -vector->x1 * sin(angle) + vector->z1 * cos(angle);
@@ -44,8 +44,8 @@ void	rotate_y(t_vector *vector, double angle)
 
 void	rotate_z(t_vector *vector, double angle)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = vector->x1 * cos(angle) - vector->y1 * sin(angle);
 	y = vector->x1 * sin(angle) + vector->y1 * cos(angle);

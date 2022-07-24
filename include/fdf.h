@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/24 02:05:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:22:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define WINDOW_HEIGHT		630
 # define HEXADECIMAL_BASE	"0123456789abcdef"
 # define KEY_ESC	65307
+# define ANG_1_RADIAN		0.017453292519943
+# define ANG_30_RADIAN	0.523598775598299
+# define ANG_45_RADIAN	0.785398163397448
 # define C_WHITE		0xFFFFFF
 # define C_BLACK		0x000000
 # define C_RED			0xFF0000
@@ -70,9 +73,9 @@ typedef struct s_vector {
 
 typedef struct s_view {
 	int		scale_factor;
-	float	alpha;
-	float	beta;
-	float	gamma;
+	double	alpha;
+	double	beta;
+	double	gamma;
 }	t_view;
 
 typedef struct s_fdf {
