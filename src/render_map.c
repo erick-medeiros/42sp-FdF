@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:42:06 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:45:37 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	render_map(t_fdf *fdf)
 	int	map_x;
 	int	map_y;
 
-	fdf->view.scale_factor = calculate_scale_factor(&fdf->map);
+	fdf->camera.scale_factor = calculate_scale_factor(&fdf->map);
 	map_y = 0;
 	while (map_y < fdf->map.max_y)
 	{

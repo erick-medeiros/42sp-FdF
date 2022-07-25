@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/24 16:22:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:46:58 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ typedef struct s_map {
 
 typedef struct s_img {
 	void	*img_ptr;
-	char	*data;
-	int		bpp;
+	char	*framebuffer;
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
@@ -71,19 +70,19 @@ typedef struct s_vector {
 	int	color2;
 }	t_vector;
 
-typedef struct s_view {
+typedef struct s_camera {
 	int		scale_factor;
 	double	alpha;
 	double	beta;
 	double	gamma;
-}	t_view;
+}	t_camera;
 
 typedef struct s_fdf {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	t_map	map;
-	t_view	view;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		img;
+	t_map		map;
+	t_camera	camera;
 }	t_fdf;
 
 typedef struct s_bresenham {
@@ -147,6 +146,6 @@ void	bresenham_octante_2_6(t_bresenham *b);
 void	bresenham_octante_7_3(t_bresenham *b);
 // } bresenham_line_algorithm
 
-void	rotate(t_view *view, t_vector *vector);
+void	rotate(t_camera *camera, t_vector *vector);
 
 #endif

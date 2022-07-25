@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/24 02:08:13 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:46:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	rotate_z(t_vector *vector, double angle)
 	vector->y2 = y;
 }
 
-void	rotate(t_view *view, t_vector *vector)
+void	rotate(t_camera *camera, t_vector *vector)
 {
-	rotate_x(vector, view->alpha);
-	rotate_y(vector, view->beta);
-	rotate_z(vector, view->gamma);
+	rotate_x(vector, camera->alpha);
+	rotate_y(vector, camera->beta);
+	rotate_z(vector, camera->gamma);
 }
