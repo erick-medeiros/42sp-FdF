@@ -27,6 +27,7 @@ FILES				+= render.c
 FILES				+= render_map.c
 FILES				+= transform_scale.c
 FILES				+= transform_rotate.c
+FILES				+= transform_translate.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c
 

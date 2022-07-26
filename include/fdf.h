@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 02:00:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 03:28:24 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,11 @@ void	transform_rotate_x(t_vector *vector, double angle);
 void	transform_rotate_y(t_vector *vector, double angle);
 void	transform_rotate_z(t_vector *vector, double angle);
 // } transform_rotate
+
+// transform_translate {
+void	transform_translate_x(t_point *point, int motion_factor);
+void	transform_translate_y(t_point *point, int motion_factor);
+// } transform_translate
 
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_vector *vector);
