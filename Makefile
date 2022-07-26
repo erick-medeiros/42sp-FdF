@@ -25,9 +25,10 @@ FILES				+= init.c
 FILES				+= read.c
 FILES				+= render.c
 FILES				+= render_map.c
+FILES				+= transform_scale.c
+FILES				+= transform_rotate.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c
-FILES				+= rotate.c
 
 SRC					= $(addprefix $(SRC_PATH), $(FILES))
 OBJ					= $(addprefix $(OBJ_PATH), $(FILES:.c=.o))

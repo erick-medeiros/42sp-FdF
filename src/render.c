@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/25 16:26:15 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 02:01:48 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,23 @@ void	render_background(t_img *img, int color)
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 {
 	t_vector	vector;
+	t_point		point3;
+	t_point		point4;
 
-	vector.x1 = point1->x * fdf->camera.scale_factor;
-	vector.y1 = point1->y * fdf->camera.scale_factor;
-	vector.z1 = point1->z;
-	vector.color1 = point1->color;
-	vector.x2 = point2->x * fdf->camera.scale_factor;
-	vector.y2 = point2->y * fdf->camera.scale_factor;
-	vector.z2 = point2->z;
-	vector.color2 = point2->color;
-	rotate(&fdf->camera, &vector);
+	point3 = *point1;
+	point4 = *point2;
+	transform_scale(&point3, fdf->camera.scale_factor);
+	transform_scale(&point4, fdf->camera.scale_factor);
+	vector.x1 = point3.x;
+	vector.y1 = point3.y;
+	vector.z1 = point3.z;
+	vector.color1 = point3.color;
+	vector.x2 = point4.x;
+	vector.y2 = point4.y;
+	vector.z2 = point4.z;
+	vector.color2 = point4.color;
+	transform_rotate(&fdf->camera, &vector);
 	bresenham(fdf, &vector);
-}
-
-void	draw_triangle(t_fdf *fdf)
-{
-	bresenham(fdf, &((t_vector){200, 500, 0, C_BLUE, 800, 500, 0, C_RED}));
-	bresenham(fdf, &((t_vector){200, 500, 0, C_BLUE, 500, 100, 0, C_GREEN}));
-	bresenham(fdf, &((t_vector){500, 100, 0, C_GREEN, 800, 500, 0, C_RED}));
 }
 
 int	render(t_fdf *fdf)

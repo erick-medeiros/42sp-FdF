@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/25 15:46:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 02:00:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,20 @@ void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
 // } render
 
+// transform_scale {
+void	transform_scale(t_point *point, int scale_factor);
+void	transform_scale_x(t_point *point, int scale_factor);
+void	transform_scale_y(t_point *point, int scale_factor);
+void	transform_scale_z(t_point *point, int scale_factor);
+// } transform_scale
+
+// transform_rotate {
+void	transform_rotate(t_camera *camera, t_vector *vector);
+void	transform_rotate_x(t_vector *vector, double angle);
+void	transform_rotate_y(t_vector *vector, double angle);
+void	transform_rotate_z(t_vector *vector, double angle);
+// } transform_rotate
+
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_vector *vector);
 void	bresenham_draw(t_bresenham *b);
@@ -145,7 +159,5 @@ void	bresenham_octante_8_4(t_bresenham *b);
 void	bresenham_octante_2_6(t_bresenham *b);
 void	bresenham_octante_7_3(t_bresenham *b);
 // } bresenham_line_algorithm
-
-void	rotate(t_camera *camera, t_vector *vector);
 
 #endif

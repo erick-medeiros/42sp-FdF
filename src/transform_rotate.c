@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   transform_rotate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/25 15:46:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 02:01:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	rotate_x(t_vector *vector, double angle)
+void	transform_rotate_x(t_vector *vector, double angle)
 {
 	int	y;
 	int	z;
@@ -27,7 +27,7 @@ void	rotate_x(t_vector *vector, double angle)
 	vector->z2 = z;
 }
 
-void	rotate_y(t_vector *vector, double angle)
+void	transform_rotate_y(t_vector *vector, double angle)
 {
 	int	x;
 	int	z;
@@ -42,7 +42,7 @@ void	rotate_y(t_vector *vector, double angle)
 	vector->z2 = z;
 }
 
-void	rotate_z(t_vector *vector, double angle)
+void	transform_rotate_z(t_vector *vector, double angle)
 {
 	int	x;
 	int	y;
@@ -57,9 +57,9 @@ void	rotate_z(t_vector *vector, double angle)
 	vector->y2 = y;
 }
 
-void	rotate(t_camera *camera, t_vector *vector)
+void	transform_rotate(t_camera *camera, t_vector *vector)
 {
-	rotate_x(vector, camera->alpha);
-	rotate_y(vector, camera->beta);
-	rotate_z(vector, camera->gamma);
+	transform_rotate_x(vector, camera->alpha);
+	transform_rotate_y(vector, camera->beta);
+	transform_rotate_z(vector, camera->gamma);
 }
