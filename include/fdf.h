@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 03:28:24 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:11:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,10 @@ void	transform_scale_z(t_point *point, int scale_factor);
 // } transform_scale
 
 // transform_rotate {
-void	transform_rotate(t_camera *camera, t_vector *vector);
-void	transform_rotate_x(t_vector *vector, double angle);
-void	transform_rotate_y(t_vector *vector, double angle);
-void	transform_rotate_z(t_vector *vector, double angle);
+void	transform_rotate(t_camera *camera, t_point *point);
+void	transform_rotate_x(t_point *point, double angle);
+void	transform_rotate_y(t_point *point, double angle);
+void	transform_rotate_z(t_point *point, double angle);
 // } transform_rotate
 
 // transform_translate {

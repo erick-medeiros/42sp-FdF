@@ -6,60 +6,48 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 02:01:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:09:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	transform_rotate_x(t_vector *vector, double angle)
+void	transform_rotate_x(t_point *point, double angle)
 {
 	int	y;
 	int	z;
 
-	y = vector->y1 * cos(angle) - vector->z1 * sin(angle);
-	z = vector->y1 * sin(angle) + vector->z1 * cos(angle);
-	vector->y1 = y;
-	vector->z1 = z;
-	y = vector->y2 * cos(angle) - vector->z2 * sin(angle);
-	z = vector->y2 * sin(angle) + vector->z2 * cos(angle);
-	vector->y2 = y;
-	vector->z2 = z;
+	y = point->y * cos(angle) - point->z * sin(angle);
+	z = point->y * sin(angle) + point->z * cos(angle);
+	point->y = y;
+	point->z = z;
 }
 
-void	transform_rotate_y(t_vector *vector, double angle)
+void	transform_rotate_y(t_point *point, double angle)
 {
 	int	x;
 	int	z;
 
-	x = vector->x1 * cos(angle) + vector->z1 * sin(angle);
-	z = -vector->x1 * sin(angle) + vector->z1 * cos(angle);
-	vector->x1 = x;
-	vector->z1 = z;
-	x = vector->x2 * cos(angle) + vector->z2 * sin(angle);
-	z = -vector->x2 * sin(angle) + vector->z2 * cos(angle);
-	vector->x2 = x;
-	vector->z2 = z;
+	x = point->x * cos(angle) + point->z * sin(angle);
+	z = -point->x * sin(angle) + point->z * cos(angle);
+	point->x = x;
+	point->z = z;
 }
 
-void	transform_rotate_z(t_vector *vector, double angle)
+void	transform_rotate_z(t_point *point, double angle)
 {
 	int	x;
 	int	y;
 
-	x = vector->x1 * cos(angle) - vector->y1 * sin(angle);
-	y = vector->x1 * sin(angle) + vector->y1 * cos(angle);
-	vector->x1 = x;
-	vector->y1 = y;
-	x = vector->x2 * cos(angle) - vector->y2 * sin(angle);
-	y = vector->x2 * sin(angle) + vector->y2 * cos(angle);
-	vector->x2 = x;
-	vector->y2 = y;
+	x = point->x * cos(angle) - point->y * sin(angle);
+	y = point->x * sin(angle) + point->y * cos(angle);
+	point->x = x;
+	point->y = y;
 }
 
-void	transform_rotate(t_camera *camera, t_vector *vector)
+void	transform_rotate(t_camera *camera, t_point *point)
 {
-	transform_rotate_x(vector, camera->alpha);
-	transform_rotate_y(vector, camera->beta);
-	transform_rotate_z(vector, camera->gamma);
+	transform_rotate_x(point, camera->alpha);
+	transform_rotate_y(point, camera->beta);
+	transform_rotate_z(point, camera->gamma);
 }
