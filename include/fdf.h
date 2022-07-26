@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 16:11:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:03:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_map {
 	int		max_y;
 	int		max_z;
 	int		min_z;
+	int		delta_z;
 }	t_map;
 
 typedef struct s_img {
@@ -75,6 +76,7 @@ typedef struct s_camera {
 	double	alpha;
 	double	beta;
 	double	gamma;
+	int		depth_z;
 }	t_camera;
 
 typedef struct s_fdf {
@@ -154,6 +156,10 @@ void	transform_rotate_z(t_point *point, double angle);
 void	transform_translate_x(t_point *point, int motion_factor);
 void	transform_translate_y(t_point *point, int motion_factor);
 // } transform_translate
+
+// transform_projection {
+void	transform_projection(t_camera *camera, t_point *point);
+// } transform_projection
 
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_vector *vector);

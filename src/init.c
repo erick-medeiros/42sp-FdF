@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/25 15:45:44 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:43:33 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	init_fdf(t_fdf *fdf)
 {
 	fdf->camera.scale_factor = 0;
-	fdf->camera.alpha = ANG_1_RADIAN * 30;
+	fdf->camera.alpha = 0;
 	fdf->camera.beta = 0;
-	fdf->camera.gamma = ANG_1_RADIAN * 15;
+	fdf->camera.gamma = 0;
 	fdf->map.coordinates = NULL;
 	fdf->win_ptr = NULL;
 	fdf->img.img_ptr = NULL;
