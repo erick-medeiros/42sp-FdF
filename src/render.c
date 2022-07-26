@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 18:27:14 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:15:57 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,44 +55,34 @@ void	render_background(t_img *img, int color)
 
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 {
-	t_vector	vector;
-	t_point		point3;
-	t_point		point4;
+	t_line		line;
 
-	point3 = *point1;
-	point4 = *point2;
-	if (point3.z == 0)
-		point3.color = C_BLACK;
-	if (point4.z == 0)
-		point4.color = C_BLACK;
+	line.p1 = *point1;
+	line.p2 = *point2;
+	if (line.p1.z == 0)
+		line.p1.color = C_BLACK;
+	if (line.p2.z == 0)
+		line.p2.color = C_BLACK;
 	fdf->camera.depth_z = fmax(fdf->map.delta_z, fmax(fdf->map.max_x, fdf->map.max_y));
 	// fdf->camera.depth_z = fdf->map.delta_z;
-	transform_scale(&point3, 5);
-	transform_scale(&point4, 5);
-	transform_rotate(&fdf->camera, &point3);
-	transform_rotate(&fdf->camera, &point4);
-	// transform_projection(&fdf->camera, &point3);
-	// transform_projection(&fdf->camera, &point4);
-	transform_rotate_x(&point3, ANG_45_RADIAN);
-	transform_rotate_x(&point4, ANG_45_RADIAN);
-	transform_rotate_y(&point3, -ANG_30_RADIAN);
-	transform_rotate_y(&point4, -ANG_30_RADIAN);
-	transform_translate_x(&point3, 20);
-	transform_translate_x(&point4, 20);
-	transform_translate_y(&point3, 10);
-	transform_translate_y(&point4, 10);
+	transform_scale(&line.p1, 5);
+	transform_scale(&line.p2, 5);
+	transform_rotate(&fdf->camera, &line.p1);
+	transform_rotate(&fdf->camera, &line.p2);
+	// transform_projection(&fdf->camera, &line.p1);
+	// transform_projection(&fdf->camera, &line.p2);
+	transform_rotate_x(&line.p1, ANG_45_RADIAN);
+	transform_rotate_x(&line.p2, ANG_45_RADIAN);
+	transform_rotate_y(&line.p1, -ANG_30_RADIAN);
+	transform_rotate_y(&line.p2, -ANG_30_RADIAN);
+	transform_translate_x(&line.p1, 20);
+	transform_translate_x(&line.p2, 20);
+	transform_translate_y(&line.p1, 10);
+	transform_translate_y(&line.p2, 10);
 	fdf->camera.scale_factor = 10;
-	transform_scale(&point3, fdf->camera.scale_factor);
-	transform_scale(&point4, fdf->camera.scale_factor);
-	vector.x1 = point3.x;
-	vector.y1 = point3.y;
-	vector.z1 = point3.z;
-	vector.color1 = point3.color;
-	vector.x2 = point4.x;
-	vector.y2 = point4.y;
-	vector.z2 = point4.z;
-	vector.color2 = point4.color;
-	bresenham(fdf, &vector);
+	transform_scale(&line.p1, fdf->camera.scale_factor);
+	transform_scale(&line.p2, fdf->camera.scale_factor);
+	bresenham(fdf, &line);
 }
 
 int	render(t_fdf *fdf)

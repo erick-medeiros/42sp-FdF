@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:03:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:17:03 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,10 @@ typedef struct s_img {
 	int		endian;
 }	t_img;
 
-typedef struct s_vector {
-	int	x1;
-	int	y1;
-	int	z1;
-	int	color1;
-	int	x2;
-	int	y2;
-	int	z2;
-	int	color2;
-}	t_vector;
+typedef struct s_line {
+	t_point		p1;
+	t_point		p2;
+}	t_line;
 
 typedef struct s_camera {
 	int		scale_factor;
@@ -162,7 +156,7 @@ void	transform_projection(t_camera *camera, t_point *point);
 // } transform_projection
 
 // bresenham_line_algorithm {
-void	bresenham(t_fdf *fdf, t_vector *vector);
+void	bresenham(t_fdf *fdf, t_line *line);
 void	bresenham_draw(t_bresenham *b);
 void	bresenham_axis(t_bresenham *b);
 void	bresenham_octante_1_5(t_bresenham *b);

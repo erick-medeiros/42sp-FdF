@@ -6,28 +6,29 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:24:27 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 22:15:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:13:58 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-static void	init_bresenham(t_bresenham *b, t_vector *v)
+static void	init_bresenham(t_bresenham *b, t_line *line)
 {
-	b->x1 = v->x1;
-	b->y1 = v->y1;
-	b->color1 = v->color1;
-	b->x2 = v->x2;
-	b->y2 = v->y2;
-	b->color2 = v->color2;
-	if (v->x1 > v->x2 || (v->x1 == v->x2 && v->y1 > v->y2))
+	b->x1 = line->p1.x;
+	b->y1 = line->p1.y;
+	b->color1 = line->p1.color;
+	b->x2 = line->p2.x;
+	b->y2 = line->p2.y;
+	b->color2 = line->p2.color;
+	if (line->p1.x > line->p2.x
+		|| (line->p1.x == line->p2.x && line->p1.y > line->p2.y))
 	{
-		b->x1 = v->x2;
-		b->y1 = v->y2;
-		b->color1 = v->color2;
-		b->x2 = v->x1;
-		b->y2 = v->y1;
-		b->color2 = v->color1;
+		b->x1 = line->p2.x;
+		b->y1 = line->p2.y;
+		b->color1 = line->p2.color;
+		b->x2 = line->p1.x;
+		b->y2 = line->p1.y;
+		b->color2 = line->p1.color;
 	}
 	b->_xi = b->x1;
 	b->_yi = b->y1;
@@ -63,13 +64,13 @@ void	bresenham_draw(t_bresenham *b)
 	update_image_pixel(&b->fdf->img, b->_xi, b->_yi, color_i);
 }
 
-void	bresenham(t_fdf *fdf, t_vector *vector)
+void	bresenham(t_fdf *fdf, t_line *line)
 {
 	t_bresenham	b;
 
-	init_bresenham(&b, vector);
+	init_bresenham(&b, line);
 	b.fdf = fdf;
-	update_image_pixel(&fdf->img, b.x1, b.y1, b.color1);
+	update_image_pixel(&fdf->img, line->p1.x, line->p1.y, b.color1);
 	if (b._delta_x == 0 && b._delta_y == 0)
 		return ;
 	if (b._delta_x == 0 || b._delta_y == 0
@@ -83,5 +84,5 @@ void	bresenham(t_fdf *fdf, t_vector *vector)
 		bresenham_octante_2_6(&b);
 	else if ((abs(b._delta_x) < abs(b._delta_y)) && (b._delta_y < 0))
 		bresenham_octante_7_3(&b);
-	update_image_pixel(&fdf->img, b.x2, b.y2, b.color2);
+	update_image_pixel(&fdf->img, line->p2.x, line->p2.y, b.color2);
 }
