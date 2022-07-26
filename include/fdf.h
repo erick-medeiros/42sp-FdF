@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:17:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:51:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,26 +133,26 @@ int		render(t_fdf *fdf);
 // } render
 
 // transform_scale {
-void	transform_scale(t_point *point, int scale_factor);
-void	transform_scale_x(t_point *point, int scale_factor);
-void	transform_scale_y(t_point *point, int scale_factor);
-void	transform_scale_z(t_point *point, int scale_factor);
+void	transform_scale(t_line *line, int scale_factor);
+void	transform_scale_x(t_line *line, int scale_factor);
+void	transform_scale_y(t_line *line, int scale_factor);
+void	transform_scale_z(t_line *line, int scale_factor);
 // } transform_scale
 
 // transform_rotate {
-void	transform_rotate(t_camera *camera, t_point *point);
-void	transform_rotate_x(t_point *point, double angle);
-void	transform_rotate_y(t_point *point, double angle);
-void	transform_rotate_z(t_point *point, double angle);
+void	transform_rotate(t_line *line, t_camera *camera);
+void	transform_rotate_x(t_line *line, double angle);
+void	transform_rotate_y(t_line *line, double angle);
+void	transform_rotate_z(t_line *line, double angle);
 // } transform_rotate
 
 // transform_translate {
-void	transform_translate_x(t_point *point, int motion_factor);
-void	transform_translate_y(t_point *point, int motion_factor);
+void	transform_translate_x(t_line *line, int motion_factor);
+void	transform_translate_y(t_line *line, int motion_factor);
 // } transform_translate
 
 // transform_projection {
-void	transform_projection(t_camera *camera, t_point *point);
+void	transform_projection(t_line *line, t_camera *camera);
 // } transform_projection
 
 // bresenham_line_algorithm {
