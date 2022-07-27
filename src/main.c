@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:55:08 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/24 01:50:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:06:05 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	}
 	init_fdf(&fdf);
 	read_map(&fdf, filepath);
+	fdf.camera.scale_factor = calculate_scale_factor(&fdf.map);
 	render(&fdf);
 	mlx_loop_hook(fdf.mlx_ptr, &render, &fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &handle_x11_destroy_notify, &fdf);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:01:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:45:30 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:07:53 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	transform_projection_perspective_weak(t_line *line, t_camera *camera)
 	transform_scale(line, depth_z);
 }
 
-void	transform_projection(t_line *line, t_camera *camera)
+void	transform_projection_isometric(t_line *line, t_camera *camera)
 {
 	transform_projection_perspective_weak(line, camera);
+}
+
+void	transform_projection(t_line *line, t_camera *camera)
+{
+	transform_projection_isometric(line, camera);
 }

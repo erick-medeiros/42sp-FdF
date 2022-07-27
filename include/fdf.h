@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:51:32 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:04:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@
 # define WINDOW_WIDTH		1120
 # define WINDOW_HEIGHT		630
 # define HEXADECIMAL_BASE	"0123456789abcdef"
-# define KEY_ESC	65307
+# define KEY_ESC		65307
+# define KEY_PLUS1	61
+# define KEY_PLUS2	65451
+# define KEY_MINUS1	45
+# define KEY_MINUS2	65453
+# define KEY_LEFT		65361
+# define KEY_RIGHT	65363
+# define KEY_UP			65362
+# define KEY_DOWN		65364
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
@@ -70,6 +78,8 @@ typedef struct s_camera {
 	double	alpha;
 	double	beta;
 	double	gamma;
+	int		move_x;
+	int		move_y;
 	int		depth_z;
 }	t_camera;
 
@@ -106,9 +116,10 @@ void	free_all(t_fdf *fdf);
 // } free
 
 // exit {
-void	free_error_exit(t_fdf *fdf, int error_status);
 void	error_exit(int error_status);
 void	success_exit(int success_status);
+void	free_error_exit(t_fdf *fdf, int error_status);
+void	free_success_exit(t_fdf *fdf, int success_status);
 // } exit
 
 // handle_events {
@@ -119,6 +130,7 @@ int		handle_expose(t_fdf *fdf);
 
 // fdf {
 void	init_fdf(t_fdf *fdf);
+int		calculate_scale_factor(t_map *map);
 // } fdf
 
 // read {
