@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:39:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:26:01 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	transform_rotate_z(t_line *line, double angle)
 
 void	transform_rotate(t_line *line, t_camera *camera)
 {
-	transform_rotate_x(line, camera->alpha);
-	transform_rotate_y(line, camera->beta);
-	transform_rotate_z(line, camera->gamma);
+	transform_rotate_x(line, camera->angle_x);
+	transform_rotate_y(line, camera->angle_y);
+	transform_rotate_z(line, camera->angle_z);
 }

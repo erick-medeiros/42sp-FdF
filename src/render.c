@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:06:56 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:34:34 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 		line.p2.color = C_BLACK;
 	transform_scale_z(&line, 20);
 	transform_scale(&line, fdf->camera.scale_factor);
-	fdf->camera.alpha = ANG_30_RADIAN;
 	transform_rotate(&line, &fdf->camera);
 	transform_translate_x(&line, fdf->camera.move_x);
 	transform_translate_y(&line, fdf->camera.move_y);

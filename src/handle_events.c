@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:04:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:32:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 		fdf->camera.move_y += 10;
 	else if (keycode == KEY_UP)
 		fdf->camera.move_y -= 10;
+	else if (keycode == KEY_A)
+		fdf->camera.angle_z += (5 * ANG_1_RADIAN);
+	else if (keycode == KEY_D)
+		fdf->camera.angle_z -= (5 * ANG_1_RADIAN);
+	else if (keycode == KEY_W)
+		fdf->camera.angle_x += (5 * ANG_1_RADIAN);
+	else if (keycode == KEY_S)
+		fdf->camera.angle_x -= (5 * ANG_1_RADIAN);
+	else if (keycode == KEY_Q)
+		fdf->camera.angle_y += (5 * ANG_1_RADIAN);
+	else if (keycode == KEY_E)
+		fdf->camera.angle_y -= (5 * ANG_1_RADIAN);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:04:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/27 23:28:27 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define KEY_RIGHT	65363
 # define KEY_UP			65362
 # define KEY_DOWN		65364
+# define KEY_W			119
+# define KEY_A			97
+# define KEY_S			115
+# define KEY_D			100
+# define KEY_Q			113
+# define KEY_E			101
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
@@ -75,9 +81,9 @@ typedef struct s_line {
 
 typedef struct s_camera {
 	int		scale_factor;
-	double	alpha;
-	double	beta;
-	double	gamma;
+	double	angle_x;
+	double	angle_y;
+	double	angle_z;
 	int		move_x;
 	int		move_y;
 	int		depth_z;
