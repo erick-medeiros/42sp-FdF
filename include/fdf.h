@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:28:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:52:01 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_fdf {
 
 typedef struct s_bresenham {
 	t_fdf	*fdf;
+	t_point	p1;
+	t_point	p2;
 	int		x1;
 	int		y1;
 	int		color1;
@@ -174,7 +176,7 @@ void	transform_projection(t_line *line, t_camera *camera);
 // } transform_projection
 
 // bresenham_line_algorithm {
-void	bresenham(t_fdf *fdf, t_line *line);
+void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2);
 void	bresenham_draw(t_bresenham *b);
 void	bresenham_axis(t_bresenham *b);
 void	bresenham_octante_1_5(t_bresenham *b);

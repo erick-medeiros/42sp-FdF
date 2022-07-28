@@ -6,37 +6,33 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:24:27 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/26 19:13:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:51:40 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-static void	init_bresenham(t_bresenham *b, t_line *line)
+static void	init_bresenham(t_bresenham *b, t_point *p1, t_point *p2)
 {
-	b->x1 = line->p1.x;
-	b->y1 = line->p1.y;
-	b->color1 = line->p1.color;
-	b->x2 = line->p2.x;
-	b->y2 = line->p2.y;
-	b->color2 = line->p2.color;
-	if (line->p1.x > line->p2.x
-		|| (line->p1.x == line->p2.x && line->p1.y > line->p2.y))
+	int	color1;
+	int	color2;
+
+	b->p1 = *p1;
+	b->p2 = *p2;
+	if (p1->x > p2->x || (p1->x == p2->x && p1->y > p2->y))
 	{
-		b->x1 = line->p2.x;
-		b->y1 = line->p2.y;
-		b->color1 = line->p2.color;
-		b->x2 = line->p1.x;
-		b->y2 = line->p1.y;
-		b->color2 = line->p1.color;
+		b->p1 = *p2;
+		b->p2 = *p1;
 	}
-	b->_xi = b->x1;
-	b->_yi = b->y1;
-	b->_delta_x = b->x2 - b->x1;
-	b->_delta_y = b->y2 - b->y1;
-	b->_delta_r = (((C_RED & b->color2) >> 16) - ((C_RED & b->color1) >> 16));
-	b->_delta_g = (((C_GREEN & b->color2) >> 8) - ((C_GREEN & b->color1) >> 8));
-	b->_delta_b = (((C_BLUE & b->color2)) - ((C_BLUE & b->color1)));
+	b->_xi = b->p1.x;
+	b->_yi = b->p1.y;
+	b->_delta_x = b->p2.x - b->p1.x;
+	b->_delta_y = b->p2.y - b->p1.y;
+	color1 = b->p1.color;
+	color2 = b->p2.color;
+	b->_delta_r = (((C_RED & color2) >> 16) - ((C_RED & color1) >> 16));
+	b->_delta_g = (((C_GREEN & color2) >> 8) - ((C_GREEN & color1) >> 8));
+	b->_delta_b = (((C_BLUE & color2)) - ((C_BLUE & color1)));
 }
 
 void	bresenham_draw(t_bresenham *b)
@@ -48,9 +44,9 @@ void	bresenham_draw(t_bresenham *b)
 	int		color_i;
 
 	if (abs(b->_delta_x) >= abs(b->_delta_y))
-		progress = (float)(b->_xi - b->x1) / (float)b->_delta_x;
+		progress = (float)(b->_xi - b->p1.x) / (float)b->_delta_x;
 	else
-		progress = (float)(b->_yi - b->y1) / (float)b->_delta_y;
+		progress = (float)(b->_yi - b->p1.y) / (float)b->_delta_y;
 	_r = b->_delta_r * progress;
 	if (_r > 255)
 		_r = 255;
@@ -60,17 +56,17 @@ void	bresenham_draw(t_bresenham *b)
 	_b = b->_delta_b * progress;
 	if (_b > 255)
 		_b = 255;
-	color_i = b->color1 + (_r << 16) + (_g << 8) + _b;
+	color_i = b->p1.color + (_r << 16) + (_g << 8) + _b;
 	update_image_pixel(&b->fdf->img, b->_xi, b->_yi, color_i);
 }
 
-void	bresenham(t_fdf *fdf, t_line *line)
+void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2)
 {
 	t_bresenham	b;
 
-	init_bresenham(&b, line);
+	init_bresenham(&b, p1, p2);
 	b.fdf = fdf;
-	update_image_pixel(&fdf->img, line->p1.x, line->p1.y, b.color1);
+	update_image_pixel(&fdf->img, p1->x, p1->y, b.color1);
 	if (b._delta_x == 0 && b._delta_y == 0)
 		return ;
 	if (b._delta_x == 0 || b._delta_y == 0
@@ -84,5 +80,5 @@ void	bresenham(t_fdf *fdf, t_line *line)
 		bresenham_octante_2_6(&b);
 	else if ((abs(b._delta_x) < abs(b._delta_y)) && (b._delta_y < 0))
 		bresenham_octante_7_3(&b);
-	update_image_pixel(&fdf->img, line->p2.x, line->p2.y, b.color2);
+	update_image_pixel(&fdf->img, p2->x, p2->y, b.color2);
 }

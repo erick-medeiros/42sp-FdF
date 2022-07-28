@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 23:42:42 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/23 20:48:47 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/28 03:41:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	bresenham_axis(t_bresenham *b)
 {
-	while (b->_delta_x > b->_xi - b->x1 || b->_delta_y > b->_yi - b->y1)
+	while (b->_delta_x > b->_xi - b->p1.x || b->_delta_y > b->_yi - b->p1.y)
 	{
 		bresenham_draw(b);
 		if (b->_delta_x > 0)
@@ -31,7 +31,7 @@ void	bresenham_axis(t_bresenham *b)
 void	bresenham_octante_1_5(t_bresenham *b)
 {
 	b->_decision = 2 * b->_delta_y - b->_delta_x;
-	while (++b->_xi < b->x2)
+	while (++b->_xi < b->p2.x)
 	{
 		if (b->_decision <= 0)
 			b->_decision += b->_delta_y;
@@ -47,7 +47,7 @@ void	bresenham_octante_1_5(t_bresenham *b)
 void	bresenham_octante_8_4(t_bresenham *b)
 {
 	b->_decision = 2 * b->_delta_y + b->_delta_x;
-	while (++b->_xi < b->x2)
+	while (++b->_xi < b->p2.x)
 	{
 		if (b->_decision >= 0)
 			b->_decision += b->_delta_y;
@@ -63,7 +63,7 @@ void	bresenham_octante_8_4(t_bresenham *b)
 void	bresenham_octante_2_6(t_bresenham *b)
 {
 	b->_decision = 2 * b->_delta_x - b->_delta_y;
-	while (++b->_yi < b->y2)
+	while (++b->_yi < b->p2.y)
 	{
 		if (b->_decision <= 0)
 			b->_decision += b->_delta_x;
@@ -79,7 +79,7 @@ void	bresenham_octante_2_6(t_bresenham *b)
 void	bresenham_octante_7_3(t_bresenham *b)
 {
 	b->_decision = 2 * b->_delta_x + b->_delta_y;
-	while (--b->_yi > b->y2)
+	while (--b->_yi > b->p2.y)
 	{
 		if (b->_decision <= 0)
 			b->_decision += b->_delta_x;

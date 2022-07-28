@@ -72,6 +72,10 @@ norm:
 
 valg:
 	@clear
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./fdf
+	valgrind \
+	--leak-check=full \
+	--show-leak-kinds=all \
+	--log-file=leaks.log \
+	--track-origins=yes ./fdf
 
 .PHONY: clean fclean re norm valg
