@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:34:34 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/28 06:16:37 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-// fdf->camera.depth_z = fmax(fdf->map.delta_z, 
-//	fmax(fdf->map.max_x, fdf->map.max_y));
-// fdf->camera.depth_z = fdf->map.delta_z;
-
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 {
 	t_line		line;
@@ -65,20 +61,20 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	if (line.p1.z > 0)
 		line.p1.color = C_MAGENTA;
 	else
-		line.p1.color = C_BLACK;
+		line.p1.color = C_WHITE;
 	if (line.p2.z > 0)
 		line.p2.color = C_MAGENTA;
 	else
-		line.p2.color = C_BLACK;
-	transform_scale_z(&line, 20);
+		line.p2.color = C_WHITE;
+	transform_scale_z(&line, fdf->camera.scale_z);
 	transform_scale(&line, fdf->camera.scale_factor);
 	transform_rotate(&line, &fdf->camera);
 	transform_translate_x(&line, fdf->camera.move_x);
 	transform_translate_y(&line, fdf->camera.move_y);
-	bresenham(fdf, &line);
+	fdf->camera.depth_z = fdf->map.delta_z + 1;
+	projection(&line, &fdf->camera);
+	bresenham(fdf, &line.p1, &line.p2);
 }
-
-void	menu(t_fdf *fdf);
 
 int	render(t_fdf *fdf)
 {

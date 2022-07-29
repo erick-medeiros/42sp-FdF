@@ -12,7 +12,7 @@ LIBMLX			= $(LIBMLX_PATH)libmlx_Linux.a
 LIBFT 			= $(LIBFT_PATH)libft.a
 
 CFLAGS			= -Wall -Wextra -Werror
-CFLAGS			+= -I $(INC_PATH) -I $(LIBFT_INC) -g
+CFLAGS			+= -I $(INC_PATH) -I $(LIBFT_INC) -I $(LIBMLX_PATH) -g
 CC					= cc
 RM					= rm -fr
 LIB_FLAGS		= -lft -lmlx -lm -lbsd -lXext -lX11
@@ -28,7 +28,7 @@ FILES				+= render_map.c
 FILES				+= transform_scale.c
 FILES				+= transform_rotate.c
 FILES				+= transform_translate.c
-FILES				+= transform_projection.c
+FILES				+= projection.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c
 

@@ -38,9 +38,13 @@
 # define KEY_D			100
 # define KEY_Q			113
 # define KEY_E			101
+# define KEY_I			105
+# define KEY_P			112
+# define KEY_T			116
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
+# define ANG_120_RADIAN	2.094395102393195
 # define C_WHITE		0xFFFFFF
 # define C_BLACK		0x000000
 # define C_RED			0xFF0000
@@ -49,6 +53,12 @@
 # define C_YELLOW		0xFFFF00
 # define C_CYAN			0x00FFFF
 # define C_MAGENTA	0xFF00FF
+
+enum e_projection {
+	ISOMETRIC,
+	PERSPECTIVE,
+	TOP
+};
 
 typedef struct s_point {
 	int	x;
@@ -80,7 +90,9 @@ typedef struct s_line {
 }	t_line;
 
 typedef struct s_camera {
+	int		projection;
 	int		scale_factor;
+	int		scale_z;
 	double	angle_x;
 	double	angle_y;
 	double	angle_z;
@@ -132,6 +144,7 @@ void	free_success_exit(t_fdf *fdf, int success_status);
 
 // handle_events {
 int		handle_keypress(int keycode, t_fdf *fdf);
+int		handle_keypress_transform(int keycode, t_fdf *fdf);
 int		handle_x11_destroy_notify(t_fdf *fdf);
 int		handle_expose(t_fdf *fdf);
 // } handle_events
@@ -171,9 +184,9 @@ void	transform_translate_x(t_line *line, int motion_factor);
 void	transform_translate_y(t_line *line, int motion_factor);
 // } transform_translate
 
-// transform_projection {
-void	transform_projection(t_line *line, t_camera *camera);
-// } transform_projection
+// projection {
+void	projection(t_line *line, t_camera *camera);
+// } projection
 
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2);

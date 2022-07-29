@@ -16,6 +16,19 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 		free_success_exit(fdf, 1);
+	else if (keycode == KEY_T)
+		fdf->camera.projection = TOP;
+	else if (keycode == KEY_I)
+		fdf->camera.projection = ISOMETRIC;
+	else if (keycode == KEY_P)
+		fdf->camera.projection = PERSPECTIVE;
+	else
+		handle_keypress_transform(keycode, fdf);
+	return (0);
+}
+
+int	handle_keypress_transform(int keycode, t_fdf *fdf)
+{
 	if (keycode == KEY_PLUS1 || keycode == KEY_PLUS2)
 		fdf->camera.scale_factor += 1;
 	else if (keycode == KEY_MINUS1 || keycode == KEY_MINUS2)
