@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/28 15:52:01 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/30 13:31:08 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@
 # define KEY_I			105
 # define KEY_P			112
 # define KEY_T			116
+# define KEY_DOT		46
+# define KEY_C			99
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
 # define ANG_120_RADIAN	2.094395102393195
+# define ANG_135_RADIAN	2.356194490192345
+# define ANG_360_RADIAN	6.283185307179586
 # define C_WHITE		0xFFFFFF
 # define C_BLACK		0x000000
 # define C_RED			0xFF0000
@@ -53,6 +57,7 @@
 # define C_YELLOW		0xFFFF00
 # define C_CYAN			0x00FFFF
 # define C_MAGENTA	0xFF00FF
+# define BACKGROUND_COLOR	C_BLACK
 
 enum e_projection {
 	ISOMETRIC,
@@ -87,10 +92,13 @@ typedef struct s_img {
 typedef struct s_line {
 	t_point		p1;
 	t_point		p2;
+	int			depth_z;
 }	t_line;
 
 typedef struct s_camera {
 	int		projection;
+	int		show_info;
+	int		show_coord;
 	int		scale_factor;
 	int		scale_z;
 	double	angle_x;
@@ -98,7 +106,6 @@ typedef struct s_camera {
 	double	angle_z;
 	int		move_x;
 	int		move_y;
-	int		depth_z;
 }	t_camera;
 
 typedef struct s_fdf {
@@ -151,6 +158,9 @@ int		handle_expose(t_fdf *fdf);
 
 // fdf {
 void	init_fdf(t_fdf *fdf);
+void	init_point(t_point *point, int color);
+void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
+void	instructions(t_fdf *fdf);
 int		calculate_scale_factor(t_map *map);
 // } fdf
 
@@ -163,6 +173,7 @@ void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
+void	system_coordinates(t_fdf *fdf, int size);
 // } render
 
 // transform_scale {
@@ -180,12 +191,14 @@ void	transform_rotate_z(t_line *line, double angle);
 // } transform_rotate
 
 // transform_translate {
+void	transform_translate(t_line *line, t_camera *camera);
 void	transform_translate_x(t_line *line, int motion_factor);
 void	transform_translate_y(t_line *line, int motion_factor);
+void	transform_translate_z(t_line *line, int motion_factor);
 // } transform_translate
 
 // projection {
-void	projection(t_line *line, t_camera *camera);
+void	projection(t_line *line, t_fdf *fdf);
 // } projection
 
 // bresenham_line_algorithm {

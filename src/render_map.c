@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 22:46:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/30 13:30:06 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,30 @@ int	calculate_scale_factor(t_map *map)
 	scale_y = WINDOW_HEIGHT / map->max_y;
 	scale_factor = fmin(scale_x, scale_y);
 	return (scale_factor);
+}
+
+void	system_coordinates(t_fdf *fdf, int size)
+{
+	t_line	line;
+
+	init_point(&line.p1, C_RED);
+	init_point(&line.p2, C_RED);
+	line.p2.x = size;
+	transform_rotate(&line, &fdf->camera);
+	transform_translate(&line, &fdf->camera);
+	bresenham(fdf, &line.p1, &line.p2);
+	init_point(&line.p1, C_GREEN);
+	init_point(&line.p2, C_GREEN);
+	line.p2.y = size;
+	transform_rotate(&line, &fdf->camera);
+	transform_translate(&line, &fdf->camera);
+	bresenham(fdf, &line.p1, &line.p2);
+	init_point(&line.p1, C_BLUE);
+	init_point(&line.p2, C_BLUE);
+	line.p2.z = size;
+	transform_rotate(&line, &fdf->camera);
+	transform_translate(&line, &fdf->camera);
+	bresenham(fdf, &line.p1, &line.p2);
 }
 
 void	render_map(t_fdf *fdf)

@@ -29,3 +29,9 @@ void	transform_translate_z(t_line *line, int motion_factor)
 	line->p1.z += motion_factor;
 	line->p2.z += motion_factor;
 }
+
+void	transform_translate(t_line *line, t_camera *camera)
+{
+	transform_translate_x(line, camera->move_x);
+	transform_translate_y(line, camera->move_y);
+}

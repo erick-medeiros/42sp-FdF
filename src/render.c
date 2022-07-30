@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/28 06:16:37 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/29 22:36:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,11 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 {
 	t_line		line;
 
-	line.p1 = *point1;
-	line.p2 = *point2;
-	if (line.p1.z > 0)
-		line.p1.color = C_MAGENTA;
-	else
-		line.p1.color = C_WHITE;
-	if (line.p2.z > 0)
-		line.p2.color = C_MAGENTA;
-	else
-		line.p2.color = C_WHITE;
-	transform_scale_z(&line, fdf->camera.scale_z);
+	init_line(fdf, &line, point1, point2);
 	transform_scale(&line, fdf->camera.scale_factor);
 	transform_rotate(&line, &fdf->camera);
-	transform_translate_x(&line, fdf->camera.move_x);
-	transform_translate_y(&line, fdf->camera.move_y);
-	fdf->camera.depth_z = fdf->map.delta_z + 1;
-	projection(&line, &fdf->camera);
+	transform_translate(&line, &fdf->camera);
+	projection(&line, fdf);
 	bresenham(fdf, &line.p1, &line.p2);
 }
 
@@ -80,8 +68,11 @@ int	render(t_fdf *fdf)
 {
 	if (fdf->win_ptr == NULL || fdf->img.img_ptr == NULL)
 		return (1);
-	render_background(&fdf->img, C_BLACK);
+	render_background(&fdf->img, BACKGROUND_COLOR);
 	render_map(fdf);
+	if (fdf->camera.show_coord == 1)
+		system_coordinates(fdf, 1000);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr, fdf->img.img_ptr, 0, 0);
+	instructions(fdf);
 	return (0);
 }

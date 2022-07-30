@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 23:32:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/30 12:46:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 		free_success_exit(fdf, 1);
+	else if (keycode == KEY_DOT)
+		fdf->camera.show_info *= -1;
+	else if (keycode == KEY_C)
+		fdf->camera.show_coord *= -1;
 	else if (keycode == KEY_T)
 		fdf->camera.projection = TOP;
 	else if (keycode == KEY_I)

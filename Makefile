@@ -21,6 +21,7 @@ FILES				= main.c
 FILES				+= free.c
 FILES				+= exit.c
 FILES				+= handle_events.c
+FILES				+= instructions.c
 FILES				+= init.c
 FILES				+= read.c
 FILES				+= render.c
