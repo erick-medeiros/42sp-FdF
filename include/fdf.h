@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/30 13:31:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:55:41 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@
 # define KEY_T			116
 # define KEY_DOT		46
 # define KEY_C			99
+# define KEY_R			114
+# define KEY_Z			122
+# define KEY_X			120
+# define KEY_O			111
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
@@ -140,6 +144,7 @@ typedef struct s_bresenham {
 void	free_filedata(char ***filedata);
 void	free_coordinates(t_map	*map);
 void	free_all(t_fdf *fdf);
+void	reset_camera(t_fdf *fdf);
 // } free
 
 // exit {
