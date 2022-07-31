@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/30 14:55:41 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 13:54:44 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_camera {
 	int		projection;
 	int		show_info;
 	int		show_coord;
+	int		change_color;
 	int		scale_factor;
 	int		scale_z;
 	double	angle_x;
@@ -163,6 +164,7 @@ int		handle_expose(t_fdf *fdf);
 
 // fdf {
 void	init_fdf(t_fdf *fdf);
+void	init_camera(t_fdf *fdf);
 void	init_point(t_point *point, int color);
 void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
 void	instructions(t_fdf *fdf);
@@ -171,6 +173,8 @@ int		calculate_scale_factor(t_map *map);
 
 // read {
 void	read_map(t_fdf *fdf, char *filepath);
+void	points_center(t_fdf *fdf);
+void	system_coordinates(t_fdf *fdf, int size);
 // } read
 
 // render {
@@ -178,7 +182,6 @@ void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
-void	system_coordinates(t_fdf *fdf, int size);
 // } render
 
 // transform_scale {

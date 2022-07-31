@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform_projection.c                             :+:      :+:    :+:   */
+/*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:01:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/28 15:55:02 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 13:57:13 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	projection_perspective(t_line *line, t_camera *camera)
+static void	projection_perspective(t_line *line)
 {
-	int	focal_length;
-	int	depth_z;
+	int		focal_length;
+	float	depth_z;
 
 	focal_length = 1;
-	depth_z = line->p1.z + camera->depth_z;
+	depth_z = line->p1.z + line->depth_z;
 	line->p1.x = (line->p1.x * focal_length) / depth_z;
 	line->p1.y = (line->p1.y * focal_length) / depth_z;
-	depth_z = line->p2.z + camera->depth_z;
+	depth_z = line->p2.z + line->depth_z;
 	line->p2.x = (line->p2.x * focal_length) / depth_z;
 	line->p2.y = (line->p2.y * focal_length) / depth_z;
-	transform_scale(line, camera->depth_z);
+	transform_scale(line, line->depth_z);
 }
 
-void	projection_isometric(t_line *line)
+static void	projection_isometric(t_line *line)
 {
 	t_point	p;
 	double	angle_x;
@@ -49,10 +49,10 @@ void	projection_isometric(t_line *line)
 	line->p2.y = p.x * sin(angle_x) + p.y * sin(angle_y) + p.z * sin(angle_z);
 }
 
-void	projection(t_line *line, t_camera *camera)
+void	projection(t_line *line, t_fdf *fdf)
 {
-	if (camera->projection == ISOMETRIC)
+	if (fdf->camera.projection == ISOMETRIC)
 		projection_isometric(line);
-	else if (camera->projection == PERSPECTIVE)
-		projection_perspective(line, camera);
+	else if (fdf->camera.projection == PERSPECTIVE)
+		projection_perspective(line);
 }
