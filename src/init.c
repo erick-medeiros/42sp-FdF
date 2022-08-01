@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 22:36:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:22:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_camera(t_fdf *fdf)
 	fdf->camera.scale_factor = 100;
 	fdf->camera.scale_z = 100;
 	fdf->camera.projection = ISOMETRIC;
+	fdf->camera.color_palette = COLORPALETTE1;
 	fdf->camera.show_info = 1;
 	fdf->camera.show_coord = 1;
 	fdf->camera.change_color = 1;
@@ -55,20 +56,29 @@ void	init_point(t_point *point, int color)
 	point->color = color;
 }
 
+void	init_color(t_color *color, int color1, int color2)
+{
+	color->color1 = color1;
+	color->color1_r = (C_RED & color1) >> 16;
+	color->color1_g = (C_GREEN & color1) >> 8;
+	color->color1_b = C_BLUE & color1;
+	color->color2 = color2;
+	color->color2_r = (C_RED & color2) >> 16;
+	color->color2_g = (C_GREEN & color2) >> 8;
+	color->color2_b = C_BLUE & color2;
+	color->delta_r = color->color2_r - color->color1_r;
+	color->delta_g = color->color2_g - color->color1_g;
+	color->delta_b = color->color2_b - color->color1_b;
+}
+
 void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2)
 {
 	line->p1 = *p1;
 	line->p2 = *p2;
 	if (fdf->camera.change_color)
 	{
-		if (line->p1.z > 0)
-			line->p1.color = C_MAGENTA;
-		else
-			line->p1.color = C_WHITE;
-		if (line->p2.z > 0)
-			line->p2.color = C_MAGENTA;
-		else
-			line->p2.color = C_WHITE;
+		set_color_point(fdf, &line->p1);
+		set_color_point(fdf, &line->p2);
 	}
 	line->depth_z = fmax((fdf->map.max_z - fdf->map.min_z), \
 		fmax(fdf->map.max_x, fdf->map.max_y));

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 22:38:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:14:34 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 		free_success_exit(fdf, 1);
 	else if (keycode == KEY_DOT)
 		fdf->camera.show_info *= -1;
-	else if (keycode == KEY_C)
+	else if (keycode == KEY_L)
 		fdf->camera.show_coord *= -1;
+	else if (keycode == KEY_C)
+		handle_keypress_color(keycode, fdf);
 	else if (keycode == KEY_R)
 		reset_camera(fdf);
 	else if (keycode == KEY_O)
@@ -35,6 +37,18 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 	else
 		handle_keypress_transform(keycode, fdf);
 	return (0);
+}
+
+int	handle_keypress_color(int keycode, t_fdf *fdf)
+{
+	if (fdf->camera.color_palette == COLORPALETTE0)
+		fdf->camera.color_palette = COLORPALETTE1;
+	else if (fdf->camera.color_palette == COLORPALETTE1)
+		fdf->camera.color_palette = COLORPALETTE2;
+	else if (fdf->camera.color_palette == COLORPALETTE2)
+		fdf->camera.color_palette = COLORPALETTE3;
+	else if (fdf->camera.color_palette == COLORPALETTE3)
+		fdf->camera.color_palette = COLORPALETTE0;
 }
 
 int	handle_keypress_transform(int keycode, t_fdf *fdf)

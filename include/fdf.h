@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 22:53:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:41:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define KEY_Z			122
 # define KEY_X			120
 # define KEY_O			111
+# define KEY_L			108
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
 # define ANG_45_RADIAN	0.785398163397448
@@ -61,12 +62,28 @@
 # define C_YELLOW		0xFFFF00
 # define C_CYAN			0x00FFFF
 # define C_MAGENTA	0xFF00FF
+# define DEFAULT_COLOR		C_WHITE
+# define HIGHLIGHT_COLOR	C_YELLOW
 # define BACKGROUND_COLOR	C_BLACK
+# define PALETTE0_COLOR1 DEFAULT_COLOR
+# define PALETTE1_COLOR1 DEFAULT_COLOR
+# define PALETTE2_COLOR1 C_MAGENTA
+# define PALETTE2_COLOR2 BACKGROUND_COLOR
+# define PALETTE3_COLOR1 C_MAGENTA
+# define PALETTE3_COLOR2 C_BLUE
+# define PALETTE3_COLOR3 C_CYAN
 
 enum e_projection {
 	ISOMETRIC,
 	PERSPECTIVE,
 	TOP
+};
+
+enum e_colorpalette {
+	COLORPALETTE0,
+	COLORPALETTE1,
+	COLORPALETTE2,
+	COLORPALETTE3
 };
 
 typedef struct s_point {
@@ -103,6 +120,7 @@ typedef struct s_camera {
 	int		projection;
 	int		show_info;
 	int		show_coord;
+	int		color_palette;
 	int		change_color;
 	int		scale_factor;
 	int		scale_z;
@@ -121,10 +139,26 @@ typedef struct s_fdf {
 	t_camera	camera;
 }	t_fdf;
 
+typedef struct s_color
+{
+	int	color1;
+	int	color1_r;
+	int	color1_g;
+	int	color1_b;
+	int	color2;
+	int	color2_r;
+	int	color2_g;
+	int	color2_b;
+	int	delta_r;
+	int	delta_g;
+	int	delta_b;
+}	t_color;
+
 typedef struct s_bresenham {
 	t_fdf	*fdf;
 	t_point	p1;
 	t_point	p2;
+	t_color	color;
 	int		x1;
 	int		y1;
 	int		color1;
@@ -136,9 +170,6 @@ typedef struct s_bresenham {
 	int		_delta_x;
 	int		_delta_y;
 	int		_decision;
-	int		_delta_r;
-	int		_delta_g;
-	int		_delta_b;
 }	t_bresenham;
 
 // free {
@@ -158,17 +189,18 @@ void	free_success_exit(t_fdf *fdf, int success_status);
 // handle_events {
 int		handle_keypress(int keycode, t_fdf *fdf);
 int		handle_keypress_transform(int keycode, t_fdf *fdf);
+int		handle_keypress_color(int keycode, t_fdf *fdf);
 int		handle_x11_destroy_notify(t_fdf *fdf);
 int		handle_expose(t_fdf *fdf);
 // } handle_events
 
-// fdf {
+// init {
 void	init_fdf(t_fdf *fdf);
 void	init_camera(t_fdf *fdf);
 void	init_point(t_point *point, int color);
+void	init_color(t_color *color, int color1, int color2);
 void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
-void	instructions(t_fdf *fdf);
-// } fdf
+// } init
 
 // read {
 void	read_map(t_fdf *fdf, char *filepath);
@@ -181,6 +213,7 @@ void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
+void	instructions(t_fdf *fdf);
 // } render
 
 // transform_scale {
@@ -208,6 +241,11 @@ void	transform_translate_z(t_line *line, int motion_factor);
 // projection {
 void	projection(t_line *line, t_fdf *fdf);
 // } projection
+
+// color {
+int		get_color_gradient(t_color *color, float gradient);
+void	set_color_point(t_fdf *fdf, t_point *point);
+// } color
 
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2);
