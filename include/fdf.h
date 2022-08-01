@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 13:41:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:05:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	free_success_exit(t_fdf *fdf, int success_status);
 // handle_events {
 int		handle_keypress(int keycode, t_fdf *fdf);
 int		handle_keypress_transform(int keycode, t_fdf *fdf);
-int		handle_keypress_color(int keycode, t_fdf *fdf);
+void	handle_keypress_color(t_fdf *fdf);
 int		handle_x11_destroy_notify(t_fdf *fdf);
 int		handle_expose(t_fdf *fdf);
 // } handle_events
