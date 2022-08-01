@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:17:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/30 14:03:19 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:27:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	free_all(t_fdf *fdf)
 
 void	reset_camera(t_fdf *fdf)
 {
-	fdf->camera.scale_factor = calculate_scale_factor(&fdf->map);
-	fdf->camera.scale_z = 1;
+	fdf->camera.scale_factor = 100;
+	fdf->camera.scale_z = 100;
 	fdf->camera.move_x = WINDOW_WIDTH / 2;
 	fdf->camera.move_y = WINDOW_HEIGHT / 2;
 	fdf->camera.angle_x = 0;

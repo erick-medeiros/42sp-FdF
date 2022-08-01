@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 13:52:30 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 22:36:11 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	init_fdf(t_fdf *fdf)
 
 void	init_camera(t_fdf *fdf)
 {
-	fdf->camera.scale_factor = 0;
+	fdf->camera.scale_factor = 100;
+	fdf->camera.scale_z = 100;
 	fdf->camera.projection = ISOMETRIC;
 	fdf->camera.show_info = 1;
 	fdf->camera.show_coord = 1;
 	fdf->camera.change_color = 1;
-	fdf->camera.scale_z = 1;
 	fdf->camera.angle_x = 0;
 	fdf->camera.angle_y = 0;
 	fdf->camera.angle_z = 0;
@@ -70,7 +70,6 @@ void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2)
 		else
 			line->p2.color = C_WHITE;
 	}
-	transform_scale_z(line, fdf->camera.scale_z);
 	line->depth_z = fmax((fdf->map.max_z - fdf->map.min_z), \
 		fmax(fdf->map.max_x, fdf->map.max_y));
 }

@@ -6,31 +6,33 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 13:55:01 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 22:41:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-int	calculate_scale_factor(t_map *map)
+static int	calculate_map_scale(t_map *map)
 {
 	int	scale_x;
 	int	scale_y;
-	int	scale_factor;
+	int	map_scale;
 
 	scale_x = WINDOW_WIDTH / map->max_x;
 	scale_y = WINDOW_HEIGHT / map->max_y;
-	scale_factor = fmin(scale_x, scale_y);
-	if (scale_factor < 4)
+	map_scale = fmin(scale_x, scale_y);
+	if (map_scale < 4)
 		return (2);
-	return (scale_factor / 2);
+	return (map_scale / 2);
 }
 
-void	points_center(t_fdf *fdf)
+void	update_map_scale(t_fdf *fdf)
 {
 	int	i;
 	int	j;
+	int	map_scale;
 
+	map_scale = calculate_map_scale(&fdf->map);
 	j = 0;
 	while (j < fdf->map.max_y)
 	{
@@ -39,6 +41,9 @@ void	points_center(t_fdf *fdf)
 		{
 			fdf->map.coordinates[i][j].x -= fdf->map.max_x / 2;
 			fdf->map.coordinates[i][j].y -= fdf->map.max_y / 2;
+			fdf->map.coordinates[i][j].x *= map_scale;
+			fdf->map.coordinates[i][j].y *= map_scale;
+			fdf->map.coordinates[i][j].z *= map_scale;
 			i++;
 		}
 		j++;
@@ -49,7 +54,13 @@ void	system_coordinates(t_fdf *fdf, int size)
 {
 	t_point	point1;
 	t_point	point2;
+	int		scale_factor;
+	int		scale_z;
 
+	scale_factor = fdf->camera.scale_factor;
+	scale_z = fdf->camera.scale_z;
+	fdf->camera.scale_factor = 100;
+	fdf->camera.scale_z = 100;
 	fdf->camera.change_color = 0;
 	init_point(&point1, C_RED);
 	init_point(&point2, C_RED);
@@ -63,6 +74,8 @@ void	system_coordinates(t_fdf *fdf, int size)
 	init_point(&point2, C_BLUE);
 	point2.z = size;
 	render_line(fdf, &point1, &point2);
+	fdf->camera.scale_factor = scale_factor;
+	fdf->camera.scale_z = scale_z;
 }
 
 void	render_map(t_fdf *fdf)

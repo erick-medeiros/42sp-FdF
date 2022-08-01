@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 13:54:44 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 22:53:23 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,12 +168,11 @@ void	init_camera(t_fdf *fdf);
 void	init_point(t_point *point, int color);
 void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
 void	instructions(t_fdf *fdf);
-int		calculate_scale_factor(t_map *map);
 // } fdf
 
 // read {
 void	read_map(t_fdf *fdf, char *filepath);
-void	points_center(t_fdf *fdf);
+void	update_map_scale(t_fdf *fdf);
 void	system_coordinates(t_fdf *fdf, int size);
 // } read
 
@@ -185,10 +184,11 @@ int		render(t_fdf *fdf);
 // } render
 
 // transform_scale {
-void	transform_scale(t_line *line, int scale_factor);
-void	transform_scale_x(t_line *line, int scale_factor);
-void	transform_scale_y(t_line *line, int scale_factor);
-void	transform_scale_z(t_line *line, int scale_factor);
+void	transform_scale(t_line *line, t_camera *camera);
+void	transform_scale_x(t_line *line, float scale_factor);
+void	transform_scale_y(t_line *line, float scale_factor);
+void	transform_scale_z(t_line *line, float scale_factor);
+void	transform_scale_z_specific(t_line *line, t_camera *camera);
 // } transform_scale
 
 // transform_rotate {

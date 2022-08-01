@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 13:54:17 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 14:44:53 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ void	read_map(t_fdf *fdf, char *filepath)
 		free_error_exit(fdf, 2);
 	get_max_values(fdf, filedata);
 	set_coordinates(&fdf->map, filedata, 0, 0);
+	update_map_scale(fdf);
 	free_filedata(filedata);
-	points_center(fdf);
 }

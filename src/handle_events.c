@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/30 16:28:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/07/31 22:38:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 		fdf->camera.projection = ISOMETRIC;
 	else if (keycode == KEY_P)
 		fdf->camera.projection = PERSPECTIVE;
+	if (keycode == KEY_Z)
+		fdf->camera.scale_z -= 10;
+	else if (keycode == KEY_X)
+		fdf->camera.scale_z += 10;
 	else
 		handle_keypress_transform(keycode, fdf);
 	return (0);
@@ -35,10 +39,10 @@ int	handle_keypress(int keycode, t_fdf *fdf)
 
 int	handle_keypress_transform(int keycode, t_fdf *fdf)
 {
-	if (keycode == KEY_PLUS1 || keycode == KEY_PLUS2)
-		fdf->camera.scale_factor += 1;
-	else if (keycode == KEY_MINUS1 || keycode == KEY_MINUS2)
-		fdf->camera.scale_factor -= 1;
+	if (keycode == KEY_MINUS1 || keycode == KEY_MINUS2)
+		fdf->camera.scale_factor -= 10;
+	else if (keycode == KEY_PLUS1 || keycode == KEY_PLUS2)
+		fdf->camera.scale_factor += 10;
 	else if (keycode == KEY_RIGHT)
 		fdf->camera.move_x += 10;
 	else if (keycode == KEY_LEFT)
