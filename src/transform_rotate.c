@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:37:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:06:11 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ void	transform_rotate_z(t_line *line, double angle)
 
 void	transform_rotate(t_line *line, t_camera *camera)
 {
-	if (camera->angle_x > ANG_360_RADIAN || camera->angle_x < -ANG_360_RADIAN)
-		camera->angle_x = 0;
-	if (camera->angle_y > ANG_360_RADIAN || camera->angle_y < -ANG_360_RADIAN)
-		camera->angle_y = 0;
-	if (camera->angle_z > ANG_360_RADIAN || camera->angle_z < -ANG_360_RADIAN)
-		camera->angle_z = 0;
 	transform_rotate_x(line, camera->angle_x);
 	transform_rotate_y(line, camera->angle_y);
 	transform_rotate_z(line, camera->angle_z);

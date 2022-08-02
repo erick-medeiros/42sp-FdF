@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:34:07 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:05:25 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
+void	camera_limits(t_camera *camera);
 void	instructions(t_fdf *fdf);
 // } render
 

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:02:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:07:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,30 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	bresenham(fdf, &line.p1, &line.p2);
 }
 
+void	camera_limits(t_camera *camera)
+{
+	if (camera->angle_x > ANG_360_RADIAN || camera->angle_x < -ANG_360_RADIAN)
+		camera->angle_x = 0;
+	if (camera->angle_y > ANG_360_RADIAN || camera->angle_y < -ANG_360_RADIAN)
+		camera->angle_y = 0;
+	if (camera->angle_z > ANG_360_RADIAN || camera->angle_z < -ANG_360_RADIAN)
+		camera->angle_z = 0;
+	if (camera->scale_factor > 1000)
+		camera->scale_factor = 1000;
+	if (camera->scale_factor < -1000)
+		camera->scale_factor = -1000;
+	if (camera->scale_z > 1000)
+		camera->scale_z = 1000;
+	if (camera->scale_z < -1000)
+		camera->scale_z = -1000;
+}
+
 int	render(t_fdf *fdf)
 {
 	if (fdf->win_ptr == NULL || fdf->img.img_ptr == NULL)
 		return (1);
 	render_background(&fdf->img, BACKGROUND_COLOR);
+	camera_limits(&fdf->camera);
 	render_map(fdf);
 	if (fdf->camera.show_coord == 1)
 		system_coordinates(fdf, 1000);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 22:16:16 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:36:33 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 10:05:46 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ void	transform_scale_z_specific(t_line *line, t_camera *camera)
 {
 	float	scale_z;
 
-	if (camera->scale_z > 1000)
-		camera->scale_z = 1000;
-	if (camera->scale_z < -1000)
-		camera->scale_z = -1000;
 	scale_z = (float) camera->scale_z / 100;
 	transform_scale_z(line, scale_z);
 }
@@ -61,10 +57,6 @@ void	transform_scale(t_line *line, t_camera *camera)
 {
 	float	scale_factor;
 
-	if (camera->scale_factor > 1000)
-		camera->scale_factor = 1000;
-	if (camera->scale_factor < -1000)
-		camera->scale_factor = -1000;
 	scale_factor = (float) camera->scale_factor / 100;
 	transform_scale_x(line, scale_factor);
 	transform_scale_y(line, scale_factor);
