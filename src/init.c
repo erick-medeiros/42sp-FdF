@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:16:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:37:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_fdf(t_fdf *fdf)
 
 void	init_camera(t_fdf *fdf)
 {
-	fdf->camera.scale_factor = 100;
+	fdf->camera.scale_factor = fdf->map.map_scale;
 	fdf->camera.scale_z = 100;
 	fdf->camera.projection = ISOMETRIC;
 	fdf->camera.color_palette = COLORPALETTE1;

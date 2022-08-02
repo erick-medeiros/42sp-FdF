@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 23:48:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:38:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	handle_keypress_color(t_fdf *fdf)
 int	handle_keypress_transform(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_MINUS1 || keycode == KEY_MINUS2)
-		fdf->camera.scale_factor -= 10;
+		fdf->camera.scale_factor -= 1;
 	else if (keycode == KEY_PLUS1 || keycode == KEY_PLUS2)
-		fdf->camera.scale_factor += 10;
+		fdf->camera.scale_factor += 1;
 	else if (keycode == KEY_RIGHT)
 		fdf->camera.move_x += 10;
 	else if (keycode == KEY_LEFT)
