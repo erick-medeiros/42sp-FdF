@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:55:08 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/31 14:55:40 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:36:47 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 	init_fdf(&fdf);
 	read_map(&fdf, filepath);
 	render(&fdf);
-	mlx_loop_hook(fdf.mlx_ptr, &render, &fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &handle_x11_destroy_notify, &fdf);
 	mlx_key_hook(fdf.win_ptr, &handle_keypress, &fdf);
 	mlx_expose_hook(fdf.win_ptr, &handle_expose, &fdf);

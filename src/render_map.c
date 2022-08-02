@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 14:17:06 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:25:10 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	update_map_scale(t_fdf *fdf)
 {
 	int	i;
 	int	j;
-	int	map_scale;
 
-	map_scale = calculate_map_scale(&fdf->map);
+	fdf->map.map_scale = calculate_map_scale(&fdf->map);
 	j = 0;
 	while (j < fdf->map.max_y)
 	{
@@ -41,16 +40,10 @@ void	update_map_scale(t_fdf *fdf)
 		{
 			fdf->map.coordinates[i][j].x -= fdf->map.max_x / 2;
 			fdf->map.coordinates[i][j].y -= fdf->map.max_y / 2;
-			fdf->map.coordinates[i][j].x *= map_scale;
-			fdf->map.coordinates[i][j].y *= map_scale;
-			fdf->map.coordinates[i][j].z *= map_scale;
-			fdf->map.max_z = fmax(fdf->map.coordinates[i][j].z, fdf->map.max_z);
-			fdf->map.min_z = fmin(fdf->map.coordinates[i][j].z, fdf->map.min_z);
 			i++;
 		}
 		j++;
 	}
-	fdf->map.delta_z = fdf->map.max_z - fdf->map.min_z;
 }
 
 void	system_coordinates(t_fdf *fdf, int size)

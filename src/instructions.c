@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 21:54:44 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 13:14:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:39:14 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ void	instructions(t_fdf *fdf)
 	h = show_info_projection(fdf, w, h);
 	h = show_info_color(fdf, w, h);
 	mlx_string_put(mlx, win, w, h += 30, TEXT_C, "Info: press '.'");
-	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Axis XYZ: press 'C'");
+	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Axis XYZ: press 'L'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Reset view: press 'R'");
 }

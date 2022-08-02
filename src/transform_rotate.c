@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 01:58:59 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/30 12:46:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:37:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,44 @@
 
 void	transform_rotate_x(t_line *line, double angle)
 {
-	int	y;
-	int	z;
+	t_point	point;
 
-	y = line->p1.y;
-	z = line->p1.z;
-	line->p1.y = y * cos(angle) - z * sin(angle);
-	line->p1.z = y * sin(angle) + z * cos(angle);
-	y = line->p2.y;
-	z = line->p2.z;
-	line->p2.y = y * cos(angle) - z * sin(angle);
-	line->p2.z = y * sin(angle) + z * cos(angle);
+	point.y = line->p1.y;
+	point.z = line->p1.z;
+	line->p1.y = point.y * cos(angle) - point.z * sin(angle);
+	line->p1.z = point.y * sin(angle) + point.z * cos(angle);
+	point.y = line->p2.y;
+	point.z = line->p2.z;
+	line->p2.y = point.y * cos(angle) - point.z * sin(angle);
+	line->p2.z = point.y * sin(angle) + point.z * cos(angle);
 }
 
 void	transform_rotate_y(t_line *line, double angle)
 {
-	int	x;
-	int	z;
+	t_point	point;
 
-	x = line->p1.x;
-	z = line->p1.z;
-	line->p1.x = x * cos(angle) + z * sin(angle);
-	line->p1.z = -x * sin(angle) + z * cos(angle);
-	x = line->p2.x;
-	z = line->p2.z;
-	line->p2.x = x * cos(angle) + z * sin(angle);
-	line->p2.z = -x * sin(angle) + z * cos(angle);
+	point.x = line->p1.x;
+	point.z = line->p1.z;
+	line->p1.x = point.x * cos(angle) + point.z * sin(angle);
+	line->p1.z = -point.x * sin(angle) + point.z * cos(angle);
+	point.x = line->p2.x;
+	point.z = line->p2.z;
+	line->p2.x = point.x * cos(angle) + point.z * sin(angle);
+	line->p2.z = -point.x * sin(angle) + point.z * cos(angle);
 }
 
 void	transform_rotate_z(t_line *line, double angle)
 {
-	int	x;
-	int	y;
+	t_point	point;
 
-	x = line->p1.x;
-	y = line->p1.y;
-	line->p1.x = x * cos(angle) - y * sin(angle);
-	line->p1.y = x * sin(angle) + y * cos(angle);
-	x = line->p2.x;
-	y = line->p2.y;
-	line->p2.x = x * cos(angle) - y * sin(angle);
-	line->p2.y = x * sin(angle) + y * cos(angle);
+	point.x = line->p1.x;
+	point.y = line->p1.y;
+	line->p1.x = point.x * cos(angle) - point.y * sin(angle);
+	line->p1.y = point.x * sin(angle) + point.y * cos(angle);
+	point.x = line->p2.x;
+	point.y = line->p2.y;
+	line->p2.x = point.x * cos(angle) - point.y * sin(angle);
+	line->p2.y = point.x * sin(angle) + point.y * cos(angle);
 }
 
 void	transform_rotate(t_line *line, t_camera *camera)

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 19:05:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:34:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ enum e_colorpalette {
 };
 
 typedef struct s_point {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
+	float	x;
+	float	y;
+	float	z;
+	int		color;
 }	t_point;
 
 typedef struct s_map {
@@ -99,7 +99,7 @@ typedef struct s_map {
 	int		max_y;
 	int		max_z;
 	int		min_z;
-	int		delta_z;
+	int		map_scale;
 }	t_map;
 
 typedef struct s_img {
@@ -113,7 +113,6 @@ typedef struct s_img {
 typedef struct s_line {
 	t_point		p1;
 	t_point		p2;
-	int			depth_z;
 }	t_line;
 
 typedef struct s_camera {
@@ -142,13 +141,7 @@ typedef struct s_fdf {
 typedef struct s_color
 {
 	int	color1;
-	int	color1_r;
-	int	color1_g;
-	int	color1_b;
 	int	color2;
-	int	color2_r;
-	int	color2_g;
-	int	color2_b;
 	int	delta_r;
 	int	delta_g;
 	int	delta_b;
@@ -159,17 +152,11 @@ typedef struct s_bresenham {
 	t_point	p1;
 	t_point	p2;
 	t_color	color;
-	int		x1;
-	int		y1;
-	int		color1;
-	int		x2;
-	int		y2;
-	int		color2;
-	int		_xi;
-	int		_yi;
-	int		_delta_x;
-	int		_delta_y;
-	int		_decision;
+	int		xi;
+	int		yi;
+	int		delta_x;
+	int		delta_y;
+	int		decision;
 }	t_bresenham;
 
 // free {

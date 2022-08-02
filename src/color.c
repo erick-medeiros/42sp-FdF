@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:17:29 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/01 14:15:31 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 00:06:45 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static	int	point_gradient_3(float gradient, int c1, int c2, int c3)
 void	set_color_point(t_fdf *fdf, t_point *point)
 {
 	float	gradient;
+	float	delta_z;
 
 	if (fdf->camera.color_palette == COLORPALETTE0)
 		point->color = PALETTE0_COLOR1;
@@ -72,7 +73,8 @@ void	set_color_point(t_fdf *fdf, t_point *point)
 	}
 	else if (fdf->camera.color_palette == COLORPALETTE3)
 	{
-		gradient = (point->z - fdf->map.min_z) / fdf->map.delta_z;
+		delta_z = fdf->map.max_z - fdf->map.min_z;
+		gradient = (point->z - fdf->map.min_z) / delta_z;
 		point->color = point_gradient_3(gradient,
 				PALETTE3_COLOR1, PALETTE3_COLOR2, PALETTE3_COLOR3);
 	}
