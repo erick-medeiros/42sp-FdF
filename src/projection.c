@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:01:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:36:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:44:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	projection_perspective(t_line *line, float depth_z)
 	int		focal_length;
 	double	z_ave;
 
+	transform_rotate_x(line, ANG_180_RADIAN);
 	focal_length = 1;
 	z_ave = line->p1.z + depth_z;
 	if (z_ave != 0)
@@ -24,12 +25,14 @@ static void	projection_perspective(t_line *line, float depth_z)
 		line->p1.x = line->p1.x * focal_length / z_ave;
 		line->p1.y = line->p1.y * focal_length / z_ave;
 	}
+	line->p1.y = -line->p1.y;
 	z_ave = line->p2.z + depth_z;
 	if (z_ave != 0)
 	{
 		line->p2.x = line->p2.x * focal_length / z_ave;
 		line->p2.y = line->p2.y * focal_length / z_ave;
 	}
+	line->p2.y = -line->p2.y;
 	line->p1.x *= depth_z;
 	line->p1.y *= depth_z;
 	line->p2.x *= depth_z;

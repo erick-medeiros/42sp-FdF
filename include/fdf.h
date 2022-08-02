@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:25:15 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:44:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define ANG_45_RADIAN	0.785398163397448
 # define ANG_120_RADIAN	2.094395102393195
 # define ANG_135_RADIAN	2.356194490192345
+# define ANG_180_RADIAN 3.141592653589793
 # define ANG_360_RADIAN	6.283185307179586
 # define C_WHITE		0xFFFFFF
 # define C_BLACK		0x000000
@@ -62,12 +63,13 @@
 # define C_YELLOW		0xFFFF00
 # define C_CYAN			0x00FFFF
 # define C_MAGENTA	0xFF00FF
+# define C_VIOLET		0x9B26B6
 # define DEFAULT_COLOR		C_WHITE
 # define HIGHLIGHT_COLOR	C_YELLOW
 # define BACKGROUND_COLOR	C_BLACK
-# define PALETTE0_COLOR1 DEFAULT_COLOR
+# define PALETTE0_COLOR1 HIGHLIGHT_COLOR
 # define PALETTE1_COLOR1 DEFAULT_COLOR
-# define PALETTE2_COLOR1 C_MAGENTA
+# define PALETTE2_COLOR1 C_VIOLET
 # define PALETTE2_COLOR2 BACKGROUND_COLOR
 # define PALETTE3_COLOR1 C_MAGENTA
 # define PALETTE3_COLOR2 C_BLUE
