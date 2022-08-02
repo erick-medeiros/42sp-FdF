@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform_scale.c                                  :+:      :+:    :+:   */
+/*   transform.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 22:16:16 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:35:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:58:25 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
+
+void	transform_translate(t_line *line, t_camera *camera)
+{
+	line->p1.x += camera->move_x;
+	line->p2.x += camera->move_x;
+	line->p1.y += camera->move_y;
+	line->p2.y += camera->move_y;
+}
 
 void	transform_scale(t_line *line, float scale_factor)
 {

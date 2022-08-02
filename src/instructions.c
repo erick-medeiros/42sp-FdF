@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 21:54:44 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:48:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:03:44 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	instructions(t_fdf *fdf)
 	void	*win;
 	int		w;
 	int		h;
+	char	str[30];
 
 	mlx = fdf->mlx_ptr;
 	win = fdf->win_ptr;
@@ -111,4 +112,6 @@ void	instructions(t_fdf *fdf)
 	mlx_string_put(mlx, win, w, h += 30, TEXT_C, "Info: press '.'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Axis XYZ: press 'L'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Reset view: press 'R'");
+	ft_sprintf(str, 100, "Points (%i)", fdf->map.amount);
+	mlx_string_put(mlx, win, w, h += 20, HIGHL_C, str);
 }

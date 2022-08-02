@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:35:08 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:01:22 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_map {
 	int		max_y;
 	int		max_z;
 	int		min_z;
+	int		amount;
 	int		map_scale;
 }	t_map;
 
@@ -204,24 +205,15 @@ void	camera_limits(t_camera *camera);
 void	instructions(t_fdf *fdf);
 // } render
 
-// transform_scale {
+// transform {
 void	transform_scale(t_line *line, float scale_factor);
 void	transform_scale_z(t_line *line, t_camera *camera);
-// } transform_scale
-
-// transform_rotate {
 void	transform_rotate(t_line *line, t_camera *camera);
 void	transform_rotate_x(t_line *line, double angle);
 void	transform_rotate_y(t_line *line, double angle);
 void	transform_rotate_z(t_line *line, double angle);
-// } transform_rotate
-
-// transform_translate {
 void	transform_translate(t_line *line, t_camera *camera);
-void	transform_translate_x(t_line *line, int motion_factor);
-void	transform_translate_y(t_line *line, int motion_factor);
-void	transform_translate_z(t_line *line, int motion_factor);
-// } transform_translate
+// } transform
 
 // projection {
 void	projection(t_line *line, t_fdf *fdf);
