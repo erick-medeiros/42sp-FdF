@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 12:37:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:15:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,8 @@ void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
 // } init
 
 // read {
-void	read_map(t_fdf *fdf, char *filepath);
-void	update_map_scale(t_fdf *fdf);
+void	read_map(t_map *map, char *filepath);
+void	update_map_scale(t_map *map);
 void	system_coordinates(t_fdf *fdf, int size);
 // } read
 

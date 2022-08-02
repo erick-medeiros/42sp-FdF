@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:31:39 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:16:23 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_fdf(t_fdf *fdf)
 {
 	init_camera(fdf);
-	fdf->map.coordinates = NULL;
 	fdf->win_ptr = NULL;
 	fdf->img.img_ptr = NULL;
 	fdf->mlx_ptr = mlx_init();

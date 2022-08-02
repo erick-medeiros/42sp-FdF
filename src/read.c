@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:07:07 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:17:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,42 +76,43 @@ static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)
 	return (NULL);
 }
 
-static void	get_max_values(t_fdf *fdf, char ***filedata)
+static void	get_max_values(t_map *map, char ***filedata)
 {
 	int	x;
 	int	y;
 
-	fdf->map.max_x = 0;
-	while (filedata[0][fdf->map.max_x] != NULL)
-		fdf->map.max_x++;
+	map->max_x = 0;
+	while (filedata[0][map->max_x] != NULL)
+		map->max_x++;
 	y = 0;
-	fdf->map.max_z = 0;
-	fdf->map.min_z = 0;
+	map->max_z = 0;
+	map->min_z = 0;
 	while (filedata[y] != NULL)
 	{
 		x = 0;
 		while (filedata[y][x] != NULL)
 		{
-			fdf->map.max_z = fmax(ft_atoi(filedata[y][x]), fdf->map.max_z);
-			fdf->map.min_z = fmin(ft_atoi(filedata[y][x]), fdf->map.min_z);
+			map->max_z = fmax(ft_atoi(filedata[y][x]), map->max_z);
+			map->min_z = fmin(ft_atoi(filedata[y][x]), map->min_z);
 			x++;
 		}
-		if (fdf->map.max_x != x)
+		if (map->max_x != x)
 			perror("");
 		y++;
 	}
-	fdf->map.max_y = y;
+	map->max_y = y;
 }
 
-void	read_map(t_fdf *fdf, char *filepath)
+void	read_map(t_map *map, char *filepath)
 {
 	char	***filedata;
 
 	filedata = read_file(filepath, NULL, 0, 0);
 	if (filedata == NULL)
-		free_error_exit(fdf, 2);
-	get_max_values(fdf, filedata);
-	set_coordinates(&fdf->map, filedata, 0, 0);
-	update_map_scale(fdf);
+		error_exit(2);
+	map->coordinates = NULL;
+	get_max_values(map, filedata);
+	set_coordinates(map, filedata, 0, 0);
+	update_map_scale(map);
 	free_filedata(filedata);
 }

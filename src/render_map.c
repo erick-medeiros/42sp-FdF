@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:25:10 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:14:56 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ static int	calculate_map_scale(t_map *map)
 	return (map_scale / 2);
 }
 
-void	update_map_scale(t_fdf *fdf)
+void	update_map_scale(t_map *map)
 {
 	int	i;
 	int	j;
 
-	fdf->map.map_scale = calculate_map_scale(&fdf->map);
+	map->map_scale = calculate_map_scale(map);
 	j = 0;
-	while (j < fdf->map.max_y)
+	while (j < map->max_y)
 	{
 		i = 0;
-		while (i < fdf->map.max_x)
+		while (i < map->max_x)
 		{
-			fdf->map.coordinates[i][j].x -= fdf->map.max_x / 2;
-			fdf->map.coordinates[i][j].y -= fdf->map.max_y / 2;
+			map->coordinates[i][j].x -= map->max_x / 2;
+			map->coordinates[i][j].y -= map->max_y / 2;
 			i++;
 		}
 		j++;
