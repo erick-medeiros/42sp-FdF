@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 10:05:25 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:37:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ typedef struct s_bresenham {
 	int		yi;
 	int		delta_x;
 	int		delta_y;
-	int		decision;
+	int		error;
 }	t_bresenham;
 
 // free {
@@ -239,10 +239,7 @@ void	set_color_point(t_fdf *fdf, t_point *point);
 void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2);
 void	bresenham_draw(t_bresenham *b);
 void	bresenham_axis(t_bresenham *b);
-void	bresenham_octante_1_5(t_bresenham *b);
-void	bresenham_octante_8_4(t_bresenham *b);
-void	bresenham_octante_2_6(t_bresenham *b);
-void	bresenham_octante_7_3(t_bresenham *b);
+void	bresenham_octantes(t_bresenham *b);
 // } bresenham_line_algorithm
 
 #endif
