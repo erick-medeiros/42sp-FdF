@@ -6,11 +6,21 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 11:17:29 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 00:06:45 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:15:25 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
+
+int	get_color_file(char *color)
+{
+	color = ft_strchr(color, ',');
+	ft_tolower_str(&color);
+	if (color)
+		return (ft_atoi_base(&color[1], HEXADECIMAL_BASE));
+	else
+		return (-1);
+}
 
 int	get_color_gradient(t_color *color, float gradient)
 {

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:17:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:37:25 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:22:05 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,4 @@ void	free_all(t_fdf *fdf)
 		free(fdf->mlx_ptr);
 	}
 	free_coordinates(&fdf->map);
-}
-
-void	reset_camera(t_fdf *fdf)
-{
-	fdf->camera.scale_factor = fdf->map.map_scale;
-	fdf->camera.scale_z = 100;
-	fdf->camera.move_x = WINDOW_WIDTH / 2;
-	fdf->camera.move_y = WINDOW_HEIGHT / 2;
-	fdf->camera.angle_x = 0;
-	fdf->camera.angle_y = 0;
-	fdf->camera.angle_z = 0;
 }

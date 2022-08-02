@@ -1,50 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_map.c                                       :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 14:48:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:14:56 by eandre-f         ###   ########.fr       */
+/*   Created: 2022/08/02 17:21:18 by eandre-f          #+#    #+#             */
+/*   Updated: 2022/08/02 17:22:09 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
-
-static int	calculate_map_scale(t_map *map)
-{
-	int	scale_x;
-	int	scale_y;
-	int	map_scale;
-
-	scale_x = WINDOW_WIDTH / map->max_x;
-	scale_y = WINDOW_HEIGHT / map->max_y;
-	map_scale = fmin(scale_x, scale_y);
-	if (map_scale < 4)
-		return (2);
-	return (map_scale / 2);
-}
-
-void	update_map_scale(t_map *map)
-{
-	int	i;
-	int	j;
-
-	map->map_scale = calculate_map_scale(map);
-	j = 0;
-	while (j < map->max_y)
-	{
-		i = 0;
-		while (i < map->max_x)
-		{
-			map->coordinates[i][j].x -= map->max_x / 2;
-			map->coordinates[i][j].y -= map->max_y / 2;
-			i++;
-		}
-		j++;
-	}
-}
 
 void	system_coordinates(t_fdf *fdf, int size)
 {
@@ -74,26 +40,31 @@ void	system_coordinates(t_fdf *fdf, int size)
 	fdf->camera.scale_z = scale_z;
 }
 
-void	render_map(t_fdf *fdf)
+void	camera_limits(t_camera *camera)
 {
-	int	map_x;
-	int	map_y;
+	if (camera->angle_x > ANG_360_RADIAN || camera->angle_x < -ANG_360_RADIAN)
+		camera->angle_x = 0;
+	if (camera->angle_y > ANG_360_RADIAN || camera->angle_y < -ANG_360_RADIAN)
+		camera->angle_y = 0;
+	if (camera->angle_z > ANG_360_RADIAN || camera->angle_z < -ANG_360_RADIAN)
+		camera->angle_z = 0;
+	if (camera->scale_factor > 1000)
+		camera->scale_factor = 1000;
+	if (camera->scale_factor < -1000)
+		camera->scale_factor = -1000;
+	if (camera->scale_z > 1000)
+		camera->scale_z = 1000;
+	if (camera->scale_z < -1000)
+		camera->scale_z = -1000;
+}
 
-	fdf->camera.change_color = 1;
-	map_y = 0;
-	while (map_y < fdf->map.max_y)
-	{
-		map_x = 0;
-		while (map_x < fdf->map.max_x)
-		{
-			if (map_x < fdf->map.max_x - 1)
-				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
-					&fdf->map.coordinates[map_x + 1][map_y]);
-			if (map_y < fdf->map.max_y - 1)
-				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
-					&fdf->map.coordinates[map_x][map_y + 1]);
-			map_x++;
-		}
-		map_y++;
-	}
+void	reset_camera(t_fdf *fdf)
+{
+	fdf->camera.scale_factor = fdf->map.map_scale;
+	fdf->camera.scale_z = 100;
+	fdf->camera.move_x = WINDOW_WIDTH / 2;
+	fdf->camera.move_y = WINDOW_HEIGHT / 2;
+	fdf->camera.angle_x = 0;
+	fdf->camera.angle_y = 0;
+	fdf->camera.angle_z = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:45:30 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:22:27 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,28 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	bresenham(fdf, &line.p1, &line.p2);
 }
 
-void	camera_limits(t_camera *camera)
+void	render_map(t_fdf *fdf)
 {
-	if (camera->angle_x > ANG_360_RADIAN || camera->angle_x < -ANG_360_RADIAN)
-		camera->angle_x = 0;
-	if (camera->angle_y > ANG_360_RADIAN || camera->angle_y < -ANG_360_RADIAN)
-		camera->angle_y = 0;
-	if (camera->angle_z > ANG_360_RADIAN || camera->angle_z < -ANG_360_RADIAN)
-		camera->angle_z = 0;
-	if (camera->scale_factor > 1000)
-		camera->scale_factor = 1000;
-	if (camera->scale_factor < -1000)
-		camera->scale_factor = -1000;
-	if (camera->scale_z > 1000)
-		camera->scale_z = 1000;
-	if (camera->scale_z < -1000)
-		camera->scale_z = -1000;
+	int	map_x;
+	int	map_y;
+
+	fdf->camera.change_color = 1;
+	map_y = 0;
+	while (map_y < fdf->map.max_y)
+	{
+		map_x = 0;
+		while (map_x < fdf->map.max_x)
+		{
+			if (map_x < fdf->map.max_x - 1)
+				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
+					&fdf->map.coordinates[map_x + 1][map_y]);
+			if (map_y < fdf->map.max_y - 1)
+				render_line(fdf, &fdf->map.coordinates[map_x][map_y],
+					&fdf->map.coordinates[map_x][map_y + 1]);
+			map_x++;
+		}
+		map_y++;
+	}
 }
 
 int	render(t_fdf *fdf)

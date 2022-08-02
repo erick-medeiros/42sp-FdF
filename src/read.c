@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 16:51:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:17:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,32 @@ static char	***read_file(char *filepath, char *line, int row, int fd)
 	return (filedata);
 }
 
-static int	get_color_file(char *color)
+static void	get_max_values(t_map *map, char ***filedata)
 {
-	color = ft_strchr(color, ',');
-	ft_tolower_str(&color);
-	if (color)
-		return (ft_atoi_base(&color[1], HEXADECIMAL_BASE));
-	else
-		return (-1);
+	int	x;
+	int	y;
+
+	map->max_x = 0;
+	while (filedata[0][map->max_x] != NULL)
+		map->max_x++;
+	y = 0;
+	map->max_z = 0;
+	map->min_z = 0;
+	while (filedata[y] != NULL)
+	{
+		x = 0;
+		while (filedata[y][x] != NULL)
+		{
+			map->max_z = fmax(ft_atoi(filedata[y][x]), map->max_z);
+			map->min_z = fmin(ft_atoi(filedata[y][x]), map->min_z);
+			x++;
+		}
+		if (map->max_x != x)
+			perror("");
+		y++;
+	}
+	map->max_y = y;
+	map->amount = map->max_x * map->max_y;
 }
 
 static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)
@@ -76,32 +94,32 @@ static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)
 	return (NULL);
 }
 
-static void	get_max_values(t_map *map, char ***filedata)
+static void	update_map_scale(t_map *map)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
+	int	scale_x;
+	int	scale_y;
 
-	map->max_x = 0;
-	while (filedata[0][map->max_x] != NULL)
-		map->max_x++;
-	y = 0;
-	map->max_z = 0;
-	map->min_z = 0;
-	while (filedata[y] != NULL)
+	scale_x = WINDOW_WIDTH / map->max_x;
+	scale_y = WINDOW_HEIGHT / map->max_y;
+	map->map_scale = fmin(scale_x, scale_y);
+	if (map->map_scale < 4)
+		map->map_scale = 2;
+	else
+		map->map_scale /= 2;
+	j = 0;
+	while (j < map->max_y)
 	{
-		x = 0;
-		while (filedata[y][x] != NULL)
+		i = 0;
+		while (i < map->max_x)
 		{
-			map->max_z = fmax(ft_atoi(filedata[y][x]), map->max_z);
-			map->min_z = fmin(ft_atoi(filedata[y][x]), map->min_z);
-			x++;
+			map->coordinates[i][j].x -= map->max_x / 2;
+			map->coordinates[i][j].y -= map->max_y / 2;
+			i++;
 		}
-		if (map->max_x != x)
-			perror("");
-		y++;
+		j++;
 	}
-	map->max_y = y;
-	map->amount = map->max_x * map->max_y;
 }
 
 void	read_map(t_map *map, char *filepath)

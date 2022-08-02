@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:01:22 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/02 17:25:15 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,6 @@ typedef struct s_bresenham {
 void	free_filedata(char ***filedata);
 void	free_coordinates(t_map	*map);
 void	free_all(t_fdf *fdf);
-void	reset_camera(t_fdf *fdf);
 // } free
 
 // exit {
@@ -192,16 +191,19 @@ void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2);
 
 // read {
 void	read_map(t_map *map, char *filepath);
-void	update_map_scale(t_map *map);
-void	system_coordinates(t_fdf *fdf, int size);
 // } read
+
+// camera {
+void	system_coordinates(t_fdf *fdf, int size);
+void	camera_limits(t_camera *camera);
+void	reset_camera(t_fdf *fdf);
+// } camera
 
 // render {
 void	update_image_pixel(t_img *img, int pixel_x, int pixel_y, int color);
 void	render_line(t_fdf *fdf, t_point *point1, t_point *point2);
 void	render_map(t_fdf *fdf);
 int		render(t_fdf *fdf);
-void	camera_limits(t_camera *camera);
 void	instructions(t_fdf *fdf);
 // } render
 
@@ -220,6 +222,7 @@ void	projection(t_line *line, t_fdf *fdf);
 // } projection
 
 // color {
+int		get_color_file(char *color);
 int		get_color_gradient(t_color *color, float gradient);
 void	set_color_point(t_fdf *fdf, t_point *point);
 // } color
