@@ -1,0 +1,3 @@
+[submodule "libft"]
+	path = lib/libft
+	url = https://github.com/erick-medeiros/42sp-glibft

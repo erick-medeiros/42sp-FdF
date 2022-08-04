@@ -5,4 +5,5 @@ This project is about representing a landscape as a 3D object in which all surfa
 
 ## References
 
+- minilibx | https://aurelienbrabant.fr/blog
 - bresenham | https://johannesca.github.io/cg_t1/
