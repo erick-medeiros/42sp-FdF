@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 21:54:44 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:03:44 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/04 01:16:16 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	show_info_position(t_fdf *fdf, int w, int h)
 {
 	void	*mlx;
 	void	*win;
-	int		scale_calc;
 	char	str[100];
 
 	mlx = fdf->mlx_ptr;
@@ -46,9 +45,8 @@ static int	show_info_position(t_fdf *fdf, int w, int h)
 	mlx_string_put(mlx, win, w, h += 30, TEXT_C, "Move: press arrow keys");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Zoom: press '-' or '+'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Scale Z: press 'Z' or 'X'");
-	scale_calc = (int)((fdf->camera.scale_factor * 100) / fdf->map.map_scale);
-	ft_sprintf(str, 100, "Scale (%i%%) Scale Z (%i%%)",
-		scale_calc, fdf->camera.scale_z);
+	ft_sprintf(str, 100, "Scale (%i) Scale Z (%i%%)",
+		fdf->camera.scale_factor, fdf->camera.scale_z);
 	mlx_string_put(mlx, win, w, h += 20, HIGHL_C, str);
 	return (h);
 }
@@ -112,6 +110,6 @@ void	instructions(t_fdf *fdf)
 	mlx_string_put(mlx, win, w, h += 30, TEXT_C, "Info: press '.'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Axis XYZ: press 'L'");
 	mlx_string_put(mlx, win, w, h += 20, TEXT_C, "Reset view: press 'R'");
-	ft_sprintf(str, 100, "Points (%i)", fdf->map.amount);
+	ft_sprintf(str, 100, "Points (%ix%i)", fdf->map.max_x, fdf->map.max_y);
 	mlx_string_put(mlx, win, w, h += 20, HIGHL_C, str);
 }

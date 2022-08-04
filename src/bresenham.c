@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:24:27 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 12:37:58 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:23:48 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2)
 {
 	t_bresenham	b;
 
+	p1->x = (int)p1->x;
+	p1->y = (int)p1->y;
+	p2->x = (int)p2->x;
+	p2->y = (int)p2->y;
 	b.p1 = *p1;
 	b.p2 = *p2;
 	if (p1->x > p2->x || (p1->x == p2->x && p1->y > p2->y))

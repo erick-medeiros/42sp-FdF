@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:17:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/04 01:20:00 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	get_max_values(t_map *map, char ***filedata)
 		y++;
 	}
 	map->max_y = y;
-	map->amount = map->max_x * map->max_y;
 }
 
 static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)

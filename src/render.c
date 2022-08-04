@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:22:27 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:42:26 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	t_line		line;
 
 	init_line(fdf, &line, point1, point2);
-	transform_scale_z(&line, &fdf->camera);
+	transform_scale_z(&line, fdf->camera.scale_z);
 	transform_rotate(&line, &fdf->camera);
 	projection(&line, fdf);
 	transform_scale(&line, fdf->camera.scale_factor);

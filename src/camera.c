@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 17:21:18 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:22:09 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:20:02 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	camera_limits(t_camera *camera)
 		camera->scale_factor = 1000;
 	if (camera->scale_factor < -1000)
 		camera->scale_factor = -1000;
-	if (camera->scale_z > 1000)
-		camera->scale_z = 1000;
-	if (camera->scale_z < -1000)
-		camera->scale_z = -1000;
+	if (camera->scale_z > 100)
+		camera->scale_z = 100;
+	if (camera->scale_z < -100)
+		camera->scale_z = -100;
 }
 
 void	reset_camera(t_fdf *fdf)

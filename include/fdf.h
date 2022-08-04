@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:44:21 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/04 01:05:11 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@
 # define C_YELLOW		0xFFFF00
 # define C_CYAN			0x00FFFF
 # define C_MAGENTA	0xFF00FF
-# define C_VIOLET		0x9B26B6
+# define C_VIOLET		0x3E0694
 # define DEFAULT_COLOR		C_WHITE
 # define HIGHLIGHT_COLOR	C_YELLOW
 # define BACKGROUND_COLOR	C_BLACK
-# define PALETTE0_COLOR1 HIGHLIGHT_COLOR
+# define PALETTE0_COLOR1 C_GREEN
 # define PALETTE1_COLOR1 DEFAULT_COLOR
 # define PALETTE2_COLOR1 C_VIOLET
 # define PALETTE2_COLOR2 BACKGROUND_COLOR
@@ -101,7 +101,6 @@ typedef struct s_map {
 	int		max_y;
 	int		max_z;
 	int		min_z;
-	int		amount;
 	int		map_scale;
 }	t_map;
 
@@ -126,6 +125,7 @@ typedef struct s_camera {
 	int		change_color;
 	int		scale_factor;
 	int		scale_z;
+	int		depth_z;
 	double	angle_x;
 	double	angle_y;
 	double	angle_z;
@@ -210,13 +210,14 @@ void	instructions(t_fdf *fdf);
 // } render
 
 // transform {
-void	transform_scale(t_line *line, float scale_factor);
-void	transform_scale_z(t_line *line, t_camera *camera);
+void	transform_scale(t_line *line, int scale_factor);
+void	transform_scale_z(t_line *line, int scale_z);
 void	transform_rotate(t_line *line, t_camera *camera);
 void	transform_rotate_x(t_line *line, double angle);
 void	transform_rotate_y(t_line *line, double angle);
 void	transform_rotate_z(t_line *line, double angle);
 void	transform_translate(t_line *line, t_camera *camera);
+void	transform_translate_z(t_line *line, int move_z);
 // } transform
 
 // projection {
