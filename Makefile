@@ -29,6 +29,7 @@ FILES				+= render.c
 FILES				+= transform.c
 FILES				+= transform_rotate.c
 FILES				+= projection.c
+FILES				+= clipping.c
 FILES				+= color.c
 FILES				+= bresenham.c
 FILES				+= bresenham_octantes.c

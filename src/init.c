@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/04 00:51:16 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:03:50 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	init_line(t_fdf *fdf, t_line *line, t_point *p1, t_point *p2)
 {
 	line->p1 = *p1;
 	line->p2 = *p2;
+	line->show = 1;
 	if (fdf->camera.change_color)
 	{
 		set_color_point(fdf, &line->p1);

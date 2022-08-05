@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:19:48 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/03 22:42:26 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:41:49 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ void	render_line(t_fdf *fdf, t_point *point1, t_point *point2)
 	transform_scale_z(&line, fdf->camera.scale_z);
 	transform_rotate(&line, &fdf->camera);
 	projection(&line, fdf);
+	if (!line.show)
+		return ;
 	transform_scale(&line, fdf->camera.scale_factor);
 	transform_translate(&line, &fdf->camera);
+	cohensutherland_clipping(&line);
+	if (!line.show)
+		return ;
 	bresenham(fdf, &line.p1, &line.p2);
 }
 

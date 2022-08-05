@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/04 01:05:11 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:36:32 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 
 # define WINDOW_NAME	 	"fdf"
-# define WINDOW_WIDTH		1120
-# define WINDOW_HEIGHT		630
+# define WINDOW_WIDTH		1120 //560
+# define WINDOW_HEIGHT		630 // 315
 # define HEXADECIMAL_BASE	"0123456789abcdef"
 # define KEY_ESC		65307
 # define KEY_PLUS1	61
@@ -115,6 +115,7 @@ typedef struct s_img {
 typedef struct s_line {
 	t_point		p1;
 	t_point		p2;
+	short		show;
 }	t_line;
 
 typedef struct s_camera {
@@ -229,6 +230,11 @@ int		get_color_file(char *color);
 int		get_color_gradient(t_color *color, float gradient);
 void	set_color_point(t_fdf *fdf, t_point *point);
 // } color
+
+// clipping {
+void	camera_clipping(t_line *line, double *z1_distance, double *z2_distance);
+void	cohensutherland_clipping(t_line *line);
+// } clipping
 
 // bresenham_line_algorithm {
 void	bresenham(t_fdf *fdf, t_point *p1, t_point *p2);
