@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:55:08 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:17:03 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/04 01:44:34 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,10 @@
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
-	char	*filepath;
 
 	if (argc != 2)
-	{
-		ft_printf("execute ~ error_exit(1)\n");
-		filepath = "maps/42.fdf";
-	}
-	else
-	{
-		filepath = argv[1];
-	}
-	read_map(&fdf.map, filepath);
+		error_exit(1);
+	read_map(&fdf.map, argv[1]);
 	init_fdf(&fdf);
 	render(&fdf);
 	mlx_hook(fdf.win_ptr, 17, 0, &handle_x11_destroy_notify, &fdf);
