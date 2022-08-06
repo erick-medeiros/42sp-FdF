@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 17:34:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/07/27 17:38:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:48:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	error_exit(int error_status)
 		ft_printf("Cannot read file\n");
 	if (error_status == 3)
 		ft_printf("Cannot open display\n");
+	if (error_status == 4)
+		ft_printf("Wrongly written file\n");
 	perror("System");
 	exit(1);
 }
@@ -41,4 +43,10 @@ void	free_success_exit(t_fdf *fdf, int success_status)
 {
 	free_all(fdf);
 	success_exit(success_status);
+}
+
+void	free_filedata_error_exit(char ***filedata, int error_status)
+{
+	free_filedata(filedata);
+	error_exit(error_status);
 }

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/04 01:20:00 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:55:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ static void	get_max_values(t_map *map, char ***filedata)
 		x = 0;
 		while (filedata[y][x] != NULL)
 		{
+			if (!ft_isprint(filedata[y][x][0]))
+				free_filedata_error_exit(filedata, 2);
 			map->max_z = fmax(ft_atoi(filedata[y][x]), map->max_z);
 			map->min_z = fmin(ft_atoi(filedata[y][x]), map->min_z);
 			x++;
 		}
 		if (map->max_x != x)
-			perror("");
+			free_filedata_error_exit(filedata, 4);
 		y++;
 	}
 	map->max_y = y;
@@ -125,11 +127,15 @@ void	read_map(t_map *map, char *filepath)
 {
 	char	***filedata;
 
+	map->coordinates = NULL;
 	filedata = read_file(filepath, NULL, 0, 0);
 	if (filedata == NULL)
 		error_exit(2);
-	map->coordinates = NULL;
+	if (filedata[0] == NULL)
+		free_filedata_error_exit(filedata, 2);
 	get_max_values(map, filedata);
+	if (map->max_x == 0 || map->max_y == 0)
+		free_filedata_error_exit(filedata, 4);
 	set_coordinates(map, filedata, 0, 0);
 	update_map_scale(map);
 	free_filedata(filedata);

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 02:17:14 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 17:22:05 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:04:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ void	free_filedata(char ***filedata)
 	int	y;
 
 	y = 0;
-	while (filedata[y] != NULL)
+	if (filedata != NULL)
 	{
-		x = 0;
-		while (filedata[y][x] != NULL)
+		while (filedata[y] != NULL)
 		{
-			free(filedata[y][x]);
-			x++;
+			x = 0;
+			while (filedata[y][x] != NULL)
+			{
+				free(filedata[y][x]);
+				x++;
+			}
+			free(filedata[y]);
+			y++;
 		}
-		free(filedata[y]);
-		y++;
 	}
 	free(filedata);
 }
