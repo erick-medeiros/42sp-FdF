@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/06 10:55:29 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:57:20 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ static void	get_max_values(t_map *map, char ***filedata)
 	map->max_y = y;
 }
 
-static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)
+static void	set_coordinates(t_map *map, char ***filedata, int x, int y)
 {
 	map->coordinates = malloc(map->max_x * sizeof(t_point *));
 	if (!map->coordinates)
-		return (NULL);
+		free_map_error_exit(map, 5);
 	x = 0;
 	while (x < map->max_x)
 	{
 		map->coordinates[x] = malloc(map->max_y * sizeof(t_point));
 		if (map->coordinates[x] == NULL)
-			return (NULL);
+			free_map_error_exit(map, 5);
 		y = 0;
 		while (y < map->max_y)
 		{
@@ -92,7 +92,6 @@ static void	*set_coordinates(t_map *map, char ***filedata, int x, int y)
 		}
 		x++;
 	}
-	return (NULL);
 }
 
 static void	update_map_scale(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 14:42:55 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:55:54 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	error_exit(int error_status);
 void	success_exit(int success_status);
 void	free_error_exit(t_fdf *fdf, int error_status);
 void	free_filedata_error_exit(char ***filedata, int error_status);
+void	free_map_error_exit(t_map *map, int error_status);
 // } exit
 
 // handle_events {
