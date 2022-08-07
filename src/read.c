@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 17:14:36 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:34:35 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ static void	update_map_scale(t_map *map)
 	scale_x = WINDOW_WIDTH / map->max_x;
 	scale_y = WINDOW_HEIGHT / map->max_y;
 	map->map_scale = fmin(scale_x, scale_y);
+	map->map_scale /= 2;
+	map->map_scale = (map->map_scale * 3) / 4;
 	if (map->map_scale < 4)
 		map->map_scale = 2;
-	else
-		map->map_scale /= 2;
 	j = 0;
 	while (j < map->max_y)
 	{
