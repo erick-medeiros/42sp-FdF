@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 17:34:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 14:56:44 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 15:32:44 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	error_exit(int error_status)
 		ft_printf("Wrongly written file\n");
 	if (error_status == 5)
 		ft_printf("Map creation error\n");
+	if (error_status == 6)
+		ft_printf("Incorrect file extension\n");
 	perror("System");
 	exit(1);
 }
