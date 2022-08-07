@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 17:34:13 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/06 10:48:07 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:41:06 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	free_error_exit(t_fdf *fdf, int error_status)
 {
 	free_all(fdf);
 	error_exit(error_status);
-}
-
-void	free_success_exit(t_fdf *fdf, int success_status)
-{
-	free_all(fdf);
-	success_exit(success_status);
 }
 
 void	free_filedata_error_exit(char ***filedata, int error_status)

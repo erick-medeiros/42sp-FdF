@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 14:29:07 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:42:55 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,15 +173,14 @@ void	free_all(t_fdf *fdf);
 void	error_exit(int error_status);
 void	success_exit(int success_status);
 void	free_error_exit(t_fdf *fdf, int error_status);
-void	free_success_exit(t_fdf *fdf, int success_status);
 void	free_filedata_error_exit(char ***filedata, int error_status);
 // } exit
 
 // handle_events {
+int		handle_exit(t_fdf *fdf);
 int		handle_keypress(int keycode, t_fdf *fdf);
 int		handle_keypress_transform(int keycode, t_fdf *fdf);
 void	handle_keypress_color(t_fdf *fdf);
-int		handle_x11_destroy_notify(t_fdf *fdf);
 int		handle_expose(t_fdf *fdf);
 // } handle_events
 

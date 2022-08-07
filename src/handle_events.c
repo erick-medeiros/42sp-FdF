@@ -6,16 +6,25 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:56:11 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/02 14:38:07 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:40:21 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
+// x11 destroy notify
+
+int	handle_exit(t_fdf *fdf)
+{
+	free_all(fdf);
+	success_exit(1);
+	return (0);
+}
+
 int	handle_keypress(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
-		free_success_exit(fdf, 1);
+		handle_exit(fdf);
 	else if (keycode == KEY_DOT)
 		fdf->camera.show_info *= -1;
 	else if (keycode == KEY_L)
@@ -78,13 +87,6 @@ int	handle_keypress_transform(int keycode, t_fdf *fdf)
 		fdf->camera.angle_y -= (5 * ANG_1_RADIAN);
 	else if (keycode == KEY_E)
 		fdf->camera.angle_y += (5 * ANG_1_RADIAN);
-	return (0);
-}
-
-int	handle_x11_destroy_notify(t_fdf *fdf)
-{
-	free_all(fdf);
-	success_exit(1);
 	return (0);
 }
 
