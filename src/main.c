@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:55:08 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 15:33:23 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 16:49:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	check_arg(int argc, char **argv)
 
 	if (argc != 2)
 		error_exit(1);
-	argument = ft_strchr(argv[1], '.');
+	argument = ft_strrchr(argv[1], '.');
 	if (argument == NULL)
 		error_exit(6);
 	extension = ft_strdup(".fdf");

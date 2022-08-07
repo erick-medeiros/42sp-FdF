@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:49:26 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 14:57:20 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:14:36 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ static void	get_max_values(t_map *map, char ***filedata)
 	while (filedata[y] != NULL)
 	{
 		x = 0;
+		if (!ft_isprint(filedata[y][x][0]))
+			free_filedata_error_exit(filedata, 2);
 		while (filedata[y][x] != NULL)
 		{
-			if (!ft_isprint(filedata[y][x][0]))
-				free_filedata_error_exit(filedata, 2);
 			map->max_z = fmax(ft_atoi(filedata[y][x]), map->max_z);
 			map->min_z = fmin(ft_atoi(filedata[y][x]), map->min_z);
 			x++;
 		}
-		if (map->max_x != x)
+		if (map->max_x > x)
 			free_filedata_error_exit(filedata, 4);
 		y++;
 	}
