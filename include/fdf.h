@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/06 10:48:00 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:29:07 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@
 # define DEFAULT_COLOR		C_WHITE
 # define HIGHLIGHT_COLOR	C_YELLOW
 # define BACKGROUND_COLOR	C_BLACK
-# define PALETTE0_COLOR1 C_GREEN
-# define PALETTE1_COLOR1 DEFAULT_COLOR
-# define PALETTE2_COLOR1 C_VIOLET
-# define PALETTE2_COLOR2 BACKGROUND_COLOR
-# define PALETTE3_COLOR1 C_MAGENTA
-# define PALETTE3_COLOR2 C_BLUE
-# define PALETTE3_COLOR3 C_CYAN
+# define PALETTE0_COLOR1 DEFAULT_COLOR
+# define PALETTE1_COLOR1 C_VIOLET
+# define PALETTE1_COLOR2 BACKGROUND_COLOR
+# define PALETTE2_COLOR1 C_MAGENTA
+# define PALETTE2_COLOR2 C_BLUE
+# define PALETTE2_COLOR3 C_CYAN
+# define PALETTE3_COLOR1 C_GREEN
 
 enum e_projection {
 	ISOMETRIC,

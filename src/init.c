@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 22:24:28 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/04 23:03:50 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:27:29 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_camera(t_fdf *fdf)
 	fdf->camera.depth_z = fmax((fdf->map.max_z - fdf->map.min_z), \
 		fmax(fdf->map.max_x, fdf->map.max_y));
 	fdf->camera.projection = ISOMETRIC;
-	fdf->camera.color_palette = COLORPALETTE1;
+	fdf->camera.color_palette = COLORPALETTE0;
 	fdf->camera.show_info = 1;
 	fdf->camera.show_coord = -1;
 	fdf->camera.change_color = 1;
