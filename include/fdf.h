@@ -6,7 +6,7 @@
 /*   By: eandre-f <eandre-f@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:57:52 by eandre-f          #+#    #+#             */
-/*   Updated: 2022/08/07 14:55:54 by eandre-f         ###   ########.fr       */
+/*   Updated: 2022/08/07 17:28:18 by eandre-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 
 # define WINDOW_NAME	 	"fdf"
-# define WINDOW_WIDTH		1120 //560
-# define WINDOW_HEIGHT		630 // 315
+# define WINDOW_WIDTH		1280
+# define WINDOW_HEIGHT		720
 # define HEXADECIMAL_BASE	"0123456789abcdef"
 # define KEY_ESC		65307
 # define KEY_PLUS1	61
@@ -50,9 +50,7 @@
 # define KEY_L			108
 # define ANG_1_RADIAN		0.017453292519943
 # define ANG_30_RADIAN	0.523598775598299
-# define ANG_45_RADIAN	0.785398163397448
 # define ANG_120_RADIAN	2.094395102393195
-# define ANG_135_RADIAN	2.356194490192345
 # define ANG_180_RADIAN 3.141592653589793
 # define ANG_360_RADIAN	6.283185307179586
 # define C_WHITE		0xFFFFFF
@@ -67,13 +65,13 @@
 # define DEFAULT_COLOR		C_WHITE
 # define HIGHLIGHT_COLOR	C_YELLOW
 # define BACKGROUND_COLOR	C_BLACK
-# define PALETTE0_COLOR1 DEFAULT_COLOR
-# define PALETTE1_COLOR1 C_VIOLET
-# define PALETTE1_COLOR2 BACKGROUND_COLOR
-# define PALETTE2_COLOR1 C_MAGENTA
-# define PALETTE2_COLOR2 C_BLUE
-# define PALETTE2_COLOR3 C_CYAN
-# define PALETTE3_COLOR1 C_GREEN
+# define PALETTE0_COLOR1 	DEFAULT_COLOR
+# define PALETTE1_COLOR1 	C_VIOLET
+# define PALETTE1_COLOR2 	BACKGROUND_COLOR
+# define PALETTE2_COLOR1 	C_MAGENTA
+# define PALETTE2_COLOR2 	C_BLUE
+# define PALETTE2_COLOR3 	C_CYAN
+# define PALETTE3_COLOR1 	C_GREEN
 
 enum e_projection {
 	ISOMETRIC,
