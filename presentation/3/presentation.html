@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fdf@42:~/presentation $ ./run</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="presentation.css" />
+</head>
+<body class="theme-green">
+  <div class="crt">
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="flicker" aria-hidden="true"></div>
+
+    <div class="terminal">
+      <header class="term-titlebar">
+        <span class="dots"><i class="d r"></i><i class="d y"></i><i class="d g"></i></span>
+        <span class="term-title">fdf@42 — presentation.sh — <span id="resolution">80×24</span></span>
+        <span class="term-actions">
+          <button class="theme-btn" id="theme-btn" title="Trocar tema (T)">[ ~theme ]</button>
+        </span>
+      </header>
+
+      <div class="term-body">
+        <div class="term-prompt-line">
+          <span class="prompt-user">eandre-f</span><span class="prompt-at">@</span><span class="prompt-host">42sp</span><span class="prompt-colon">:</span><span class="prompt-path">~/projects/fdf</span><span class="prompt-dollar">$</span>
+          <span class="prompt-cmd">./presentation --slide=<span id="cmd-slide">01</span> --total=<span id="cmd-total">00</span></span>
+        </div>
+
+        <main class="screen" id="screen">
+
+          <section class="slide" data-title="boot.log">
+            <pre class="ascii-art">
+   ███████╗██████╗ ███████╗
+   ██╔════╝██╔══██╗██╔════╝
+   █████╗  ██║  ██║█████╗
+   ██╔══╝  ██║  ██║██╔══╝
+   ██║     ██████╔╝██║
+   ╚═╝     ╚═════╝ ╚═╝     <span class="dim">v1.0 — fil de fer 3D</span>
+            </pre>
+            <div class="boot-log" id="boot-log">
+              <div class="log-line"><span class="log-ok">[  OK  ]</span> Loading minilibx... <span class="dim">/usr/lib/libmlx_Linux.a</span></div>
+              <div class="log-line"><span class="log-ok">[  OK  ]</span> Mounting libft... <span class="dim">42sp/libft.a</span></div>
+              <div class="log-line"><span class="log-ok">[  OK  ]</span> Initialising X11 display... <span class="dim">:0.0</span></div>
+              <div class="log-line"><span class="log-ok">[  OK  ]</span> Allocating framebuffer... <span class="dim">1280x720x32</span></div>
+              <div class="log-line"><span class="log-warn">[ WARN ]</span> No GPU acceleration <span class="dim">(by design)</span></div>
+              <div class="log-line"><span class="log-ok">[  OK  ]</span> Reading <span class="hl">maps/42.fdf</span>...</div>
+              <div class="log-line"><span class="log-ok">[ DONE ]</span> Ready. Press <kbd>→</kbd> to begin.</div>
+            </div>
+          </section>
+
+          <section class="slide" data-title="about.md">
+            <h2><span class="prompt-mini">$</span> cat about.md</h2>
+            <div class="box">
+              <p class="lead">FdF — <span class="hl">"fil de fer"</span>, fio de arame em francês.</p>
+              <p>Projeto da <span class="hl">42 São Paulo</span> que renderiza, em puro C, paisagens 3D como modelos <em>wireframe</em> — só as arestas, sem preenchimento.</p>
+            </div>
+            <pre class="ascii-art small">
+                       .
+                      /|\
+                     / | \
+                    /  |  \         Cada vértice é um número.
+                   *---*---*        Cada linha é uma reta.
+                  / \ /|\ / \       Tudo cabe em uma matriz.
+                 *---*-*-*---*
+                / \ / \|/ \ / \
+               *---*---*---*---*
+            </pre>
+          </section>
+
+          <section class="slide" data-title="objectives.txt">
+            <h2><span class="prompt-mini">$</span> head -n 6 objectives.txt</h2>
+            <ul class="list">
+              <li><span class="bullet">▸</span> Implementar parser robusto para arquivos <span class="hl">.fdf</span></li>
+              <li><span class="bullet">▸</span> Aplicar transformações 3D (escala, rotação, translação)</li>
+              <li><span class="bullet">▸</span> Projeção isométrica (paralela) e em perspectiva (divisão por z)</li>
+              <li><span class="bullet">▸</span> Rasterização via algoritmo de <span class="hl">Bresenham</span></li>
+              <li><span class="bullet">▸</span> Clipping com <span class="hl">Cohen–Sutherland</span> + near-plane</li>
+              <li><span class="bullet">▸</span> Event loop interativo com teclado e mouse via MiniLibX</li>
+            </ul>
+            <p class="muted blink-cursor">// 6 itens · 0 dependências GPU · ~16 módulos C</p>
+          </section>
+
+          <section class="slide" data-title="format.fdf">
+            <h2><span class="prompt-mini">$</span> hexdump -C maps/pyramide.fdf | head</h2>
+            <pre class="code">
+<span class="dim">┌─[ pyramide.fdf ]──────────────────────────────────┐</span>
+<span class="dim">│</span>  0   0   0   0   0                                <span class="dim">│</span>
+<span class="dim">│</span>  0   <span class="num">5</span>   <span class="num">5</span>   <span class="num">5</span>   0                                <span class="dim">│</span>
+<span class="dim">│</span>  0   <span class="num">5</span>  <span class="num">10</span>,<span class="hex">0xff00aa</span>  <span class="num">5</span>   0                       <span class="dim">│</span>
+<span class="dim">│</span>  0   <span class="num">5</span>   <span class="num">5</span>   <span class="num">5</span>   0                                <span class="dim">│</span>
+<span class="dim">│</span>  0   0   0   0   0                                <span class="dim">│</span>
+<span class="dim">└───────────────────────────────────────────────────┘</span>
+            </pre>
+            <div class="grid-2">
+              <div class="box small">
+                <div class="box-title">[ rules ]</div>
+                <ul class="list compact">
+                  <li><span class="bullet">·</span> mesma quantidade de colunas em todas as linhas</li>
+                  <li><span class="bullet">·</span> cor opcional após <span class="hl">,</span> em hexa</li>
+                  <li><span class="bullet">·</span> alturas podem ser negativas</li>
+                </ul>
+              </div>
+              <div class="box small">
+                <div class="box-title">[ stats ]</div>
+                <pre class="kv">columns ........ N
+rows    ........ M
+points  ........ N×M
+edges   ........ N(M-1) + M(N-1)</pre>
+              </div>
+            </div>
+          </section>
+
+          <section class="slide" data-title="pipeline.dot">
+            <h2><span class="prompt-mini">$</span> cat pipeline.dot | render</h2>
+            <pre class="ascii-art pipeline">
+   ┌─────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌─────────┐
+   │  read   │───▶│transform │───▶│ project  │───▶│   clip   │───▶│bresenham │───▶│  blit   │
+   └─────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └─────────┘
+       <span class="dim">.fdf</span>           <span class="dim">RxSxT</span>          <span class="dim">3D→2D</span>          <span class="dim">CS+near</span>          <span class="dim">linhas</span>          <span class="dim">→ X11</span>
+            </pre>
+            <div class="box">
+              <div class="box-title">[ complexity ]</div>
+              <p>Cada frame = O(<span class="hl">N · M</span>) linhas, processadas em CPU.</p>
+              <p>Para mapas grandes (<span class="hl">100-6.fdf</span>: 600 pontos = 1198 arestas), o gargalo é o parser e a função <span class="hl">update_image_pixel()</span>.</p>
+            </div>
+          </section>
+
+          <section class="slide" data-title="structs.h">
+            <h2><span class="prompt-mini">$</span> grep -A 4 'typedef struct' include/fdf.h</h2>
+            <pre class="code"><span class="kw">typedef struct</span> s_point {
+    <span class="type">float</span> x, y, z;
+    <span class="type">int</span>   color;
+} t_point;
+
+<span class="kw">typedef struct</span> s_camera {
+    <span class="type">int</span>     projection;     <span class="cm">// ISOMETRIC | PERSPECTIVE | TOP</span>
+    <span class="type">int</span>     scale_factor, scale_z, depth_z;
+    <span class="type">double</span>  angle_x, angle_y, angle_z;
+    <span class="type">int</span>     move_x, move_y;
+    <span class="type">int</span>     color_palette;
+} t_camera;
+
+<span class="kw">typedef struct</span> s_fdf {
+    <span class="type">void</span>    *mlx_ptr, *win_ptr;
+    t_img    img;
+    t_map    map;
+    t_camera camera;
+} t_fdf;</pre>
+          </section>
+
+          <section class="slide" data-title="bresenham.c">
+            <h2><span class="prompt-mini">$</span> man bresenham</h2>
+            <p>Algoritmo de <span class="hl">1965</span> para rasterizar uma reta entre dois pontos inteiros — apenas com somas, subtrações e comparações.</p>
+            <pre class="code"><span class="cm">// pseudo-código do octante padrão</span>
+error = delta_x - delta_y;
+<span class="kw">while</span> (1) {
+    <span class="fn">put_pixel</span>(x, y, color);
+    <span class="kw">if</span> (x == x2 &amp;&amp; y == y2) <span class="kw">break</span>;
+    e2 = 2 * error;
+    <span class="kw">if</span> (e2 &gt;= -delta_y) { error -= delta_y; x += xi; }
+    <span class="kw">if</span> (e2 &lt;=  delta_x) { error += delta_x; y += yi; }
+}</pre>
+            <pre class="ascii-art tiny">
+   <span class="dim">y</span>                    <span class="dim">←  reta ideal</span>
+   ▲      ●─●            <span class="dim">●  pixel desenhado</span>
+   │    ●─●
+   │  ●─●
+   │●─●
+   └────────▶ <span class="dim">x</span>
+            </pre>
+          </section>
+
+          <section class="slide" data-title="isometric.c">
+            <h2><span class="prompt-mini">$</span> ./fdf --proj=iso</h2>
+            <p>Três eixos a <span class="hl">120°</span>. Sem perspectiva. Paralelas seguem paralelas.</p>
+            <pre class="code"><span class="cm">// src/projection.c</span>
+angle_x = ANG_30_RADIAN;                 <span class="cm">//   30°</span>
+angle_y = ANG_30_RADIAN + ANG_120_RADIAN; <span class="cm">//  150°</span>
+angle_z = ANG_30_RADIAN - ANG_120_RADIAN; <span class="cm">//  -90°</span>
+
+x' = x·<span class="fn">cos</span>(α) + y·<span class="fn">cos</span>(β) + z·<span class="fn">cos</span>(γ);
+y' = x·<span class="fn">sin</span>(α) + y·<span class="fn">sin</span>(β) + z·<span class="fn">sin</span>(γ);</pre>
+            <pre class="ascii-art tiny">
+              ┌─────┐
+             ╱     ╱│
+            ┌─────┐ │
+            │     │ ┘
+            │     │╱
+            └─────┘
+            </pre>
+          </section>
+
+          <section class="slide" data-title="perspective.c">
+            <h2><span class="prompt-mini">$</span> ./fdf --proj=persp</h2>
+            <p>Pontos distantes ficam menores: divide por <span class="hl">z</span>.</p>
+            <pre class="code">z1 = p1.z - depth_z;
+z2 = p2.z - depth_z;
+
+<span class="fn">camera_clipping</span>(line, &amp;z1, &amp;z2);   <span class="cm">// near-plane</span>
+<span class="kw">if</span> (!line-&gt;show) <span class="kw">return</span>;        <span class="cm">// 100% atrás</span>
+
+<span class="kw">if</span> (z1 != 0) {
+    p1.x = (p1.x * focal_length) / z1;
+    p1.y = (p1.y * focal_length) / z1;
+}</pre>
+            <p class="muted">⚠ sem o clipping de near-plane, pontos com <span class="hl">z &lt; 0</span> vão pra +∞ na tela.</p>
+          </section>
+
+          <section class="slide" data-title="clipping.c">
+            <h2><span class="prompt-mini">$</span> info cohen-sutherland</h2>
+            <pre class="ascii-art">
+   1001 │ 1000 │ 1010
+   ─────┼──────┼─────
+   0001 │ <span class="hl">0000</span> │ 0010    <span class="dim">← outcode de 4 bits</span>
+   ─────┼──────┼─────       <span class="dim">  0000 = visível</span>
+   0101 │ 0100 │ 0110
+            </pre>
+            <ul class="list">
+              <li><span class="bullet">▸</span> <span class="hl">code1 | code2 == 0</span> → linha 100% dentro · desenha</li>
+              <li><span class="bullet">▸</span> <span class="hl">code1 &amp; code2 != 0</span> → 100% fora · descarta</li>
+              <li><span class="bullet">▸</span> caso contrário, recorta na borda mais externa e repete</li>
+            </ul>
+          </section>
+
+          <section class="slide" data-title="palette.h">
+            <h2><span class="prompt-mini">$</span> ls palettes/</h2>
+            <pre class="code"><span class="dim">total 4</span>
+-rw-r--r--  P0  <span class="hl">default</span>          0xFFFFFF
+-rw-r--r--  P1  violet → black   0x3E0694 → 0x000000
+-rw-r--r--  P2  magenta → cyan   0xFF00FF → 0x0000FF → 0x00FFFF
+-rw-r--r--  P3  green            0x00FF00</pre>
+            <div class="palette-row">
+              <div class="pal"><span class="pal-bar p0"></span><span class="pal-name">P0 default</span></div>
+              <div class="pal"><span class="pal-bar p1"></span><span class="pal-name">P1 violet→black</span></div>
+              <div class="pal"><span class="pal-bar p2"></span><span class="pal-name">P2 mag→cyan</span></div>
+              <div class="pal"><span class="pal-bar p3"></span><span class="pal-name">P3 green</span></div>
+            </div>
+            <p class="muted">Cor por arquivo &gt; cor por gradiente. Press <kbd>C</kbd> para alternar.</p>
+          </section>
+
+          <section class="slide" data-title="modules.tree">
+            <h2><span class="prompt-mini">$</span> tree src/</h2>
+            <pre class="ascii-art tree">
+src/
+├── main.c                  <span class="dim">entry point</span>
+├── init.c                  <span class="dim">setup das structs</span>
+├── read.c                  <span class="dim">parser do .fdf</span>
+├── handle_events.c         <span class="dim">teclado + mouse + expose</span>
+├── render.c                <span class="dim">pipeline + blit</span>
+├── camera.c                <span class="dim">estado e limites</span>
+├── projection.c            <span class="dim">iso · persp · top</span>
+├── transform.c             <span class="dim">scale + translate</span>
+├── transform_rotate.c      <span class="dim">rot. X · Y · Z</span>
+├── clipping.c              <span class="dim">cohen-sutherland</span>
+├── color.c                 <span class="dim">paletas e gradientes</span>
+├── bresenham.c             <span class="dim">rasterização</span>
+├── bresenham_octantes.c    <span class="dim">8 octantes</span>
+├── instructions.c          <span class="dim">HUD</span>
+├── exit.c                  <span class="dim">erro / sucesso</span>
+└── free.c                  <span class="dim">cleanup</span>
+
+<span class="dim">16 modules · 1 header (include/fdf.h)</span>
+            </pre>
+          </section>
+
+          <section class="slide" data-title="maps.list">
+            <h2><span class="prompt-mini">$</span> ls maps/ -1 | wc -l</h2>
+            <pre class="ascii-art tiny dim">22</pre>
+            <div class="map-cols">
+              <div>
+                <div class="col-title">[ pequenos ]</div>
+                <ul class="list compact"><li>basictest.fdf</li><li>t1.fdf</li><li>t2.fdf</li><li>elem.fdf</li><li>elem2.fdf</li></ul>
+              </div>
+              <div>
+                <div class="col-title">[ geometria ]</div>
+                <ul class="list compact"><li>pyramide.fdf</li><li>pyra.fdf</li><li>pylone.fdf</li><li>plat.fdf</li><li>pnp_flat.fdf</li></ul>
+              </div>
+              <div>
+                <div class="col-title">[ coloridos ]</div>
+                <ul class="list compact"><li>elem-col.fdf</li><li>elem-fract.fdf</li><li>42.fdf</li><li>422.fdf</li></ul>
+              </div>
+              <div>
+                <div class="col-title">[ grandes ]</div>
+                <ul class="list compact"><li>julia.fdf</li><li>mars.fdf</li><li>100-6.fdf</li><li>10-70.fdf</li><li>50-4.fdf</li><li>20-60.fdf</li></ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="slide" data-title="keys.cfg">
+            <h2><span class="prompt-mini">$</span> cat ~/.fdfrc</h2>
+            <pre class="code">
+<span class="cm"># movement</span>
+arrow_keys      = move_camera
+plus / minus    = zoom_in / zoom_out
+z / x           = scale_z_up / scale_z_down
+
+<span class="cm"># rotation</span>
+s / w           = rotate_x
+q / e           = rotate_y
+a / d           = rotate_z
+
+<span class="cm"># projection</span>
+i               = isometric
+p               = perspective
+o               = top_view
+
+<span class="cm"># visual</span>
+c               = cycle_palette
+l               = toggle_axis
+.               = toggle_hud
+r               = reset_camera
+
+<span class="cm"># system</span>
+escape          = quit</pre>
+          </section>
+
+          <section class="slide" data-title="run.sh">
+            <h2><span class="prompt-mini">$</span> ./run.sh --help</h2>
+            <pre class="code"><span class="cm"># build local (Linux)</span>
+<span class="prompt-dollar">$</span> make
+<span class="prompt-dollar">$</span> ./fdf maps/42.fdf
+<span class="prompt-dollar">$</span> ./fdf maps/julia.fdf
+
+<span class="cm"># build com docker (qualquer host)</span>
+<span class="prompt-dollar">$</span> docker compose up --build
+<span class="dim">  ↳ ubuntu 20.04 + X11 forwarding via $DISPLAY</span>
+
+<span class="cm"># flags do compilador</span>
+CFLAGS = -Wall -Wextra -Werror -g
+LIBS   = -lft -lmlx -lm -lbsd -lXext -lX11
+
+<span class="cm"># limpar artefatos</span>
+<span class="prompt-dollar">$</span> make clean
+<span class="prompt-dollar">$</span> make fclean
+<span class="prompt-dollar">$</span> make re</pre>
+          </section>
+
+          <section class="slide" data-title="lessons.log">
+            <h2><span class="prompt-mini">$</span> tail -n 4 lessons.log</h2>
+            <div class="log-list">
+              <div class="log-entry"><span class="log-tag err">[ BUG ]</span><div><strong>Divisão por zero na perspectiva</strong><p class="muted">Ponto exatamente no plano focal explodia. Fix: clipar antes da divisão.</p></div></div>
+              <div class="log-entry"><span class="log-tag warn">[ TIP ]</span><div><strong>Ordem importa: R · S · T ≠ T · S · R</strong><p class="muted">Aplicar rotação antes de translação produz resultado oposto. Aprendido na marra.</p></div></div>
+              <div class="log-entry"><span class="log-tag info">[ PERF ]</span><div><strong>Mapa 100-6 lentíssimo</strong><p class="muted">Parser tinha um realloc por linha. Buffer fixo + crescimento ×2 resolveu.</p></div></div>
+              <div class="log-entry"><span class="log-tag err">[ SEG ]</span><div><strong>Linhas fora do viewport</strong><p class="muted">MiniLibX escrevia fora do framebuffer. Cohen–Sutherland + bounds-check.</p></div></div>
+            </div>
+          </section>
+
+          <section class="slide" data-title="todo.next">
+            <h2><span class="prompt-mini">$</span> cat TODO.next</h2>
+            <ul class="list">
+              <li><span class="bullet">[ ]</span> Modo "fill" com Painter's algorithm</li>
+              <li><span class="bullet">[ ]</span> Z-buffer para oclusão correta</li>
+              <li><span class="bullet">[ ]</span> Iluminação Lambert por face</li>
+              <li><span class="bullet">[ ]</span> Animação automática (auto-rotate)</li>
+              <li><span class="bullet">[ ]</span> Carregar formatos .obj</li>
+              <li><span class="bullet">[ ]</span> Salvar screenshot do frame atual</li>
+              <li><span class="bullet">[ ]</span> Port web via Emscripten / SDL2</li>
+            </ul>
+          </section>
+
+          <section class="slide" data-title="refs.bib">
+            <h2><span class="prompt-mini">$</span> cat references.bib</h2>
+            <pre class="code"><span class="kw">@manual</span>{minilibx,
+  title  = "MiniLibX — graphics library 42",
+  url    = "aurelienbrabant.fr/blog"
+}
+<span class="kw">@article</span>{bresenham1965,
+  author = "Bresenham, J. E.",
+  title  = "Algorithm for computer control of a digital plotter",
+  year   = 1965
+}
+<span class="kw">@misc</span>{isometric,
+  url    = "stackoverflow.com/q/28607713"
+}
+<span class="kw">@misc</span>{perspective,
+  url    = "en.wikipedia.org/wiki/3D_projection"
+}
+<span class="kw">@misc</span>{cohen_sutherland,
+  url    = "en.wikipedia.org/wiki/Cohen-Sutherland_algorithm"
+}
+<span class="kw">@subject</span>{fdf42,
+  source = "42 São Paulo · curriculum"
+}</pre>
+          </section>
+
+          <section class="slide" data-title="exit">
+            <h2><span class="prompt-mini">$</span> ./fdf --exit</h2>
+            <pre class="ascii-art end-art">
+    ████████  █  █████  ████████  ███████  ████████  ███████
+       ██     █     ██  ██    ██  ██   ██  ██     █  ██   ██
+       ██     █  █████  ████████  ███████  █████ ██  ██   ██
+       ██     █  ██     ██    ██  ██   ██  ██     █  ██   ██
+       ██     █  ██     ████████  ██   ██  ████████  ███████
+            </pre>
+            <p class="lead center">Perguntas, críticas e <span class="hl">code review</span> são bem-vindos.</p>
+            <pre class="code center">
+<span class="dim">─────────────────────────────────────────────────</span>
+  <span class="hl">eandre-f</span> · 42 São Paulo · github.com/eandre-f
+<span class="dim">─────────────────────────────────────────────────</span></pre>
+            <p class="muted center blink-cursor">connection closed.</p>
+          </section>
+
+        </main>
+
+        <footer class="term-statusbar">
+          <span class="status-mode">-- NORMAL --</span>
+          <span class="status-file" id="status-file">"about.md"</span>
+          <span class="status-pos" id="status-pos">01,1</span>
+          <span class="status-progress" id="status-progress">All</span>
+          <span class="status-controls">
+            <button class="ctl" id="prev">[ ◀ h ]</button>
+            <button class="ctl" id="next">[ l ▶ ]</button>
+            <button class="ctl" id="fullscreen">[ ⤢ F ]</button>
+          </span>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="presentation.js"></script>
+</body>
+</html>
