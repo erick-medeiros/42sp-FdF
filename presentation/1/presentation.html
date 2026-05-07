@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FdF · Apresentação</title>
+  <link rel="stylesheet" href="presentation.css" />
+</head>
+<body>
+  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+
+  <div class="presentation">
+    <header class="topbar">
+      <div class="brand">
+        <span class="tag">Projeto 42 · FdF</span>
+        <h1>Fil de Fer <span class="accent">3D</span></h1>
+      </div>
+      <div class="controls">
+        <span class="counter"><span id="current">1</span> / <span id="total">0</span></span>
+        <button id="prev" aria-label="Slide anterior">←</button>
+        <button id="next" aria-label="Próximo slide">→</button>
+        <button id="fullscreen" aria-label="Tela cheia" title="Tela cheia">⤢</button>
+      </div>
+    </header>
+
+    <main class="slides" id="slides">
+      <section class="slide" data-title="Visão Geral">
+        <span class="slide-kicker">01 · Introdução</span>
+        <h2>Visão Geral</h2>
+        <p class="lead">FdF é um projeto de visualização gráfica que converte mapas de altura 2D em uma representação <strong>3D wireframe</strong>.</p>
+        <ul class="check-list">
+          <li>Renderiza paisagens conectando pontos por linhas</li>
+          <li>Projeção <strong>isométrica</strong> e <strong>perspectiva</strong></li>
+          <li>Construído em <strong>C</strong> sobre a <strong>MiniLibX</strong></li>
+        </ul>
+      </section>
+
+      <section class="slide" data-title="Objetivo">
+        <span class="slide-kicker">02 · Motivação</span>
+        <h2>Objetivo</h2>
+        <p class="lead">Transformar uma matriz de alturas em um objeto 3D interativo, exibindo relevo e profundidade.</p>
+        <div class="pill-grid">
+          <span class="pill">Projeções 3D</span>
+          <span class="pill">Bresenham</span>
+          <span class="pill">Clipping</span>
+          <span class="pill">Câmera</span>
+          <span class="pill">Transformações</span>
+          <span class="pill">Eventos</span>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Formato .fdf">
+        <span class="slide-kicker">03 · Entrada</span>
+        <h2>Formato do mapa <code>.fdf</code></h2>
+        <p>Cada arquivo é uma matriz de inteiros — a altura (Z) de cada ponto (X, Y):</p>
+        <pre class="code"><span class="c-comment"># maps/pyramide.fdf</span>
+<span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>
+<span class="c-num">0</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">0</span>
+<span class="c-num">0</span>  <span class="c-num">5</span> <span class="c-num">10</span>  <span class="c-num">5</span>  <span class="c-num">0</span>
+<span class="c-num">0</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">0</span>
+<span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span></pre>
+        <p>Cor opcional: <code>10,0xFF00AA</code>. Linhas e colunas devem ser consistentes.</p>
+      </section>
+
+      <section class="slide" data-title="Funcionalidades">
+        <span class="slide-kicker">04 · Recursos</span>
+        <h2>Funcionalidades</h2>
+        <ul class="check-list">
+          <li>Leitura e validação de arquivos <code>.fdf</code></li>
+          <li>Renderização wireframe com cor por altura</li>
+          <li>Rotação, escala e translação interativas</li>
+          <li>Alternância entre projeção isométrica e perspectiva</li>
+          <li>Clipping para evitar artefatos fora da tela</li>
+          <li>Mais de 20 mapas de teste disponíveis</li>
+        </ul>
+      </section>
+
+      <section class="slide" data-title="Arquitetura">
+        <span class="slide-kicker">05 · Estrutura</span>
+        <h2>Arquitetura do código</h2>
+        <div class="arch-grid">
+          <div class="arch-card"><h3>read.c</h3><p>Parse e validação dos mapas <code>.fdf</code></p></div>
+          <div class="arch-card"><h3>projection.c</h3><p>Projeções isométrica e perspectiva</p></div>
+          <div class="arch-card"><h3>bresenham.c</h3><p>Desenho eficiente de linhas pixel a pixel</p></div>
+          <div class="arch-card"><h3>transform.c</h3><p>Translação, escala e rotação 3D</p></div>
+          <div class="arch-card"><h3>clipping.c</h3><p>Recorte de linhas (Cohen–Sutherland)</p></div>
+          <div class="arch-card"><h3>camera.c</h3><p>Estado e movimentação da câmera</p></div>
+          <div class="arch-card"><h3>handle_events.c</h3><p>Entrada de teclado e mouse</p></div>
+          <div class="arch-card"><h3>render.c</h3><p>Pipeline de renderização do frame</p></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Tecnologia">
+        <span class="slide-kicker">06 · Stack</span>
+        <h2>Tecnologias</h2>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">C</div>
+            <h3>Linguagem C</h3>
+            <p>Controle fino de memória e desempenho.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">Mlx</div>
+            <h3>MiniLibX</h3>
+            <p>Janela, eventos e buffer de imagem.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">Mk</div>
+            <h3>Makefile</h3>
+            <p>Compilação incremental e modular.</p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">D</div>
+            <h3>Docker</h3>
+            <p>Build reproduzível em Ubuntu 20.04.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Mapas">
+        <span class="slide-kicker">07 · Demos</span>
+        <h2>Mapas de exemplo</h2>
+        <p>O diretório <code>maps/</code> reúne mais de vinte cenários:</p>
+        <div class="map-grid">
+          <span class="map-chip">42.fdf</span>
+          <span class="map-chip">pyramide.fdf</span>
+          <span class="map-chip">julia.fdf</span>
+          <span class="map-chip">mars.fdf</span>
+          <span class="map-chip">elem-col.fdf</span>
+          <span class="map-chip">elem-fract.fdf</span>
+          <span class="map-chip">100-6.fdf</span>
+          <span class="map-chip">pylone.fdf</span>
+          <span class="map-chip">plat.fdf</span>
+          <span class="map-chip">basictest.fdf</span>
+          <span class="map-chip">t1.fdf</span>
+          <span class="map-chip">pnp_flat.fdf</span>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Controles">
+        <span class="slide-kicker">08 · Interação</span>
+        <h2>Controles do programa</h2>
+        <div class="keys-grid">
+          <div class="keys-group">
+            <h3>Movimentação</h3>
+            <p><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> mover câmera</p>
+            <p><kbd>+</kbd> / <kbd>−</kbd> zoom</p>
+          </div>
+          <div class="keys-group">
+            <h3>Rotação</h3>
+            <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> rotacionar X / Y</p>
+            <p><kbd>Q</kbd> / <kbd>E</kbd> rotacionar Z</p>
+          </div>
+          <div class="keys-group">
+            <h3>Projeção</h3>
+            <p><kbd>P</kbd> alternar isométrica / perspectiva</p>
+            <p><kbd>R</kbd> resetar visualização</p>
+          </div>
+          <div class="keys-group">
+            <h3>Sistema</h3>
+            <p><kbd>Esc</kbd> sair</p>
+            <p>Mouse: arrastar para girar</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Como Executar">
+        <span class="slide-kicker">09 · Setup</span>
+        <h2>Como executar</h2>
+        <p>Compile e abra um mapa:</p>
+        <pre class="code"><span class="c-prompt">$</span> make
+<span class="c-prompt">$</span> ./fdf maps/42.fdf</pre>
+        <p>Ou rode em ambiente isolado com Docker:</p>
+        <pre class="code"><span class="c-prompt">$</span> docker compose up --build</pre>
+      </section>
+
+      <section class="slide" data-title="Referências">
+        <span class="slide-kicker">10 · Fontes</span>
+        <h2>Referências</h2>
+        <ul class="check-list">
+          <li>Documentação oficial da <strong>MiniLibX</strong></li>
+          <li>Algoritmo de <strong>Bresenham</strong> para rasterização de linhas</li>
+          <li>Projeções <strong>isométrica</strong> e em <strong>perspectiva</strong></li>
+          <li>Algoritmo de <strong>Cohen–Sutherland</strong> para clipping 2D</li>
+          <li>Subject FdF — 42 São Paulo</li>
+        </ul>
+      </section>
+
+      <section class="slide slide-end" data-title="Obrigado">
+        <span class="slide-kicker">Fim</span>
+        <h2 class="big-thanks">Obrigado!</h2>
+        <p class="lead">Dúvidas, sugestões e <em>code review</em> são muito bem-vindos.</p>
+        <p class="muted">Erick Medeiros · 42 São Paulo</p>
+      </section>
+    </main>
+
+    <nav class="dots" id="dots" aria-label="Navegação de slides"></nav>
+
+    <footer class="footer">
+      <p>Navegue com <kbd>←</kbd> <kbd>→</kbd> · <kbd>Home</kbd> / <kbd>End</kbd> · <kbd>F</kbd> tela cheia</p>
+      <p class="muted">FdF · 42</p>
+    </footer>
+  </div>
+
+  <script src="presentation.js"></script>
+</body>
+</html>
