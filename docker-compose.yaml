@@ -1,0 +1,11 @@
+services:
+  fdf:
+    build:
+      context: .
+    container_name: fdf_app
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: bash
+    tty: true
+    restart: unless-stopped
