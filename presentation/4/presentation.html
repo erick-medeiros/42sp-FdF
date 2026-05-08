@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FdF — Technical Drawings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="presentation.css" />
+</head>
+<body>
+  <div class="paper">
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <header class="drawing-header">
+      <div class="header-left">
+        <div class="company-mark">
+          <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+            <rect x="2" y="2" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M2 20 L20 2 L38 20 L20 38 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="20" cy="20" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="company-meta">
+          <div class="company-name">FIL · DE · FER</div>
+          <div class="company-sub">42 SÃO PAULO / DEPT. OF GRAPHICS</div>
+        </div>
+      </div>
+      <div class="header-center">
+        <span class="dwg-no">DWG-NO. <span id="dwg-no">001</span></span>
+        <span class="dwg-sep">·</span>
+        <span class="dwg-title" id="dwg-title">COVER SHEET</span>
+      </div>
+      <div class="header-right">
+        <button class="btn" id="prev" title="Anterior (←)">◀ PREV</button>
+        <button class="btn" id="next" title="Próximo (→)">NEXT ▶</button>
+        <button class="btn icon" id="fullscreen" title="Tela cheia (F)">⤢</button>
+      </div>
+    </header>
+
+    <main class="sheet" id="sheet">
+
+      <!-- 01 — COVER -->
+      <section class="slide" data-title="COVER SHEET">
+        <div class="cover-frame">
+          <div class="cover-stamp">
+            <span class="stamp-line">PROJECT №</span>
+            <span class="stamp-big">FdF</span>
+            <span class="stamp-line">FIL DE FER · WIREFRAME 3D</span>
+          </div>
+          <h1 class="cover-title">
+            <span class="display-eyebrow">— TECHNICAL DRAWINGS —</span>
+            <span class="display-main">Fil de Fer</span>
+            <span class="display-sub">Wireframe 3D · written in C</span>
+          </h1>
+          <div class="cover-iso">
+            <svg viewBox="-60 -60 120 120" width="100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <pattern id="iso-dots" width="6" height="6" patternUnits="userSpaceOnUse">
+                  <circle cx="3" cy="3" r="0.4" fill="currentColor" opacity="0.3"/>
+                </pattern>
+              </defs>
+              <rect x="-60" y="-60" width="120" height="120" fill="url(#iso-dots)"/>
+              <g fill="none" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round">
+                <!-- isometric cube wireframe -->
+                <path d="M -30 -10 L 0 -25 L 30 -10 L 0 5 Z"/>
+                <path d="M -30 -10 L -30 20 L 0 35 L 0 5"/>
+                <path d="M 30 -10 L 30 20 L 0 35"/>
+                <path d="M -30 20 L 0 5 L 30 20"/>
+                <!-- inner pyramid -->
+                <path d="M -15 0 L 15 0 L 0 -15 Z" stroke-dasharray="1.5 1.5"/>
+              </g>
+              <g fill="currentColor">
+                <circle cx="-30" cy="-10" r="1"/><circle cx="30" cy="-10" r="1"/>
+                <circle cx="0" cy="-25" r="1"/><circle cx="0" cy="5" r="1"/>
+                <circle cx="-30" cy="20" r="1"/><circle cx="30" cy="20" r="1"/>
+                <circle cx="0" cy="35" r="1"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="title-block">
+          <div class="tb-row">
+            <div class="tb-cell"><span class="tb-key">DRAWN</span><span class="tb-val">eandre-f</span></div>
+            <div class="tb-cell"><span class="tb-key">DATE</span><span class="tb-val">2022</span></div>
+            <div class="tb-cell"><span class="tb-key">SCALE</span><span class="tb-val">N.T.S.</span></div>
+            <div class="tb-cell"><span class="tb-key">UNITS</span><span class="tb-val">PIXELS</span></div>
+            <div class="tb-cell"><span class="tb-key">SHEET</span><span class="tb-val" id="tb-sheet">01 / 17</span></div>
+            <div class="tb-cell tb-rev"><span class="tb-key">REV.</span><span class="tb-val">A</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — SUMMARY -->
+      <section class="slide" data-title="GENERAL NOTES">
+        <h2 class="sheet-title">A. <span>General Notes</span></h2>
+        <div class="callout">
+          <p><strong>FdF</strong> — em francês, <em>"fio de arame"</em>. O programa lê arquivos <code>.fdf</code> contendo uma matriz de alturas e os renderiza como <strong>modelos wireframe 3D</strong> — só as arestas, sem preenchimento.</p>
+        </div>
+        <ol class="notes">
+          <li><span class="note-num">N1.</span> Escrito em <strong>C</strong> sobre a biblioteca <strong>MiniLibX</strong> (X11).</li>
+          <li><span class="note-num">N2.</span> Parser tolera espaços, tabs e cores opcionais em hexadecimal.</li>
+          <li><span class="note-num">N3.</span> Projeções: <strong>isométrica</strong>, <strong>perspectiva</strong> e <strong>top-view</strong>.</li>
+          <li><span class="note-num">N4.</span> Rasterização via <strong>algoritmo de Bresenham</strong>; clipping <strong>Cohen–Sutherland</strong>.</li>
+          <li><span class="note-num">N5.</span> Sem aceleração GPU — desenho em CPU, frame a frame.</li>
+        </ol>
+      </section>
+
+      <!-- 03 — OBJECTIVES -->
+      <section class="slide" data-title="DESIGN INTENT">
+        <h2 class="sheet-title">B. <span>Design Intent</span></h2>
+        <div class="checklist">
+          <div class="check"><span class="cb">[✓]</span><div><strong>Parser robusto</strong> para arquivos <code>.fdf</code>, validando formato e cor.</div></div>
+          <div class="check"><span class="cb">[✓]</span><div><strong>Transformações 3D</strong> — escala, rotação (X, Y, Z), translação.</div></div>
+          <div class="check"><span class="cb">[✓]</span><div><strong>Projeções</strong> isométrica (paralela) e perspectiva (divisão por z).</div></div>
+          <div class="check"><span class="cb">[✓]</span><div><strong>Bresenham</strong> em 8 octantes, sem chamadas de ponto-flutuante no inner loop.</div></div>
+          <div class="check"><span class="cb">[✓]</span><div><strong>Clipping</strong> de linhas + near-plane para evitar artefatos.</div></div>
+          <div class="check"><span class="cb">[✓]</span><div><strong>Event loop</strong> interativo — teclado, mouse, redimensionamento.</div></div>
+        </div>
+        <p class="muted small">— 6 objetivos · 0 dependências GPU · ~16 módulos C —</p>
+      </section>
+
+      <!-- 04 — INPUT FORMAT -->
+      <section class="slide" data-title="INPUT FORMAT">
+        <h2 class="sheet-title">C. <span>Input Format</span> <span class="suffix">/ <code>.fdf</code></span></h2>
+
+        <div class="two-col">
+          <figure class="fig">
+            <figcaption>FIG. C-1 · Sample <code>pyramide.fdf</code></figcaption>
+            <pre class="code">  0   0   0   0   0
+  0   <b>5</b>   <b>5</b>   <b>5</b>   0
+  0   <b>5</b>  <b>10</b>,<i>0xff00aa</i>  <b>5</b>   0
+  0   <b>5</b>   <b>5</b>   <b>5</b>   0
+  0   0   0   0   0</pre>
+            <div class="dim-row">
+              <span class="dim-leader">◂</span>
+              <span class="dim-text">5 cols</span>
+              <span class="dim-leader">▸</span>
+            </div>
+          </figure>
+          <div class="spec-table">
+            <div class="spec-row"><span>columns</span><span>N</span></div>
+            <div class="spec-row"><span>rows</span><span>M</span></div>
+            <div class="spec-row"><span>points</span><span>N × M</span></div>
+            <div class="spec-row"><span>edges</span><span>N(M-1) + M(N-1)</span></div>
+            <div class="spec-row"><span>color</span><span>opcional, hex</span></div>
+            <div class="spec-row"><span>height</span><span>int, ± permitido</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — PIPELINE -->
+      <section class="slide" data-title="RENDER PIPELINE">
+        <h2 class="sheet-title">D. <span>Render Pipeline</span></h2>
+        <div class="pipeline">
+          <div class="step"><span class="step-num">01</span><span class="step-name">read</span><span class="step-sub">.fdf</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-num">02</span><span class="step-name">transform</span><span class="step-sub">R · S · T</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-num">03</span><span class="step-name">project</span><span class="step-sub">3D → 2D</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-num">04</span><span class="step-name">clip</span><span class="step-sub">CS + near</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-num">05</span><span class="step-name">bresenham</span><span class="step-sub">linhas</span></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-num">06</span><span class="step-name">blit</span><span class="step-sub">→ X11</span></div>
+        </div>
+        <div class="callout">
+          <p><strong>Complexidade.</strong> Cada frame = O(<span class="hl">N · M</span>) linhas, processadas em CPU. Para mapas grandes (<code>100-6.fdf</code>: 600 pontos / 1198 arestas), o gargalo é o parser e <code>update_image_pixel()</code>.</p>
+        </div>
+      </section>
+
+      <!-- 06 — STRUCTS -->
+      <section class="slide" data-title="DATA STRUCTURES">
+        <h2 class="sheet-title">E. <span>Data Structures</span> <span class="suffix">/ <code>include/fdf.h</code></span></h2>
+        <pre class="code"><span class="kw">typedef struct</span> s_point {
+    <span class="ty">float</span> x, y, z;
+    <span class="ty">int</span>   color;
+} t_point;
+
+<span class="kw">typedef struct</span> s_camera {
+    <span class="ty">int</span>     projection;     <span class="cm">// ISOMETRIC | PERSPECTIVE | TOP</span>
+    <span class="ty">int</span>     scale_factor, scale_z, depth_z;
+    <span class="ty">double</span>  angle_x, angle_y, angle_z;
+    <span class="ty">int</span>     move_x, move_y;
+    <span class="ty">int</span>     color_palette;
+} t_camera;
+
+<span class="kw">typedef struct</span> s_fdf {
+    <span class="ty">void</span>    *mlx_ptr, *win_ptr;
+    t_img    img;
+    t_map    map;
+    t_camera camera;
+} t_fdf;</pre>
+      </section>
+
+      <!-- 07 — BRESENHAM -->
+      <section class="slide" data-title="LINE RASTERIZATION">
+        <h2 class="sheet-title">F. <span>Line Rasterization</span> <span class="suffix">/ Bresenham, 1965</span></h2>
+        <p>Algoritmo de <strong>1965</strong> para rasterizar uma reta entre dois pontos inteiros — apenas com somas, subtrações e comparações.</p>
+        <div class="two-col">
+          <pre class="code"><span class="cm">// pseudo-código do octante padrão</span>
+error = delta_x - delta_y;
+<span class="kw">while</span> (1) {
+    <span class="fn">put_pixel</span>(x, y, color);
+    <span class="kw">if</span> (x == x2 &amp;&amp; y == y2) <span class="kw">break</span>;
+    e2 = 2 * error;
+    <span class="kw">if</span> (e2 &gt;= -delta_y) { error -= delta_y; x += xi; }
+    <span class="kw">if</span> (e2 &lt;=  delta_x) { error += delta_x; y += yi; }
+}</pre>
+          <figure class="fig">
+            <figcaption>FIG. F-1 · Aproximação por pixels</figcaption>
+            <svg viewBox="0 0 200 120" width="100%" aria-hidden="true">
+              <defs>
+                <pattern id="grid-f" width="10" height="10" patternUnits="userSpaceOnUse">
+                  <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+                </pattern>
+              </defs>
+              <rect x="0" y="0" width="200" height="120" fill="url(#grid-f)"/>
+              <line x1="10" y1="100" x2="180" y2="20" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2" opacity="0.6"/>
+              <g fill="currentColor">
+                <rect x="8" y="98" width="9" height="9" />
+                <rect x="28" y="89" width="9" height="9" />
+                <rect x="48" y="79" width="9" height="9" />
+                <rect x="68" y="69" width="9" height="9" />
+                <rect x="88" y="59" width="9" height="9" />
+                <rect x="108" y="49" width="9" height="9" />
+                <rect x="128" y="39" width="9" height="9" />
+                <rect x="148" y="29" width="9" height="9" />
+                <rect x="168" y="19" width="9" height="9" />
+              </g>
+              <text x="186" y="14" font-size="7" fill="currentColor" font-family="IBM Plex Mono">P₂</text>
+              <text x="2" y="118" font-size="7" fill="currentColor" font-family="IBM Plex Mono">P₁</text>
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 08 — ISOMETRIC -->
+      <section class="slide" data-title="ISOMETRIC PROJECTION">
+        <h2 class="sheet-title">G. <span>Isometric Projection</span></h2>
+        <p>Três eixos a <strong>120°</strong>. Sem perspectiva. Linhas paralelas continuam paralelas.</p>
+        <div class="two-col">
+          <pre class="code"><span class="cm">// src/projection.c</span>
+angle_x = ANG_30_RADIAN;                   <span class="cm">//   30°</span>
+angle_y = ANG_30_RADIAN + ANG_120_RADIAN;  <span class="cm">//  150°</span>
+angle_z = ANG_30_RADIAN - ANG_120_RADIAN;  <span class="cm">//  -90°</span>
+
+x' = x·<span class="fn">cos</span>(α) + y·<span class="fn">cos</span>(β) + z·<span class="fn">cos</span>(γ);
+y' = x·<span class="fn">sin</span>(α) + y·<span class="fn">sin</span>(β) + z·<span class="fn">sin</span>(γ);</pre>
+          <figure class="fig">
+            <figcaption>FIG. G-1 · Eixos isométricos</figcaption>
+            <svg viewBox="-60 -60 120 120" width="100%" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="0.7">
+                <line x1="0" y1="0" x2="45" y2="-26" />
+                <line x1="0" y1="0" x2="-45" y2="-26" />
+                <line x1="0" y1="0" x2="0" y2="50" />
+                <path d="M 0 0 L 30 -17 L 0 -34 L -30 -17 Z" stroke-dasharray="1.5 1.5"/>
+                <path d="M -30 -17 L -30 17 L 0 0" />
+                <path d="M 30 -17 L 30 17 L 0 0" />
+                <path d="M -30 17 L 0 34 L 30 17" />
+                <path d="M 0 0 L 0 34" stroke-dasharray="1 1.5"/>
+              </g>
+              <g font-family="IBM Plex Mono" font-size="6" fill="currentColor">
+                <text x="46" y="-22">+x</text>
+                <text x="-58" y="-22">+y</text>
+                <text x="3" y="52">+z</text>
+                <text x="-12" y="-2">120°</text>
+              </g>
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 09 — PERSPECTIVE -->
+      <section class="slide" data-title="PERSPECTIVE PROJECTION">
+        <h2 class="sheet-title">H. <span>Perspective Projection</span></h2>
+        <p>Pontos distantes ficam menores: divide por <strong>z</strong>.</p>
+        <pre class="code">z1 = p1.z - depth_z;
+z2 = p2.z - depth_z;
+
+<span class="fn">camera_clipping</span>(line, &amp;z1, &amp;z2);   <span class="cm">// near-plane</span>
+<span class="kw">if</span> (!line-&gt;show) <span class="kw">return</span>;        <span class="cm">// 100% atrás</span>
+
+<span class="kw">if</span> (z1 != 0) {
+    p1.x = (p1.x * focal_length) / z1;
+    p1.y = (p1.y * focal_length) / z1;
+}</pre>
+        <div class="warn-block">
+          <span class="warn-tag">⚠ NOTA</span>
+          <span>Sem o clipping de near-plane, pontos com <code>z &lt; 0</code> vão pra +∞ na tela.</span>
+        </div>
+      </section>
+
+      <!-- 10 — CLIPPING -->
+      <section class="slide" data-title="LINE CLIPPING">
+        <h2 class="sheet-title">I. <span>Line Clipping</span> <span class="suffix">/ Cohen–Sutherland</span></h2>
+        <div class="two-col">
+          <figure class="fig">
+            <figcaption>FIG. I-1 · Outcode 4-bit</figcaption>
+            <div class="outcode-grid">
+              <div class="oc">1001</div><div class="oc">1000</div><div class="oc">1010</div>
+              <div class="oc">0001</div><div class="oc oc-in">0000</div><div class="oc">0010</div>
+              <div class="oc">0101</div><div class="oc">0100</div><div class="oc">0110</div>
+            </div>
+            <p class="caption-foot"><code>0000</code> = visível · linha de centro</p>
+          </figure>
+          <ol class="notes">
+            <li><span class="note-num">I.1</span> <code>code1 | code2 == 0</code> → 100% dentro · <strong>desenha</strong></li>
+            <li><span class="note-num">I.2</span> <code>code1 &amp; code2 != 0</code> → 100% fora · <strong>descarta</strong></li>
+            <li><span class="note-num">I.3</span> caso contrário, recorta na borda mais externa e repete</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 11 — PALETTES -->
+      <section class="slide" data-title="COLOR PALETTES">
+        <h2 class="sheet-title">J. <span>Color Palettes</span></h2>
+        <div class="palette-table">
+          <div class="prow head"><span>ID</span><span>NAME</span><span>HEX RANGE</span><span>SAMPLE</span></div>
+          <div class="prow"><span>P0</span><span>default</span><span>0xFFFFFF</span><span class="psw p0"></span></div>
+          <div class="prow"><span>P1</span><span>violet → black</span><span>0x3E0694 → 0x000000</span><span class="psw p1"></span></div>
+          <div class="prow"><span>P2</span><span>magenta → cyan</span><span>0xFF00FF → 0x0000FF → 0x00FFFF</span><span class="psw p2"></span></div>
+          <div class="prow"><span>P3</span><span>green</span><span>0x00FF00</span><span class="psw p3"></span></div>
+        </div>
+        <p class="muted small">Cor por arquivo &gt; cor por gradiente. Tecla <kbd>C</kbd> alterna paletas em runtime.</p>
+      </section>
+
+      <!-- 12 — MODULES -->
+      <section class="slide" data-title="MODULE LAYOUT">
+        <h2 class="sheet-title">K. <span>Module Layout</span> <span class="suffix">/ <code>tree src/</code></span></h2>
+        <pre class="code tree">src/
+├── main.c                  <span class="cm">entry point</span>
+├── init.c                  <span class="cm">setup das structs</span>
+├── read.c                  <span class="cm">parser do .fdf</span>
+├── handle_events.c         <span class="cm">teclado + mouse + expose</span>
+├── render.c                <span class="cm">pipeline + blit</span>
+├── camera.c                <span class="cm">estado e limites</span>
+├── projection.c            <span class="cm">iso · persp · top</span>
+├── transform.c             <span class="cm">scale + translate</span>
+├── transform_rotate.c      <span class="cm">rot. X · Y · Z</span>
+├── clipping.c              <span class="cm">cohen-sutherland</span>
+├── color.c                 <span class="cm">paletas e gradientes</span>
+├── bresenham.c             <span class="cm">rasterização</span>
+├── bresenham_octantes.c    <span class="cm">8 octantes</span>
+├── instructions.c          <span class="cm">HUD</span>
+├── exit.c                  <span class="cm">erro / sucesso</span>
+└── free.c                  <span class="cm">cleanup</span>
+
+<span class="cm">16 módulos · 1 header (include/fdf.h)</span></pre>
+      </section>
+
+      <!-- 13 — MAPS -->
+      <section class="slide" data-title="MAP CATALOG">
+        <h2 class="sheet-title">L. <span>Map Catalog</span> <span class="suffix">/ 22 mapas</span></h2>
+        <div class="map-grid">
+          <div class="map-col">
+            <div class="col-head">[ pequenos ]</div>
+            <ul><li>basictest.fdf</li><li>t1.fdf</li><li>t2.fdf</li><li>elem.fdf</li><li>elem2.fdf</li></ul>
+          </div>
+          <div class="map-col">
+            <div class="col-head">[ geometria ]</div>
+            <ul><li>pyramide.fdf</li><li>pyra.fdf</li><li>pylone.fdf</li><li>plat.fdf</li><li>pnp_flat.fdf</li></ul>
+          </div>
+          <div class="map-col">
+            <div class="col-head">[ coloridos ]</div>
+            <ul><li>elem-col.fdf</li><li>elem-fract.fdf</li><li>42.fdf</li><li>422.fdf</li></ul>
+          </div>
+          <div class="map-col">
+            <div class="col-head">[ grandes ]</div>
+            <ul><li>julia.fdf</li><li>mars.fdf</li><li>100-6.fdf</li><li>10-70.fdf</li><li>50-4.fdf</li><li>20-60.fdf</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14 — KEYS -->
+      <section class="slide" data-title="CONTROL SCHEME">
+        <h2 class="sheet-title">M. <span>Control Scheme</span></h2>
+        <div class="keys-grid">
+          <div class="kbox">
+            <div class="kbox-title">MOVEMENT</div>
+            <div class="krow"><span class="kkeys"><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></span><span>move câmera</span></div>
+            <div class="krow"><span class="kkeys"><kbd>+</kbd><kbd>−</kbd></span><span>zoom in / out</span></div>
+            <div class="krow"><span class="kkeys"><kbd>Z</kbd><kbd>X</kbd></span><span>scale Z up / down</span></div>
+          </div>
+          <div class="kbox">
+            <div class="kbox-title">ROTATION</div>
+            <div class="krow"><span class="kkeys"><kbd>S</kbd><kbd>W</kbd></span><span>rotate X</span></div>
+            <div class="krow"><span class="kkeys"><kbd>Q</kbd><kbd>E</kbd></span><span>rotate Y</span></div>
+            <div class="krow"><span class="kkeys"><kbd>A</kbd><kbd>D</kbd></span><span>rotate Z</span></div>
+          </div>
+          <div class="kbox">
+            <div class="kbox-title">PROJECTION</div>
+            <div class="krow"><span class="kkeys"><kbd>I</kbd></span><span>isometric</span></div>
+            <div class="krow"><span class="kkeys"><kbd>P</kbd></span><span>perspective</span></div>
+            <div class="krow"><span class="kkeys"><kbd>O</kbd></span><span>top view</span></div>
+          </div>
+          <div class="kbox">
+            <div class="kbox-title">VISUAL / SYS</div>
+            <div class="krow"><span class="kkeys"><kbd>C</kbd></span><span>cycle palette</span></div>
+            <div class="krow"><span class="kkeys"><kbd>L</kbd></span><span>toggle axis</span></div>
+            <div class="krow"><span class="kkeys"><kbd>R</kbd></span><span>reset camera</span></div>
+            <div class="krow"><span class="kkeys"><kbd>Esc</kbd></span><span>quit</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 15 — BUILD -->
+      <section class="slide" data-title="BUILD INSTRUCTIONS">
+        <h2 class="sheet-title">N. <span>Build Instructions</span></h2>
+        <pre class="code"><span class="cm"># build local (Linux)</span>
+$ make
+$ ./fdf maps/42.fdf
+$ ./fdf maps/julia.fdf
+
+<span class="cm"># build com docker (qualquer host)</span>
+$ docker compose up --build
+  <span class="cm">↳ ubuntu 20.04 + X11 forwarding via $DISPLAY</span>
+
+<span class="cm"># flags do compilador</span>
+CFLAGS = -Wall -Wextra -Werror -g
+LIBS   = -lft -lmlx -lm -lbsd -lXext -lX11
+
+<span class="cm"># limpar artefatos</span>
+$ make clean
+$ make fclean
+$ make re</pre>
+      </section>
+
+      <!-- 16 — LESSONS -->
+      <section class="slide" data-title="REVISIONS / LESSONS">
+        <h2 class="sheet-title">O. <span>Revisions / Lessons</span></h2>
+        <div class="rev-table">
+          <div class="rev-row head"><span>REV</span><span>TAG</span><span>NOTE</span></div>
+          <div class="rev-row"><span>R1</span><span class="rt err">BUG</span><div><strong>Divisão por zero na perspectiva.</strong> Ponto exatamente no plano focal explodia. Fix: clipar antes da divisão.</div></div>
+          <div class="rev-row"><span>R2</span><span class="rt warn">TIP</span><div><strong>Ordem importa: R · S · T ≠ T · S · R.</strong> Aplicar rotação antes de translação produz resultado oposto.</div></div>
+          <div class="rev-row"><span>R3</span><span class="rt info">PERF</span><div><strong>Mapa 100-6 lentíssimo.</strong> Parser tinha um <code>realloc</code> por linha. Buffer fixo + crescimento ×2 resolveu.</div></div>
+          <div class="rev-row"><span>R4</span><span class="rt err">SEG</span><div><strong>Linhas fora do viewport.</strong> MiniLibX escrevia fora do framebuffer. Cohen–Sutherland + bounds-check.</div></div>
+        </div>
+      </section>
+
+      <!-- 17 — END -->
+      <section class="slide" data-title="END OF DRAWING SET">
+        <div class="end-frame">
+          <div class="end-stamp">
+            <div class="stamp-circle">
+              <svg viewBox="0 0 100 100" width="120" height="120" aria-hidden="true">
+                <defs>
+                  <path id="circ" d="M 50 50 m -38 0 a 38 38 0 1 1 76 0 a 38 38 0 1 1 -76 0"/>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
+                <text font-family="IBM Plex Mono" font-size="8" font-weight="700" fill="currentColor" letter-spacing="2">
+                  <textPath href="#circ" startOffset="0%">· APPROVED · 42 SP · FdF · 2022 ·</textPath>
+                </text>
+                <text x="50" y="48" text-anchor="middle" font-family="Major Mono Display" font-size="14" fill="currentColor">FdF</text>
+                <text x="50" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="currentColor" letter-spacing="1">DONE</text>
+              </svg>
+            </div>
+          </div>
+          <h2 class="end-title">— END OF DRAWING SET —</h2>
+          <p class="end-sub">Perguntas, críticas e <strong>code review</strong> são bem-vindos.</p>
+          <div class="end-meta">
+            <span>eandre-f</span>
+            <span class="dot">·</span>
+            <span>42 São Paulo</span>
+            <span class="dot">·</span>
+            <span>github.com/eandre-f</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="title-block-foot">
+      <div class="tb-foot-cell tb-progress">
+        <span class="tb-key">PROG.</span>
+        <span class="tb-track"><span class="tb-bar" id="tb-bar"></span></span>
+      </div>
+      <div class="tb-foot-cell"><span class="tb-key">SHEET</span><span class="tb-val" id="tb-curr">01</span></div>
+      <div class="tb-foot-cell"><span class="tb-key">OF</span><span class="tb-val" id="tb-total">17</span></div>
+      <div class="tb-foot-cell"><span class="tb-key">FILE</span><span class="tb-val" id="tb-file">cover.dwg</span></div>
+      <div class="tb-foot-cell tb-spacer"><span class="tb-hint">←/→ · F · G/End</span></div>
+    </footer>
+  </div>
+
+  <script src="presentation.js"></script>
+</body>
+</html>
