@@ -24,17 +24,25 @@
     </header>
 
     <main class="slides" id="slides">
+
+      <!-- 01 · Visão Geral -->
       <section class="slide" data-title="Visão Geral">
-        <span class="slide-kicker">01 · Introdução</span>
-        <h2>Visão Geral</h2>
-        <p class="lead">FdF é um projeto de visualização gráfica que converte mapas de altura 2D em uma representação <strong>3D wireframe</strong>.</p>
-        <ul class="check-list">
-          <li>Renderiza paisagens conectando pontos por linhas</li>
-          <li>Projeção <strong>isométrica</strong> e <strong>perspectiva</strong></li>
-          <li>Construído em <strong>C</strong> sobre a <strong>MiniLibX</strong></li>
-        </ul>
+        <div class="slide-two-col">
+          <div>
+            <span class="slide-kicker">01 · Introdução</span>
+            <h2>Visão Geral</h2>
+            <p class="lead">FdF converte mapas de altura 2D em uma representação <strong>3D wireframe</strong> interativa.</p>
+            <ul class="check-list">
+              <li>Renderiza paisagens conectando pontos por linhas</li>
+              <li>Projeção <strong>isométrica</strong> e <strong>perspectiva</strong></li>
+              <li>Construído em <strong>C</strong> sobre a <strong>MiniLibX</strong></li>
+            </ul>
+          </div>
+          <canvas id="wireframe-canvas" width="300" height="240" aria-hidden="true"></canvas>
+        </div>
       </section>
 
+      <!-- 02 · Objetivo -->
       <section class="slide" data-title="Objetivo">
         <span class="slide-kicker">02 · Motivação</span>
         <h2>Objetivo</h2>
@@ -49,6 +57,7 @@
         </div>
       </section>
 
+      <!-- 03 · Formato .fdf -->
       <section class="slide" data-title="Formato .fdf">
         <span class="slide-kicker">03 · Entrada</span>
         <h2>Formato do mapa <code>.fdf</code></h2>
@@ -59,9 +68,10 @@
 <span class="c-num">0</span>  <span class="c-num">5</span> <span class="c-num">10</span>  <span class="c-num">5</span>  <span class="c-num">0</span>
 <span class="c-num">0</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">5</span>  <span class="c-num">0</span>
 <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span>  <span class="c-num">0</span></pre>
-        <p>Cor opcional: <code>10,0xFF00AA</code>. Linhas e colunas devem ser consistentes.</p>
+        <p>Cor opcional por ponto: <code>10,0xFF00AA</code>. Linhas e colunas devem ser consistentes.</p>
       </section>
 
+      <!-- 04 · Funcionalidades -->
       <section class="slide" data-title="Funcionalidades">
         <span class="slide-kicker">04 · Recursos</span>
         <h2>Funcionalidades</h2>
@@ -75,8 +85,161 @@
         </ul>
       </section>
 
+      <!-- 05 · Pipeline de Renderização (NEW) -->
+      <section class="slide" data-title="Pipeline">
+        <span class="slide-kicker">05 · Processamento</span>
+        <h2>Pipeline de Renderização</h2>
+        <p>Cada frame percorre seis estágios antes de chegar à tela:</p>
+        <div class="pipeline-flow">
+          <div class="pipe-node pipe-input">
+            <div class="pipe-box">
+              <div class="pipe-file">.fdf</div>
+              <div class="pipe-action">arquivo</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node">
+            <div class="pipe-box">
+              <div class="pipe-module">read.c</div>
+              <div class="pipe-action">parse</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node">
+            <div class="pipe-box">
+              <div class="pipe-module">transform.c</div>
+              <div class="pipe-action">rotar / escalar</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node">
+            <div class="pipe-box">
+              <div class="pipe-module">projection.c</div>
+              <div class="pipe-action">projetar</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node">
+            <div class="pipe-box">
+              <div class="pipe-module">clipping.c</div>
+              <div class="pipe-action">recortar</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node">
+            <div class="pipe-box">
+              <div class="pipe-module">bresenham.c</div>
+              <div class="pipe-action">rasterizar</div>
+            </div>
+          </div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-node pipe-output">
+            <div class="pipe-box">
+              <div class="pipe-file">tela</div>
+              <div class="pipe-action">saída</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · Projeções (NEW) -->
+      <section class="slide" data-title="Projeções">
+        <span class="slide-kicker">06 · Matemática</span>
+        <h2>Projeções 3D</h2>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <h3>Isométrica</h3>
+            <div class="math-block"><span class="math-var">x'</span> <span class="math-op">=</span> (<span class="math-var">x</span> <span class="math-op">−</span> <span class="math-var">y</span>) <span class="math-op">×</span> <span class="math-const">cos(30°)</span>
+<span class="math-var">y'</span> <span class="math-op">=</span> (<span class="math-var">x</span> <span class="math-op">+</span> <span class="math-var">y</span>) <span class="math-op">×</span> <span class="math-const">sin(30°)</span> <span class="math-op">−</span> <span class="math-var">z</span></div>
+            <p class="proj-note">Escala uniforme sem distorção de perspectiva. Ideal para leitura de mapas e comparação de alturas.</p>
+          </div>
+          <div class="proj-card persp">
+            <h3>Perspectiva</h3>
+            <div class="math-block"><span class="math-var">f</span>  <span class="math-op">=</span> <span class="math-const">FOV</span> <span class="math-op">/</span> (<span class="math-const">FOV</span> <span class="math-op">+</span> <span class="math-var">z</span>)
+<span class="math-var">x'</span> <span class="math-op">=</span> <span class="math-var">x</span> <span class="math-op">×</span> <span class="math-var">f</span>
+<span class="math-var">y'</span> <span class="math-op">=</span> <span class="math-var">y</span> <span class="math-op">×</span> <span class="math-var">f</span></div>
+            <p class="proj-note">Objetos distantes aparecem menores. Dá sensação de profundidade realista — alternável com <kbd>P</kbd>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · Bresenham -->
+      <section class="slide" data-title="Bresenham">
+        <span class="slide-kicker">07 · Algoritmo</span>
+        <h2>Algoritmo de Bresenham</h2>
+        <p>Rasteriza linhas em pixels usando apenas <strong>aritmética inteira</strong> — sem ponto flutuante, sem divisões.</p>
+        <div class="algo-two-col">
+          <div>
+            <p>A variável <code>err</code> acumula o erro fracionário e decide se Y avança a cada passo em X:</p>
+            <pre class="code"><span class="c-comment">// octante 0 — 0° ≤ slope ≤ 45°</span>
+err = 2*dy - dx;
+while (x &lt;= x1) {
+  plot(x, y);
+  if (err &gt; 0) { y++; err -= 2*dx; }
+  err += 2*dy;
+  x++;
+}</pre>
+            <p class="algo-note">O projeto espelha eixos e direções para cobrir todos os <strong>8 octantes</strong>.</p>
+          </div>
+          <div>
+            <div class="pixel-grid" aria-label="Exemplo: linha de (0,0) a (7,3)">
+              <div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px on"></div><div class="px on"></div>
+              <div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px on"></div><div class="px on"></div><div class="px"></div><div class="px"></div>
+              <div class="px"></div><div class="px"></div><div class="px on"></div><div class="px on"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div>
+              <div class="px on"></div><div class="px on"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div><div class="px"></div>
+            </div>
+            <p class="algo-caption">(0,0) → (7,3)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 · Cohen-Sutherland -->
+      <section class="slide" data-title="Cohen-Sutherland">
+        <span class="slide-kicker">08 · Algoritmo</span>
+        <h2>Cohen–Sutherland Clipping</h2>
+        <p>Divide o espaço em <strong>9 regiões</strong> com um código de 4 bits por endpoint. Linhas totalmente fora são descartadas sem cálculo; as que cruzam a borda são recortadas.</p>
+        <div class="cs-layout">
+          <div class="cs-grid">
+            <div class="cs-cell"><div class="cs-code">1001</div><div class="cs-label">topo-esq</div></div>
+            <div class="cs-cell"><div class="cs-code">1000</div><div class="cs-label">topo</div></div>
+            <div class="cs-cell"><div class="cs-code">1010</div><div class="cs-label">topo-dir</div></div>
+            <div class="cs-cell"><div class="cs-code">0001</div><div class="cs-label">esquerda</div></div>
+            <div class="cs-cell center"><div class="cs-code">0000</div><div class="cs-label">viewport</div></div>
+            <div class="cs-cell"><div class="cs-code">0010</div><div class="cs-label">direita</div></div>
+            <div class="cs-cell"><div class="cs-code">0101</div><div class="cs-label">baixo-esq</div></div>
+            <div class="cs-cell"><div class="cs-code">0100</div><div class="cs-label">baixo</div></div>
+            <div class="cs-cell"><div class="cs-code">0110</div><div class="cs-label">baixo-dir</div></div>
+          </div>
+          <div class="cs-logic">
+            <div class="cs-rule"><span class="cs-badge accept">Aceitar</span> ambos os códigos são <code>0000</code></div>
+            <div class="cs-rule"><span class="cs-badge reject">Descartar</span> os dois códigos compartilham um bit — a linha está completamente fora</div>
+            <div class="cs-rule"><span class="cs-badge clip">Recortar</span> calcular interseção com a borda e repetir o teste</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 · RGB por Altura -->
+      <section class="slide" data-title="RGB por Altura">
+        <span class="slide-kicker">09 · Cores</span>
+        <h2>RGB por Altura</h2>
+        <p>Cada aresta recebe uma cor proporcional à sua altura média — usando <strong>interpolação linear (lerp)</strong> canal a canal:</p>
+        <div class="rgb-bar"></div>
+        <div class="rgb-labels">
+          <span><code>#4effac</code> z = z_min</span>
+          <span>z = z_max <code>#7ce7ff</code></span>
+        </div>
+        <div class="math-block"><span class="math-var">t</span>   <span class="math-op">=</span> (<span class="math-var">z</span> <span class="math-op">−</span> <span class="math-var">z_min</span>) <span class="math-op">/</span> (<span class="math-var">z_max</span> <span class="math-op">−</span> <span class="math-var">z_min</span>)
+
+<span class="math-var">R'</span>  <span class="math-op">=</span> <span class="math-var">R_low</span>  <span class="math-op">+</span> (<span class="math-var">R_high</span>  <span class="math-op">−</span> <span class="math-var">R_low</span>)  <span class="math-op">×</span> <span class="math-var">t</span>
+<span class="math-var">G'</span>  <span class="math-op">=</span> <span class="math-var">G_low</span>  <span class="math-op">+</span> (<span class="math-var">G_high</span>  <span class="math-op">−</span> <span class="math-var">G_low</span>)  <span class="math-op">×</span> <span class="math-var">t</span>
+<span class="math-var">B'</span>  <span class="math-op">=</span> <span class="math-var">B_low</span>  <span class="math-op">+</span> (<span class="math-var">B_high</span>  <span class="math-op">−</span> <span class="math-var">B_low</span>)  <span class="math-op">×</span> <span class="math-var">t</span>
+
+<span class="math-var">cor</span> <span class="math-op">=</span> (<span class="math-var">R'</span> <span class="math-op">&lt;&lt;</span> <span class="math-const">16</span>) <span class="math-op">|</span> (<span class="math-var">G'</span> <span class="math-op">&lt;&lt;</span> <span class="math-const">8</span>) <span class="math-op">|</span> <span class="math-var">B'</span></div>
+      </section>
+
+      <!-- 10 · Arquitetura -->
       <section class="slide" data-title="Arquitetura">
-        <span class="slide-kicker">05 · Estrutura</span>
+        <span class="slide-kicker">10 · Estrutura</span>
         <h2>Arquitetura do código</h2>
         <div class="arch-grid">
           <div class="arch-card"><h3>read.c</h3><p>Parse e validação dos mapas <code>.fdf</code></p></div>
@@ -90,8 +253,9 @@
         </div>
       </section>
 
+      <!-- 08 · Tecnologias -->
       <section class="slide" data-title="Tecnologia">
-        <span class="slide-kicker">06 · Stack</span>
+        <span class="slide-kicker">11 · Stack</span>
         <h2>Tecnologias</h2>
         <div class="tech-grid">
           <div class="tech-card">
@@ -117,8 +281,9 @@
         </div>
       </section>
 
+      <!-- 09 · Mapas -->
       <section class="slide" data-title="Mapas">
-        <span class="slide-kicker">07 · Demos</span>
+        <span class="slide-kicker">12 · Demos</span>
         <h2>Mapas de exemplo</h2>
         <p>O diretório <code>maps/</code> reúne mais de vinte cenários:</p>
         <div class="map-grid">
@@ -137,8 +302,9 @@
         </div>
       </section>
 
+      <!-- 10 · Controles -->
       <section class="slide" data-title="Controles">
-        <span class="slide-kicker">08 · Interação</span>
+        <span class="slide-kicker">13 · Interação</span>
         <h2>Controles do programa</h2>
         <div class="keys-grid">
           <div class="keys-group">
@@ -164,8 +330,9 @@
         </div>
       </section>
 
+      <!-- 11 · Como Executar -->
       <section class="slide" data-title="Como Executar">
-        <span class="slide-kicker">09 · Setup</span>
+        <span class="slide-kicker">14 · Setup</span>
         <h2>Como executar</h2>
         <p>Compile e abra um mapa:</p>
         <pre class="code"><span class="c-prompt">$</span> make
@@ -174,8 +341,9 @@
         <pre class="code"><span class="c-prompt">$</span> docker compose up --build</pre>
       </section>
 
+      <!-- 12 · Referências -->
       <section class="slide" data-title="Referências">
-        <span class="slide-kicker">10 · Fontes</span>
+        <span class="slide-kicker">15 · Fontes</span>
         <h2>Referências</h2>
         <ul class="check-list">
           <li>Documentação oficial da <strong>MiniLibX</strong></li>
@@ -186,12 +354,14 @@
         </ul>
       </section>
 
+      <!-- Fim -->
       <section class="slide slide-end" data-title="Obrigado">
         <span class="slide-kicker">Fim</span>
         <h2 class="big-thanks">Obrigado!</h2>
         <p class="lead">Dúvidas, sugestões e <em>code review</em> são muito bem-vindos.</p>
         <p class="muted">Erick Medeiros · 42 São Paulo</p>
       </section>
+
     </main>
 
     <nav class="dots" id="dots" aria-label="Navegação de slides"></nav>
